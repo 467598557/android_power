@@ -36,8 +36,10 @@ public class OperatorHelper {
     private String curType = "article";
     private int winWidth = 500;
     private int winHeight = 1500;
+    private OperatorHelper mInstance;
 
     public OperatorHelper() {
+        mInstance = this;
     }
 
     public void start(AccessibilityService service, AccessibilityEvent event) {
@@ -62,6 +64,7 @@ public class OperatorHelper {
                     return;
                 }
 
+                mAppList.get(mCurAppIndex).doSomething(mInstance);
                 getWindowSize();
                 try {
                     switch (curStatus) {
@@ -133,13 +136,13 @@ public class OperatorHelper {
         this.isRunning = false;
     }
 
-    private void initDataBackToList() {
+    public void initDataBackToList() {
         this.runningCount = 0;
         this.maxRunningCount = 8;
         this.curStatus = Constant.StatusInList;
     }
 
-    private void getWindowSize() {
+    public void getWindowSize() {
         if(null == mService) {
             return;
         }
@@ -155,7 +158,7 @@ public class OperatorHelper {
         }
     }
 
-    private void freeTimeTask() {
+    public void freeTimeTask() {
         if (timerTask != null) {
             timerTask.cancel();
             timerTask = null;
@@ -166,7 +169,7 @@ public class OperatorHelper {
         }
     }
 
-    private boolean scrollScreen(float fromX, float fromY, float toX, float toY) {
+    public boolean scrollScreen(float fromX, float fromY, float toX, float toY) {
         Log.d("@@@", "scrollScreen");
         Path path=new Path();
         path.moveTo(fromX, fromY);
@@ -188,7 +191,7 @@ public class OperatorHelper {
         return true;
     }
 
-    private boolean clickToDetailPage() {
+    public boolean clickToDetailPage() {
         AppInfo curApp = mAppList.get(mCurAppIndex);
         List<AccessibilityNodeInfo> nodeInfoList = findNodesById(curApp.getArticleSpecialViewId());
         AccessibilityNodeInfo nodeInfo = null;
@@ -210,11 +213,11 @@ public class OperatorHelper {
         return false;
     }
 
-    private void backToPreviousActivity() {
+    public void backToPreviousActivity() {
         mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
-    private AccessibilityNodeInfo getRootNodeInfo() {
+    public AccessibilityNodeInfo getRootNodeInfo() {
         AccessibilityNodeInfo nodeInfo = null;
         nodeInfo = mService.getRootInActiveWindow();
 

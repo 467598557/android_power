@@ -12,4 +12,5 @@ public abstract class AppInfo {
     public abstract String getVideoSpecialViewId();
     public abstract String getArticlePageContentViewId();
     public abstract String getVideoPageContentVideoId();
+    public abstract void doSomething(OperatorHelper operatorHelper);
 }

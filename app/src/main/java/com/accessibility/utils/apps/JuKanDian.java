@@ -1,6 +1,7 @@
 package com.accessibility.utils.apps;
 
 import com.accessibility.utils.AppInfo;
+import com.accessibility.utils.OperatorHelper;
 
 public class JuKanDian extends AppInfo {
     public JuKanDian() {
@@ -34,5 +35,10 @@ public class JuKanDian extends AppInfo {
     @Override
     public String getVideoPageContentVideoId() {
         return null;
+    }
+
+    @Override
+    public void doSomething(OperatorHelper operatorHelper) {
+
     }
 }

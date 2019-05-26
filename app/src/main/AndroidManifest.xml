@@ -30,6 +30,7 @@
         <activity android:name=".AccessibilityStartActivity"
             android:process=":BackgroundService"/>
 
+
         // 注册辅助功能服务
         <service android:name=".AccessibilitySampleService"
             android:label="@string/accessibility_tip"
@@ -46,5 +47,4 @@
                 android:resource="@xml/accessibility_config"/>
         </service>
     </application>
-
 </manifest>

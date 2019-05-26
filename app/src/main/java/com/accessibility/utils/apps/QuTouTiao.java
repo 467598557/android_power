@@ -1,6 +1,12 @@
 package com.accessibility.utils.apps;
 
+import android.util.Log;
+import android.view.accessibility.AccessibilityNodeInfo;
+
 import com.accessibility.utils.AppInfo;
+import com.accessibility.utils.OperatorHelper;
+
+import java.util.List;
 
 public class QuTouTiao extends AppInfo {
     public QuTouTiao() {
@@ -33,5 +39,22 @@ public class QuTouTiao extends AppInfo {
     @Override
     public String getVideoPageContentVideoId() {
         return null;
+    }
+
+    @Override
+    public void doSomething(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        // 执行弹窗判断
+
+        // 执行领取分时金币逻辑
+        List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/w0");
+        if(nodeInfoList.size() > 0) {
+            AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
+            if(nodeInfo.findAccessibilityNodeInfosByText("领取").size() > 0) { // 确认特征点，然后领取金币
+                nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            }
+        } else {
+            Log.d("@@@ doSomething in QUTOUTIAO", "没有分时金币可领取");
+        }
     }
 }
