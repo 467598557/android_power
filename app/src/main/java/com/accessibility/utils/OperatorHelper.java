@@ -36,7 +36,10 @@ public class OperatorHelper {
     private String curType = "article";
     private int winWidth = 500;
     private int winHeight = 1500;
+    private long mAppRunStartTime = 0; // 时间戳毫秒
+    private long MaxAppRunTime = 1000*60*1; // 十分钟
     private OperatorHelper mInstance;
+    private final int AppLength = mAppList.size();
 
     public OperatorHelper() {
         mInstance = this;
@@ -64,17 +67,23 @@ public class OperatorHelper {
                     return;
                 }
 
-                mAppList.get(mCurAppIndex).doSomething(mInstance);
                 getWindowSize();
                 try {
                     switch (curStatus) {
                         case Constant.StatusInList:
+                            mAppList.get(mCurAppIndex).doSomething(mInstance);
+
                             if (runningCount == 0) { // 滑动
                                 scrollScreen(winWidth/2, winHeight/5, winWidth/2, winHeight/5*3);
                                 runningCount++;
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
-                                clickToDetailPage();
+                                boolean result = clickToDetailPage();
+                                if(!result) {
+                                    runningCount = 0;
+                                    return;
+                                }
+
                                 if("article".equals(curType)) {
                                     curStatus = Constant.StatusInReadingArticle;
                                 } else {
@@ -106,6 +115,7 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusOpeningApp: // 等待什么都不做
                             if (runningCount == 0) {
+                                mAppRunStartTime = System.currentTimeMillis();
                                 AppInfo appInfo = mAppList.get(mCurAppIndex);
                                 Util.startActivity(appInfo, mContext);
                                 runningCount++;
@@ -125,6 +135,23 @@ public class OperatorHelper {
                 }
 
                 runningCount++;
+                // 判断app生命周期
+                if((mAppRunStartTime > 0) && (System.currentTimeMillis() - mAppRunStartTime > MaxAppRunTime)) {
+                    mCurAppIndex++;
+                    if(mCurAppIndex >= AppLength) {
+                        mCurAppIndex = 0;
+                    }
+                    mAppRunStartTime = 0;
+                    runningCount = 0;
+                    maxRunningCount = 8;
+                    curStatus = Constant.StatusOpeningApp;
+                    Log.d("@@@ 更换app", ""+mCurAppIndex);
+                    // 强行退出
+                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                }
             }
         };
 

@@ -14,17 +14,10 @@ public class Util {
     public static boolean startActivity(AppInfo appInfo, Context context) {
         try {
             Log.d("@@@ startActivity", appInfo.packageName+":"+appInfo.startComponent);
-//            Intent intent = new Intent();
-//            intent.setAction("Android.intent.action.VIEW");
-//            intent.setClassName(appInfo.packageName,
-//                    appInfo.startComponent);
-//            context.startActivity(intent);
-
-
             Intent intent = new Intent(Intent.ACTION_MAIN);
             /**知道要跳转应用的包命与目标Activity*/
             intent.setPackage(context.getPackageName());
-            ComponentName componentName = new ComponentName("com.jifen.qukan", "com.jifen.qkbase.main.MainActivity");
+            ComponentName componentName = new ComponentName(appInfo.packageName, appInfo.startComponent);
             intent.setComponent(componentName);
             context.startActivity(intent);
 

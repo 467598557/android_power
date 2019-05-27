@@ -43,6 +43,7 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public void doSomething(OperatorHelper operatorHelper) {
+        Log.d("@@@ QuTouTiao", "doSomething");
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         // 执行弹窗判断
 
@@ -50,7 +51,9 @@ public class QuTouTiao extends AppInfo {
         List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/w0");
         if(nodeInfoList.size() > 0) {
             AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
-            if(nodeInfo.findAccessibilityNodeInfosByText("领取").size() > 0) { // 确认特征点，然后领取金币
+            nodeInfoList = nodeInfo.findAccessibilityNodeInfosByText("领取");
+            if(nodeInfoList.size() > 0) { // 确认特征点，然后领取金币
+                Log.d("@@@", "领取金币");
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
         } else {

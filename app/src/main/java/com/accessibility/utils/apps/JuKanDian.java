@@ -14,17 +14,17 @@ public class JuKanDian extends AppInfo {
 
     @Override
     public String getListViewId() {
-        return null;
+        return "";
     }
 
     @Override
     public String getArticleSpecialViewId() {
-        return null;
+        return "com.xiangzi.jukandian:id/item_artical_right_parent";
     }
 
     @Override
     public String getVideoSpecialViewId() {
-        return null;
+        return "com.xiangzi.jukandian:id/item_artical_right_parent";
     }
 
     @Override
