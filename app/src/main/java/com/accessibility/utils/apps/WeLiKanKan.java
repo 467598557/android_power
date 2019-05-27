@@ -1,7 +1,11 @@
 package com.accessibility.utils.apps;
 
+import android.view.accessibility.AccessibilityNodeInfo;
+
 import com.accessibility.utils.AppInfo;
 import com.accessibility.utils.OperatorHelper;
+
+import java.util.List;
 
 public class WeLiKanKan extends AppInfo {
     public WeLiKanKan() {
@@ -18,12 +22,22 @@ public class WeLiKanKan extends AppInfo {
     }
 
     @Override
-    public String getArticleSpecialViewId() {
+    public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
+        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("cn.weli.story:id/layout");
+        if(nodeInfoList.size() > 0) {
+            return nodeInfoList.get(0);
+        }
+
         return null;
     }
 
     @Override
-    public String getVideoSpecialViewId() {
+    public AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper) {
+        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a3x");
+        if(nodeInfoList.size() > 0) {
+            return nodeInfoList.get(0);
+        }
+
         return null;
     }
 
@@ -39,6 +53,27 @@ public class WeLiKanKan extends AppInfo {
 
     @Override
     public void doSomething(OperatorHelper operatorHelper) {
-
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        List<AccessibilityNodeInfo> nodeInfoList;
+        // cn.weli.story:id/ic_close 金币弹窗确定
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close");
+        if(nodeInfoList.size() > 0) {
+            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
+        // cn.weli.story:id/rl_head_line 金币
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close");
+        if(nodeInfoList.size() > 0) {
+            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
+        // cn.weli.story:id/text_ok 文章列表文章领取后确定
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/text_ok");
+        if(nodeInfoList.size() > 0) {
+            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
+        // cn.weli.story:id/ll_open 文章列表金币
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_open");
+        if(nodeInfoList.size() > 0) {
+            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
     }
 }

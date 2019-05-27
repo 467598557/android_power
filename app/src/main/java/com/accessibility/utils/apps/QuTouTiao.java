@@ -22,13 +22,23 @@ public class QuTouTiao extends AppInfo {
     }
 
     @Override
-    public String getArticleSpecialViewId() {
-        return "com.jifen.qukan:id/a59";
+    public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
+        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a59");
+        if(nodeInfoList.size() > 0) {
+            return nodeInfoList.get(0).getParent();
+        }
+
+        return null;
     }
 
     @Override
-    public String getVideoSpecialViewId() {
-        return "com.jifen.qukan:id/a3x";
+    public AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper) {
+        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a3x");
+        if(nodeInfoList.size() > 0) {
+            return nodeInfoList.get(0).getParent();
+        }
+
+        return null;
     }
 
     @Override
@@ -43,7 +53,6 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public void doSomething(OperatorHelper operatorHelper) {
-        Log.d("@@@ QuTouTiao", "doSomething");
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         // 执行弹窗判断
 
@@ -57,7 +66,7 @@ public class QuTouTiao extends AppInfo {
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
         } else {
-            Log.d("@@@ doSomething in QUTOUTIAO", "没有分时金币可领取");
+//            Log.d("@@@ doSomething in QUTOUTIAO", "没有分时金币可领取");
         }
     }
 }

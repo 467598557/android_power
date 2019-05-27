@@ -1,5 +1,7 @@
 package com.accessibility.utils.apps;
 
+import android.view.accessibility.AccessibilityNodeInfo;
+
 import com.accessibility.utils.AppInfo;
 import com.accessibility.utils.OperatorHelper;
 
@@ -18,12 +20,12 @@ public class NiuNiuZiXun extends AppInfo {
     }
 
     @Override
-    public String getArticleSpecialViewId() {
+    public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         return null;
     }
 
     @Override
-    public String getVideoSpecialViewId() {
+    public AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper) {
         return null;
     }
 

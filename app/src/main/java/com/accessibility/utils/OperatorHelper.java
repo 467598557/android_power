@@ -30,14 +30,14 @@ public class OperatorHelper {
     private Timer timer;
     private TimerTask timerTask;
     private int runningCount = 0;
-    private int maxRunningCount = 8;
+    private int maxRunningCount = 10;
     private long TIMER_CHECK_INTERVAL = 1000;
     private int curStatus = Constant.StatusOpeningApp;
     private String curType = "article";
     private int winWidth = 500;
     private int winHeight = 1500;
     private long mAppRunStartTime = 0; // 时间戳毫秒
-    private long MaxAppRunTime = 1000*60*1; // 十分钟
+    private long MaxAppRunTime = 1000*60*10; // 十分钟
     private OperatorHelper mInstance;
     private final int AppLength = mAppList.size();
 
@@ -74,7 +74,7 @@ public class OperatorHelper {
                             mAppList.get(mCurAppIndex).doSomething(mInstance);
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/2, winHeight/5, winWidth/2, winHeight/5*3);
+                                scrollScreen(winWidth/2, winHeight/5*3, winWidth/2, winHeight/5);
                                 runningCount++;
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
@@ -220,23 +220,27 @@ public class OperatorHelper {
 
     public boolean clickToDetailPage() {
         AppInfo curApp = mAppList.get(mCurAppIndex);
-        List<AccessibilityNodeInfo> nodeInfoList = findNodesById(curApp.getArticleSpecialViewId());
-        AccessibilityNodeInfo nodeInfo = null;
-        if(null != nodeInfoList && nodeInfoList.size() > 0) {
-            nodeInfo = nodeInfoList.get(0).getParent();
+//        List<AccessibilityNodeInfo> nodeInfoList = findNodesById(curApp.getArticleSpecialViewId());
+//        AccessibilityNodeInfo nodeInfo = null;
+        AccessibilityNodeInfo nodeInfo = curApp.getArticleSpecialViewById(mInstance);
+        if(null != nodeInfo) {
             curType = "article";
         } else {
-            nodeInfoList = findNodesById(curApp.getVideoSpecialViewId());
-            if(null != nodeInfoList && nodeInfoList.size() > 0) {
-                nodeInfo = nodeInfoList.get(0).getParent();
+            nodeInfo = curApp.getVideoSpecialViewById(mInstance);
+            if(null != nodeInfo) {
                 curType = "video";
             }
         }
 
         if(null != nodeInfo) {
-            return nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            boolean result = nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            if(!result) {
+                Log.d("@@@", "点击失败");
+            }
+            return result;
         }
 
+        Log.d("@@@", "没有找到文章或者视频，继续点击:");
         return false;
     }
 
