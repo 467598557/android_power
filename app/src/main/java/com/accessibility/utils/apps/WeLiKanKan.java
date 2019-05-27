@@ -67,10 +67,13 @@ public class WeLiKanKan extends AppInfo {
         }
         // #TODO 这里需要重点判断一下，此id会被重复利用
         // cn.weli.story:id/rl_head_line 金币()
-//        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/rl_head_line");
-//        if(nodeInfoList.size() > 0) {
-//            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-//        }
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/rl_head_line");
+        if(nodeInfoList.size() > 0) {
+            nodeInfo = nodeInfoList.get(0);
+            if(nodeInfo.findAccessibilityNodeInfosByText("+").size() > 0) {
+                nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            }
+        }
         // cn.weli.story:id/text_ok 文章列表文章领取后确定
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/text_ok");
         if(nodeInfoList.size() > 0) {
