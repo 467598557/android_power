@@ -43,4 +43,9 @@ public class NiuNiuZiXun extends AppInfo {
     public void doSomething(OperatorHelper operatorHelper) {
 
     }
+
+    @Override
+    public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
+
+    }
 }

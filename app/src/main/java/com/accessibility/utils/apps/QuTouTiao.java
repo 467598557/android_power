@@ -74,4 +74,9 @@ public class QuTouTiao extends AppInfo {
             }
         }
     }
+
+    @Override
+    public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
+
+    }
 }

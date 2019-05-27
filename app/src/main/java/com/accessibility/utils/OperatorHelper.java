@@ -94,6 +94,7 @@ public class OperatorHelper {
                             }
                             break;
                         case Constant.StatusInReadingArticle:
+                            mAppList.get(mCurAppIndex).doSomethingInDetailPage(mInstance);
                             if(runningCount % 5 == 0) {
                                 scrollScreen(winWidth/2, winHeight-100, winWidth/2, winHeight/3);
                             }

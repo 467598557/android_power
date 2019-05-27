@@ -59,6 +59,7 @@ public class WeLiKanKan extends AppInfo {
         }
 
         List<AccessibilityNodeInfo> nodeInfoList;
+        AccessibilityNodeInfo nodeInfo;
         // cn.weli.story:id/ic_close 金币弹窗确定
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close");
         if(nodeInfoList.size() > 0) {
@@ -77,6 +78,31 @@ public class WeLiKanKan extends AppInfo {
         }
         // cn.weli.story:id/ll_open 文章列表金币
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_open");
+        if(nodeInfoList.size() > 0) {
+            boolean clickResult = nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            if(!clickResult) {
+                nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/layout");
+                for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+                    nodeInfo = nodeInfoList.get(i);
+                    if(nodeInfo.findAccessibilityNodeInfosByText("领金币").size()>0) {
+                        nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return;
+        }
+
+        List<AccessibilityNodeInfo> nodeInfoList;
+        // cn.weli.story:id/ll_height_more 查看更多
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_height_more");
         if(nodeInfoList.size() > 0) {
             nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
         }

@@ -68,4 +68,8 @@ public class JuKanDian extends AppInfo {
 //            Log.d("@@@ doSomething in JuKanDian", "没有分时金币可领取");
         }
     }
+
+    @Override
+    public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
+    }
 }
