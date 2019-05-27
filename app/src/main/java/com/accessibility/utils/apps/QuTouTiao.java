@@ -57,11 +57,7 @@ public class QuTouTiao extends AppInfo {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         List<AccessibilityNodeInfo> nodeInfoList;
         // 执行更新app弹窗判断
-        nodeInfoList = root.findAccessibilityNodeInfosByText("以后更新");
-        if(nodeInfoList.size() > 0) {
-            Log.d("@@@", "检测到app更新面板，以后更新");
-            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        }
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByText("以后更新"));
 
         // 执行领取分时金币逻辑
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/w0");

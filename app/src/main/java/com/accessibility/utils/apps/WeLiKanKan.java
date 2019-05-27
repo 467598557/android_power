@@ -24,21 +24,15 @@ public class WeLiKanKan extends AppInfo {
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("cn.weli.story:id/layout");
-        if(nodeInfoList.size() > 0) {
-            return nodeInfoList.get(0);
-        }
 
-        return null;
+        return this.filterNormalArticleNode(nodeInfoList);
     }
 
     @Override
     public AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a3x");
-        if(nodeInfoList.size() > 0) {
-            return nodeInfoList.get(0);
-        }
 
-        return null;
+        return this.filterNormalArticleNode(nodeInfoList);
     }
 
     @Override
@@ -61,24 +55,17 @@ public class WeLiKanKan extends AppInfo {
         List<AccessibilityNodeInfo> nodeInfoList;
         AccessibilityNodeInfo nodeInfo;
         // cn.weli.story:id/ic_close 金币弹窗确定
-        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close");
-        if(nodeInfoList.size() > 0) {
-            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        }
-        // #TODO 这里需要重点判断一下，此id会被重复利用
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close"));
         // cn.weli.story:id/rl_head_line 金币()
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/rl_head_line");
         if(nodeInfoList.size() > 0) {
             nodeInfo = nodeInfoList.get(0);
-            if(nodeInfo.findAccessibilityNodeInfosByText("+").size() > 0) {
+            if(nodeInfo.findAccessibilityNodeInfosByText("+").size() > 0) { // 再次确认是金币
                 nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
         }
         // cn.weli.story:id/text_ok 文章列表文章领取后确定
-        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/text_ok");
-        if(nodeInfoList.size() > 0) {
-            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        }
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/text_ok"));
         // cn.weli.story:id/ll_open 文章列表金币
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_open");
         if(nodeInfoList.size() > 0) {
@@ -88,7 +75,7 @@ public class WeLiKanKan extends AppInfo {
                 for(int i=0, len=nodeInfoList.size(); i<len; i++) {
                     nodeInfo = nodeInfoList.get(i);
                     if(nodeInfo.findAccessibilityNodeInfosByText("领金币").size()>0) {
-                        nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                        nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK) ;
                         break;
                     }
                 }
@@ -105,9 +92,6 @@ public class WeLiKanKan extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeInfoList;
         // cn.weli.story:id/ll_height_more 查看更多
-        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_height_more");
-        if(nodeInfoList.size() > 0) {
-            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        }
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_height_more"));
     }
 }

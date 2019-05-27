@@ -221,8 +221,6 @@ public class OperatorHelper {
 
     public boolean clickToDetailPage() {
         AppInfo curApp = mAppList.get(mCurAppIndex);
-//        List<AccessibilityNodeInfo> nodeInfoList = findNodesById(curApp.getArticleSpecialViewId());
-//        AccessibilityNodeInfo nodeInfo = null;
         AccessibilityNodeInfo nodeInfo = curApp.getArticleSpecialViewById(mInstance);
         if(null != nodeInfo) {
             curType = "article";
@@ -233,15 +231,30 @@ public class OperatorHelper {
             }
         }
 
-        if(null != nodeInfo) {
-            boolean result = nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            if(!result) {
-                Log.d("@@@", "点击失败");
-            }
-            return result;
+        return performClickActionByNode(nodeInfo);
+    }
+
+    public boolean performClickActionByNode(AccessibilityNodeInfo node) {
+        if(null != node) {
+            return node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
         }
 
-        Log.d("@@@", "没有找到文章或者视频，继续点击:");
+        return false;
+    }
+
+    public boolean performClickActionByNodeListFirstChild(List<AccessibilityNodeInfo> nodeList) {
+        if(nodeList.size() > 0) {
+            return nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
+
+        return false;
+    }
+
+    public boolean performClickActionByNodeListFirstChildParent(List<AccessibilityNodeInfo> nodeList) {
+        if(nodeList.size() > 0) {
+            return nodeList.get(0).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
+
         return false;
     }
 

@@ -25,21 +25,15 @@ public class JuKanDian extends AppInfo {
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.xiangzi.jukandian:id/item_artical_three_parent");
-        if(nodeInfoList.size() > 0) {
-            return nodeInfoList.get(0);
-        }
 
-        return null;
+        return this.filterNormalArticleNode(nodeInfoList);
     }
 
     @Override
     public AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.xiangzi.jukandian:id/item_artical_three_parent");
-        if(nodeInfoList.size() > 0) {
-            return nodeInfoList.get(0);
-        }
 
-        return null;
+        return this.filterNormalArticleNode(nodeInfoList);
     }
 
     @Override
@@ -59,14 +53,7 @@ public class JuKanDian extends AppInfo {
         // 执行弹窗判断
 
         // 执行领取分时金币逻辑
-        List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/rl_lingqu_par");
-        if(nodeInfoList.size() > 0) {
-            AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
-            Log.d("@@@", "领取金币");
-            nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        } else {
-//            Log.d("@@@ doSomething in JuKanDian", "没有分时金币可领取");
-        }
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/rl_lingqu_par"));
     }
 
     @Override
