@@ -53,11 +53,18 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public void doSomething(OperatorHelper operatorHelper) {
+        Log.d("@@@ doSomething in QuTouTiao", "");
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
-        // 执行弹窗判断
+        List<AccessibilityNodeInfo> nodeInfoList;
+        // 执行更新app弹窗判断
+        nodeInfoList = root.findAccessibilityNodeInfosByText("以后更新");
+        if(nodeInfoList.size() > 0) {
+            Log.d("@@@", "检测到app更新面板，以后更新");
+            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
 
         // 执行领取分时金币逻辑
-        List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/w0");
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/w0");
         if(nodeInfoList.size() > 0) {
             AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
             nodeInfoList = nodeInfo.findAccessibilityNodeInfosByText("领取");
@@ -65,8 +72,6 @@ public class QuTouTiao extends AppInfo {
                 Log.d("@@@", "领取金币");
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
-        } else {
-//            Log.d("@@@ doSomething in QUTOUTIAO", "没有分时金币可领取");
         }
     }
 }

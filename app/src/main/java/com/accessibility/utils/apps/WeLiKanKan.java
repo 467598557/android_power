@@ -54,17 +54,22 @@ public class WeLiKanKan extends AppInfo {
     @Override
     public void doSomething(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return;
+        }
+
         List<AccessibilityNodeInfo> nodeInfoList;
         // cn.weli.story:id/ic_close 金币弹窗确定
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close");
         if(nodeInfoList.size() > 0) {
             nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
         }
-        // cn.weli.story:id/rl_head_line 金币
-        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close");
-        if(nodeInfoList.size() > 0) {
-            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        }
+        // #TODO 这里需要重点判断一下，此id会被重复利用
+        // cn.weli.story:id/rl_head_line 金币()
+//        nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/rl_head_line");
+//        if(nodeInfoList.size() > 0) {
+//            nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+//        }
         // cn.weli.story:id/text_ok 文章列表文章领取后确定
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/text_ok");
         if(nodeInfoList.size() > 0) {
