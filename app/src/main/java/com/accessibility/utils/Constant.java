@@ -19,8 +19,8 @@ public class Constant {
         if (mAppList.size() == 0) {
 //            mAppList.add(new QuTouTiao());
 //            mAppList.add(new JuKanDian());
-            mAppList.add(new WeLiKanKan());
-//            mAppList.add(new NiuNiuZiXun());
+//            mAppList.add(new WeLiKanKan());
+            mAppList.add(new NiuNiuZiXun());
         }
 
         return mAppList;
