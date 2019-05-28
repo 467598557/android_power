@@ -269,6 +269,12 @@ public class OperatorHelper {
         return nodeInfo;
     }
 
+    public void changeStatusToList() {
+        this.curStatus = Constant.StatusInList;
+        this.runningCount = 0;
+        this.maxRunningCount = 8;
+    }
+
     public List<AccessibilityNodeInfo> findNodesById(String viewId) {
         AccessibilityNodeInfo nodeInfo = getRootNodeInfo();
         if (nodeInfo != null) {

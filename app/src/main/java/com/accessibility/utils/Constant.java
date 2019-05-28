@@ -3,6 +3,7 @@ package com.accessibility.utils;
 import com.accessibility.utils.apps.JuKanDian;
 import com.accessibility.utils.apps.NiuNiuZiXun;
 import com.accessibility.utils.apps.QuTouTiao;
+import com.accessibility.utils.apps.SouHu;
 import com.accessibility.utils.apps.WeLiKanKan;
 
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class Constant {
 //            mAppList.add(new QuTouTiao());
 //            mAppList.add(new JuKanDian());
 //            mAppList.add(new WeLiKanKan());
-            mAppList.add(new NiuNiuZiXun());
+//            mAppList.add(new NiuNiuZiXun());
+            mAppList.add(new SouHu());
         }
 
         return mAppList;
