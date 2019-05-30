@@ -1,5 +1,6 @@
 package com.accessibility.utils;
 
+import com.accessibility.utils.apps.ChengZiKuaiBao;
 import com.accessibility.utils.apps.JuKanDian;
 import com.accessibility.utils.apps.NiuNiuZiXun;
 import com.accessibility.utils.apps.QuTouTiao;
@@ -19,10 +20,11 @@ public class Constant {
     public static ArrayList<AppInfo> getAppList() {
         if (mAppList.size() == 0) {
 //            mAppList.add(new QuTouTiao());
+            mAppList.add(new ChengZiKuaiBao());
 //            mAppList.add(new JuKanDian());
 //            mAppList.add(new WeLiKanKan());
 //            mAppList.add(new NiuNiuZiXun());
-            mAppList.add(new SouHu());
+//            mAppList.add(new SouHu());
         }
 
         return mAppList;

@@ -1,5 +1,6 @@
 package com.accessibility.utils.apps;
 
+import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.accessibility.utils.AppInfo;
@@ -22,8 +23,15 @@ public class SouHu extends AppInfo {
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.sohu.infonews:id/btm_divider");
+        AccessibilityNodeInfo node;
+        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+            node = nodeInfoList.get(i).getParent();
+            if(node.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/left_guess_tv").size() == 0) {
+                return node;
+            }
+        }
 
-        return nodeInfoList.get(0).getParent();
+        return null;
     }
 
     @Override
@@ -57,21 +65,26 @@ public class SouHu extends AppInfo {
     @Override
     public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
-        if(null != root) {
+        if(null == root) {
             return;
         }
 
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
+        // 能量红包
         nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/energy_redbag");
         if(nodeList.size() > 0) {
-            nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/notice_btn");
-            node = nodeList.get(0);
-            if(null != node) {
+            boolean result = nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            if(!result) {
+                node = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/counting_img").get(0);
                 node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                operatorHelper.changeStatusToList();
             }
+        }
+        // 能量红包弹窗
+        nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/notice_btn");
+        if(nodeList.size() > 0) {
+            nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            operatorHelper.changeStatusToList();
         }
     }
 }

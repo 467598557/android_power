@@ -23,9 +23,13 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
-        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a59");
-        if(nodeInfoList.size() > 0) {
-            return nodeInfoList.get(0).getParent();
+        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");
+        AccessibilityNodeInfo node;
+        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+            node = nodeInfoList.get(i).getParent();
+            if(node.findAccessibilityNodeInfosByText("广告").size() == 0) {
+                return node;
+            }
         }
 
         return null;
@@ -33,9 +37,14 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper) {
-        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a3x");
-        if(nodeInfoList.size() > 0) {
-            return nodeInfoList.get(0).getParent();
+        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");
+        // com.jifen.qukan:id/a5k 播放图标
+        AccessibilityNodeInfo node;
+        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+            node = nodeInfoList.get(i).getParent();
+            if(node.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a5k").size() == 0) {
+                return node;
+            }
         }
 
         return null;
@@ -58,9 +67,11 @@ public class QuTouTiao extends AppInfo {
         List<AccessibilityNodeInfo> nodeInfoList;
         // 执行更新app弹窗判断
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByText("以后更新"));
+        // 锁屏看新闻弹窗判断
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/ty"));
 
         // 执行领取分时金币逻辑
-        nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/w0");
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/x0");
         if(nodeInfoList.size() > 0) {
             AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
             nodeInfoList = nodeInfo.findAccessibilityNodeInfosByText("领取");

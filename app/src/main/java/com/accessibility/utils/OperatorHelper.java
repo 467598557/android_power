@@ -106,6 +106,7 @@ public class OperatorHelper {
                             }
                             break;
                         case Constant.StatusInReadingVideo: // 回到列表
+                            mAppList.get(mCurAppIndex).doSomethingInDetailPage(mInstance);
                             if (runningCount > maxRunningCount) { // 退回列表
                                 backToPreviousActivity();
                                 initDataBackToList();
@@ -198,7 +199,6 @@ public class OperatorHelper {
     }
 
     public boolean scrollScreen(float fromX, float fromY, float toX, float toY) {
-        Log.d("@@@", "scrollScreen");
         Path path=new Path();
         path.moveTo(fromX, fromY);
         path.lineTo(toX, toY);
