@@ -9,9 +9,9 @@ import java.util.List;
 
 public class ChengZiKuaiBao extends AppInfo {
     public ChengZiKuaiBao() {
-        this.packageName = "com.kaijia.see";
-        this.startComponent = "com.kaijia.see.activity.WelcomeActivity";
-        this.mainComponent = "com.kaijia.see.activity.MainActivity";
+        this.packageName = "com.quyu.youliao";
+        this.startComponent = "com.koala.gold.toutiao.MainActivity";
+        this.mainComponent = "com.koala.gold.toutiao.activity.HomeActivity";
     }
 
     @Override
@@ -22,8 +22,15 @@ public class ChengZiKuaiBao extends AppInfo {
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.quyu.youliao:id/content_view");
+        AccessibilityNodeInfo node;
+        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+            node = nodeInfoList.get(i);
+            if(node.findAccessibilityNodeInfosByText("广告").size() == 0) {
+                return node;
+            }
+        }
 
-        return nodeInfoList.get(0);
+        return null;
     }
 
     @Override
@@ -49,7 +56,7 @@ public class ChengZiKuaiBao extends AppInfo {
         }
 
         // com.quyu.youliao:id/iv_close 列表页新人福利社弹窗
-        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close"));
+//        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close"));
     }
 
     @Override
