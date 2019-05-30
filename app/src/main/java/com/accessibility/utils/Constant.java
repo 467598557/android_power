@@ -19,12 +19,12 @@ public class Constant {
 
     public static ArrayList<AppInfo> getAppList() {
         if (mAppList.size() == 0) {
-//            mAppList.add(new QuTouTiao());
+            mAppList.add(new QuTouTiao());
             mAppList.add(new ChengZiKuaiBao());
-//            mAppList.add(new JuKanDian());
-//            mAppList.add(new WeLiKanKan());
-//            mAppList.add(new NiuNiuZiXun());
-//            mAppList.add(new SouHu());
+            mAppList.add(new JuKanDian());
+            mAppList.add(new WeLiKanKan());
+            mAppList.add(new NiuNiuZiXun());
+            mAppList.add(new SouHu()); // checked
         }
 
         return mAppList;

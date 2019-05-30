@@ -37,7 +37,7 @@ public class OperatorHelper {
     private int winWidth = 500;
     private int winHeight = 1500;
     private long mAppRunStartTime = 0; // 时间戳毫秒
-    private long MaxAppRunTime = 1000*60*10; // 十分钟
+    private long MaxAppRunTime = 1000*60*20; // 十分钟
     private OperatorHelper mInstance;
     private final int AppLength = mAppList.size();
 
