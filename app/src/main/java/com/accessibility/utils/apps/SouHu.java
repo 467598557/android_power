@@ -22,10 +22,10 @@ public class SouHu extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
-        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.sohu.infonews:id/btm_divider");
+        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("com.sohu.infonews:id/btm_divider");
         AccessibilityNodeInfo node;
-        for(int i=nodeInfoList.size()-1; i>-1; i--) {
-            node = nodeInfoList.get(i).getParent();
+        for(int i=1, len=nodeList.size(); i<len; i++) {
+            node = nodeList.get(i).getParent();
             if(node.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/left_guess_tv").size() == 0) {
                 return node;
             }

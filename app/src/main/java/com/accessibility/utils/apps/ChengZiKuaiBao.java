@@ -1,5 +1,6 @@
 package com.accessibility.utils.apps;
 
+import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.accessibility.utils.AppInfo;
@@ -23,7 +24,7 @@ public class ChengZiKuaiBao extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.quyu.youliao:id/content_view");
         AccessibilityNodeInfo node;
-        for(int i=nodeInfoList.size()-1; i>-1; i--) {
+        for(int i=1, len=nodeInfoList.size(); i<len; i++) {
             node = nodeInfoList.get(i);
             if(node.findAccessibilityNodeInfosByText("广告").size() == 0) {
                 return node;
@@ -55,8 +56,20 @@ public class ChengZiKuaiBao extends AppInfo {
             return;
         }
 
-        // com.quyu.youliao:id/iv_close 列表页新人福利社弹窗
-//        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close"));
+//         com.quyu.youliao:id/iv_close 列表页新人福利社弹窗
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
+        AccessibilityNodeInfo node;
+        if(nodeList.size() > 0) {
+            for(int i=0, len=nodeList.size(); i<len; i++) {
+                node = nodeList.get(i);
+                Rect bounds = new Rect();
+                node.getBoundsInScreen(bounds);
+                if(bounds.left < operatorHelper.winWidth/2+80) {
+                    operatorHelper.performClickActionByNode(node);
+                    break;
+                }
+            }
+        }
     }
 
     @Override

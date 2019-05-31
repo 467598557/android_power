@@ -37,11 +37,11 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper) {
-        List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");
+        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");
         // com.jifen.qukan:id/a5k 播放图标
         AccessibilityNodeInfo node;
-        for(int i=nodeInfoList.size()-1; i>-1; i--) {
-            node = nodeInfoList.get(i).getParent();
+        for(int i=1, len=nodeList.size(); i<len; i++) {
+            node = nodeList.get(i).getParent();
             if(node.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a5k").size() == 0) {
                 return node;
             }

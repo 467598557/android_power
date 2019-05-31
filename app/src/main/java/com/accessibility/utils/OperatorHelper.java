@@ -34,8 +34,8 @@ public class OperatorHelper {
     private long TIMER_CHECK_INTERVAL = 1000;
     private int curStatus = Constant.StatusOpeningApp;
     private String curType = "article";
-    private int winWidth = 500;
-    private int winHeight = 1500;
+    public int winWidth = 500;
+    public int winHeight = 1500;
     private long mAppRunStartTime = 0; // 时间戳毫秒
     private long MaxAppRunTime = 1000*60*20; // 十分钟
     private OperatorHelper mInstance;
