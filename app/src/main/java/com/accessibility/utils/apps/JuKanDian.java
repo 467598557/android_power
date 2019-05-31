@@ -50,9 +50,13 @@ public class JuKanDian extends AppInfo {
     public void doSomething(OperatorHelper operatorHelper) {
         //   领取
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
-        Log.d("@@@ getClassName", ""+root.getClassName());
-        // 执行弹窗判断
+        if(null == root) {
+            return;
+        }
 
+        // 执行弹窗判断
+        boolean result = operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dialog_close"));
+        Log.d("@@@",  "JuKanDian执行弹窗判断---"+result);
         // 执行领取分时金币逻辑
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/rl_lingqu_par"));
     }
