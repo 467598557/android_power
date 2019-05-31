@@ -30,7 +30,7 @@ public class OperatorHelper {
     private Timer timer;
     private TimerTask timerTask;
     private int runningCount = 0;
-    private int maxRunningCount = 10;
+    private int maxRunningCount = 15;
     private long TIMER_CHECK_INTERVAL = 1000;
     private int curStatus = Constant.StatusOpeningApp;
     private String curType = "article";
@@ -44,6 +44,8 @@ public class OperatorHelper {
     public OperatorHelper() {
         mInstance = this;
     }
+
+//    public void
 
     public void start(AccessibilityService service, AccessibilityEvent event) {
         if (isRunning) {
@@ -145,7 +147,7 @@ public class OperatorHelper {
                     }
                     mAppRunStartTime = 0;
                     runningCount = 0;
-                    maxRunningCount = 8;
+                    maxRunningCount = 15;
                     curStatus = Constant.StatusOpeningApp;
                     Log.d("@@@ 更换app", ""+mCurAppIndex);
                     // 强行退出
@@ -272,7 +274,7 @@ public class OperatorHelper {
     public void changeStatusToList() {
         this.curStatus = Constant.StatusInList;
         this.runningCount = 0;
-        this.maxRunningCount = 8;
+        this.maxRunningCount = 15;
     }
 
     public List<AccessibilityNodeInfo> findNodesById(String viewId) {

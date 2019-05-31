@@ -50,6 +50,7 @@ public class JuKanDian extends AppInfo {
     public void doSomething(OperatorHelper operatorHelper) {
         //   领取
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        Log.d("@@@ getClassName", ""+root.getClassName());
         // 执行弹窗判断
 
         // 执行领取分时金币逻辑

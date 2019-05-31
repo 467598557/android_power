@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.accessibility">
-<uses-permission android:name="android.permission.GET_INTENT_SENDER_INTENT"/>
+
+    <uses-permission android:name="android.permission.GET_INTENT_SENDER_INTENT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,18 +27,20 @@
             android:taskAffinity="com.open.helper"
             android:theme="@style/Accessibility.Transparent.Activity" />
 
-        <activity android:name=".AccessibilityNormalSample"
-            android:process=":BackgroundService"/>
+        <activity
+            android:name=".AccessibilityNormalSample"
+            android:process=":BackgroundService" />
 
-        <activity android:name=".AccessibilityStartActivity"
-            android:process=":BackgroundService"/>
-
+        <activity
+            android:name=".AccessibilityStartActivity"
+            android:process=":BackgroundService" />
 
         // 注册辅助功能服务
-        <service android:name=".AccessibilitySampleService"
-            android:label="@string/accessibility_tip"
+        <service
+            android:name=".AccessibilitySampleService"
             android:canPerformGestures="true"
             android:exported="true"
+            android:label="@string/accessibility_tip"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:process=":BackgroundService">
             <intent-filter>
@@ -44,7 +49,7 @@
             // 通过xml文件完成辅助功能相关配置，也可以在onServiceConnected中动态配置
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_config"/>
+                android:resource="@xml/accessibility_config" />
         </service>
     </application>
 </manifest>
