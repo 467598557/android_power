@@ -25,7 +25,7 @@ public class QuTouTiao extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");
         AccessibilityNodeInfo node;
-        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+        for(int i=nodeInfoList.size()-1; i>-1; i--) {
             node = nodeInfoList.get(i).getParent();
             if(node.findAccessibilityNodeInfosByText("广告").size() == 0) {
                 return node;
@@ -40,7 +40,7 @@ public class QuTouTiao extends AppInfo {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");
         // com.jifen.qukan:id/a5k 播放图标
         AccessibilityNodeInfo node;
-        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+        for(int i=nodeInfoList.size()-1; i>-1; i--) {
             node = nodeInfoList.get(i).getParent();
             if(node.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a5k").size() == 0) {
                 return node;

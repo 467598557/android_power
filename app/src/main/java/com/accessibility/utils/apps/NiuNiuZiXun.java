@@ -27,7 +27,7 @@ public class NiuNiuZiXun extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.huolea.bull:id/title_tv");
         AccessibilityNodeInfo node;
-        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+        for(int i=nodeInfoList.size()-1; i>-1; i--) {
             node = nodeInfoList.get(i).getParent();
             if(!node.getClassName().equals("android.widget.RelativeLayout")) {
                 node = node.getParent();

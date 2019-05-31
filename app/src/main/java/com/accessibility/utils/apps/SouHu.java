@@ -24,7 +24,7 @@ public class SouHu extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.sohu.infonews:id/btm_divider");
         AccessibilityNodeInfo node;
-        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+        for(int i=nodeInfoList.size()-1; i>-1; i--) {
             node = nodeInfoList.get(i).getParent();
             if(node.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/left_guess_tv").size() == 0) {
                 return node;
