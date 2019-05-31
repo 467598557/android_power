@@ -46,10 +46,10 @@ public class WeLiKanKan extends AppInfo {
     }
 
     @Override
-    public void doSomething(OperatorHelper operatorHelper) {
+    public boolean doSomething(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
-            return;
+            return false;
         }
 
         List<AccessibilityNodeInfo> nodeInfoList;
@@ -81,6 +81,8 @@ public class WeLiKanKan extends AppInfo {
                 }
             }
         }
+
+        return true;
     }
 
     @Override

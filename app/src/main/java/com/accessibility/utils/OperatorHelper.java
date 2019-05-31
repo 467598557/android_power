@@ -45,8 +45,6 @@ public class OperatorHelper {
         mInstance = this;
     }
 
-//    public void
-
     public void start(AccessibilityService service, AccessibilityEvent event) {
         if (isRunning) {
             Toast.makeText(mContext, "服务正在运行中", Toast.LENGTH_SHORT).show();
@@ -93,6 +91,21 @@ public class OperatorHelper {
                                 }
                                 runningCount = 0;
                                 maxRunningCount = 40;
+                            }
+                            break;
+                        case Constant.FindSohuRedPackageInList:
+                            if (runningCount == 0) { // 滑动
+                                scrollScreen(winWidth/2, winHeight/5*3, winWidth/2, winHeight/5);
+                                runningCount++;
+                            }
+
+                            if (runningCount >= maxRunningCount) {
+                                if(mAppList.get(mCurAppIndex).doSomething(mInstance)) {
+                                    changeStatusToList();
+                                } else {
+                                    runningCount = 0;  // 继续跳
+                                    return;
+                                }
                             }
                             break;
                         case Constant.StatusInReadingArticle:
@@ -275,6 +288,12 @@ public class OperatorHelper {
         this.curStatus = Constant.StatusInList;
         this.runningCount = 0;
         this.maxRunningCount = 15;
+    }
+
+    public void changeStatusToFindSohuRedPackageInList() {
+        this.curStatus = Constant.FindSohuRedPackageInList;
+        this.runningCount = 0;
+        this.maxRunningCount = 5;
     }
 
     public List<AccessibilityNodeInfo> findNodesById(String viewId) {

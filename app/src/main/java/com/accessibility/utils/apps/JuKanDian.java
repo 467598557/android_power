@@ -47,11 +47,11 @@ public class JuKanDian extends AppInfo {
     }
 
     @Override
-    public void doSomething(OperatorHelper operatorHelper) {
+    public boolean doSomething(OperatorHelper operatorHelper) {
         //   领取
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
-            return;
+            return false;
         }
 
         // 执行弹窗判断
@@ -59,6 +59,8 @@ public class JuKanDian extends AppInfo {
         Log.d("@@@",  "JuKanDian执行弹窗判断---"+result);
         // 执行领取分时金币逻辑
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/rl_lingqu_par"));
+
+        return true;
     }
 
     @Override

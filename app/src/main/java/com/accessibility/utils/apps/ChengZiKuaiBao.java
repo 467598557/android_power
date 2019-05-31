@@ -50,10 +50,10 @@ public class ChengZiKuaiBao extends AppInfo {
     }
 
     @Override
-    public void doSomething(OperatorHelper operatorHelper) {
+    public boolean doSomething(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
-            return;
+            return false;
         }
 
 //         com.quyu.youliao:id/iv_close 列表页新人福利社弹窗
@@ -70,6 +70,8 @@ public class ChengZiKuaiBao extends AppInfo {
                 }
             }
         }
+
+        return true;
     }
 
     @Override

@@ -50,7 +50,7 @@ public class SouHu extends AppInfo {
     }
 
     @Override
-    public void doSomething(OperatorHelper operatorHelper) {
+    public boolean doSomething(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         // 执行弹窗判断
         // com.sohu.infonews:id/redbag_open 限量抢红包弹窗
@@ -58,7 +58,7 @@ public class SouHu extends AppInfo {
         // com.sohu.infonews:id/btn_receive  领取分时金币或者限量红包弹窗后弹窗处理
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
         // com.sohu.infonews:id/energy_open 领取金币
-        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/energy_open"));
+        return operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/energy_open"));
         // 限量抢红包小入口按钮
     }
 
@@ -84,7 +84,7 @@ public class SouHu extends AppInfo {
         nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/notice_btn");
         if(nodeList.size() > 0) {
             nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            operatorHelper.changeStatusToList();
+            operatorHelper.changeStatusToFindSohuRedPackageInList();
         }
     }
 }

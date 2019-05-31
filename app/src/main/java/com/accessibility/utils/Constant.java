@@ -15,6 +15,7 @@ public class Constant {
     public final static int StatusInReadingArticle = 3;
     public final static int StatusInReadingVideo = 4;
     public final static int StatusWaiting = 5;
+    public final static int FindSohuRedPackageInList = 6;
     public static ArrayList<AppInfo> mAppList = new ArrayList<AppInfo>();
 
     public static ArrayList<AppInfo> getAppList() {
@@ -22,7 +23,7 @@ public class Constant {
             mAppList.add(new ChengZiKuaiBao());
             mAppList.add(new WeLiKanKan());
             mAppList.add(new NiuNiuZiXun());
-            mAppList.add(new SouHu()); // checked
+            mAppList.add(new SouHu());
             mAppList.add(new JuKanDian());
             mAppList.add(new QuTouTiao());
         }

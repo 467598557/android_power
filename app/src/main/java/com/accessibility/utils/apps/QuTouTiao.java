@@ -61,9 +61,12 @@ public class QuTouTiao extends AppInfo {
     }
 
     @Override
-    public void doSomething(OperatorHelper operatorHelper) {
+    public boolean doSomething(OperatorHelper operatorHelper) {
         Log.d("@@@ doSomething in QuTouTiao", "");
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return false;
+        }
         List<AccessibilityNodeInfo> nodeInfoList;
         // 执行更新app弹窗判断
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByText("以后更新"));
@@ -80,6 +83,8 @@ public class QuTouTiao extends AppInfo {
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
         }
+
+        return true;
     }
 
     @Override

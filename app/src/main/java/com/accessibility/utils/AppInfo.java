@@ -16,7 +16,7 @@ public abstract class AppInfo {
     public abstract AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper);
     public abstract String getArticlePageContentViewId();
     public abstract String getVideoPageContentVideoId();
-    public abstract void doSomething(OperatorHelper operatorHelper);
+    public abstract boolean doSomething(OperatorHelper operatorHelper);
     public abstract void doSomethingInDetailPage(OperatorHelper operatorHelper);
 
     protected AccessibilityNodeInfo filterNormalArticleNode(List<AccessibilityNodeInfo> nodeList) {
