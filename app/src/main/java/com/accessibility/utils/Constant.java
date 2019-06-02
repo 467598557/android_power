@@ -30,6 +30,9 @@ public class Constant {
 
     public static ArrayList<AppInfo> getAppList(Context context) {
         if (mAppList.size() == 0) {
+            if((boolean)SPUtil.get(context, Constant.AppAddSouHuZiXun, new Boolean(true))) {
+                mAppList.add(new SouHu());
+            }
             if((boolean)SPUtil.get(context, Constant.AppAddChengZiKuaiBao, new Boolean(true))) {
                 mAppList.add(new ChengZiKuaiBao());
             }
@@ -44,9 +47,6 @@ public class Constant {
             }
             if((boolean)SPUtil.get(context, Constant.AppAddQuTouTiao, new Boolean(true))) {
                 mAppList.add(new QuTouTiao());
-            }
-            if((boolean)SPUtil.get(context, Constant.AppAddSouHuZiXun, new Boolean(true))) {
-                mAppList.add(new SouHu());
             }
         }
 

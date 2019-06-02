@@ -49,22 +49,20 @@ public class OperatorHelper {
     }
 
     public void start(AccessibilityService service, AccessibilityEvent event) {
-//        if (isRunning) {
-//            Toast.makeText(mContext, "服务正在运行中", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if (isRunning) {
+            Toast.makeText(mContext, "服务正在运行中", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-//        Context appContext = service.getApplicationContext();
-//        mAppList = Constant.getAppList(appContext);
-//        MaxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
-//        MaxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
-//        curLoopCount = 0;
-//        Log.d("@@@@", "what the fuck , start operateHelper");
-//        Log.d("@@@@ app MaxAppRunTime", ""+SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)));
-//        Log.d("@@@@ app MaxLoopCount", ""+SPUtil.get(appContext, Constant.LoopCount, new Integer(0)));
-//        if(true) {
-//            return;
-//        }
+        Context appContext = service.getApplicationContext();
+        mAppList = Constant.getAppList(appContext);
+        AppLength = mAppList.size();
+        MaxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
+        MaxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
+        curLoopCount = 0;
+        Log.d("@@@@", "what the fuck , start operateHelper:"+mAppList);
+        Log.d("@@@@ app MaxAppRunTime", ""+SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)));
+        Log.d("@@@@ app MaxLoopCount", ""+SPUtil.get(appContext, Constant.LoopCount, new Integer(0)));
         Log.d("@@@ start", "start run operate");
         this.mService = service;
         this.mContext = service;

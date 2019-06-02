@@ -56,8 +56,6 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 SPUtil.putAndApply(appContext, Constant.AppAddSouHuZiXun, souhuzixun.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddWeiLiKanKan, weilikankan.isChecked());
 
-                Log.d("@@@ LoopCount", appRunMinuteCount.getText().toString());
-                Log.d("@@@ AppRunMinuteCount", loopCount.getText().toString());
                 Intent intent = new Intent(getApplicationContext(),  AccessibilityStartActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.startActivity(intent);
