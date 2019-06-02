@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Space;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class OperatorHelper {
     private AccessibilityService mService;
     private AccessibilityEvent mEvent;
     private Context mContext;
-    private ArrayList<AppInfo> mAppList = Constant.getAppList();
+    private ArrayList<AppInfo> mAppList = null;
     private int mCurAppIndex = 0;
     public boolean isRunning = false;
     private Timer timer;
@@ -37,20 +38,33 @@ public class OperatorHelper {
     public int winWidth = 500;
     public int winHeight = 1500;
     private long mAppRunStartTime = 0; // 时间戳毫秒
-    private long MaxAppRunTime = 1000*60*20; // 十分钟
+    private int MaxAppRunTime = 1000*60*10; // 十分钟
+    private int MaxLoopCount = 0; // 默认0为一直运行
+    private int curLoopCount = 0;
     private OperatorHelper mInstance;
-    private final int AppLength = mAppList.size();
+    private int AppLength;
 
     public OperatorHelper() {
         mInstance = this;
     }
 
     public void start(AccessibilityService service, AccessibilityEvent event) {
-        if (isRunning) {
-            Toast.makeText(mContext, "服务正在运行中", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (isRunning) {
+//            Toast.makeText(mContext, "服务正在运行中", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
+//        Context appContext = service.getApplicationContext();
+//        mAppList = Constant.getAppList(appContext);
+//        MaxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
+//        MaxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
+//        curLoopCount = 0;
+//        Log.d("@@@@", "what the fuck , start operateHelper");
+//        Log.d("@@@@ app MaxAppRunTime", ""+SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)));
+//        Log.d("@@@@ app MaxLoopCount", ""+SPUtil.get(appContext, Constant.LoopCount, new Integer(0)));
+//        if(true) {
+//            return;
+//        }
         Log.d("@@@ start", "start run operate");
         this.mService = service;
         this.mContext = service;

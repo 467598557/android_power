@@ -19,10 +19,76 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/accessibility_find_and_click"
+        android:id="@+id/trigger_accessibility_start_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="开始执行操作" />
+
+    <EditText
+        android:id="@+id/loop_count"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0" />
+
+    <EditText
+        android:id="@+id/run_minute_count"
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="10" />
+
+    <CheckBox
+        android:id="@+id/chengzikuaibao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:text="橙子快报" />
+
+    <CheckBox
+        android:id="@+id/jukandian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:checked="true"
+        android:text="聚看点" />
+
+    <CheckBox
+        android:id="@+id/niuniuzixun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:checked="true"
+        android:text="牛牛资讯" />
+
+    <CheckBox
+        android:id="@+id/qutoutiao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:checked="true"
+        android:text="趣头条" />
+
+    <CheckBox
+        android:id="@+id/souhuzixun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:checked="true"
+        android:text="搜狐资讯" />
+
+    <CheckBox
+        android:id="@+id/weilikankan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:checked="true"
+        android:text="微鲤看看" />
 
 </LinearLayout>
