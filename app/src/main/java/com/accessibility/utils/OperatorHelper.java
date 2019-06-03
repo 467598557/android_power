@@ -83,7 +83,7 @@ public class OperatorHelper {
                             mAppList.get(mCurAppIndex).doSomething(mInstance);
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/2, winHeight/5*3, winWidth/2, winHeight/5);
+                                scrollScreen(winWidth/2, winHeight/5*4, winWidth/2, winHeight/5);
                                 runningCount++;
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
