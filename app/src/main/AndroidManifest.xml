@@ -37,7 +37,7 @@
             android:name=".AccessibilityStartActivity"
             android:process=":BackgroundService" />
 
-        // 注册辅助功能服务
+        <!--注册辅助功能服务-->
         <service
             android:name=".AccessibilitySampleService"
             android:canPerformGestures="true"
@@ -48,7 +48,7 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-            // 通过xml文件完成辅助功能相关配置，也可以在onServiceConnected中动态配置
+            <!--通过xml文件完成辅助功能相关配置，也可以在onServiceConnected中动态配置-->
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_config" />

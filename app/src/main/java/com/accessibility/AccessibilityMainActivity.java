@@ -43,6 +43,7 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 CheckBox qutoutiao = (CheckBox)findViewById(R.id.qutoutiao);
                 CheckBox souhuzixun = (CheckBox)findViewById(R.id.souhuzixun);
                 CheckBox weilikankan = (CheckBox)findViewById(R.id.weilikankan);
+                CheckBox shandianhezi = (CheckBox)findViewById(R.id.shandianhezi);
                 EditText loopCount = (EditText)findViewById(R.id.loop_count);
                 EditText appRunMinuteCount = (EditText)findViewById(R.id.run_minute_count);
                 Context appContext = getApplicationContext();
@@ -54,6 +55,7 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 SPUtil.putAndApply(appContext, Constant.AppAddNiuNiuZiXun, niuniuzixun.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddQuTouTiao, qutoutiao.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddSouHuZiXun, souhuzixun.isChecked());
+                SPUtil.putAndApply(appContext, Constant.AppAddShanDianHeZi, shandianhezi.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddWeiLiKanKan, weilikankan.isChecked());
 
                 Intent intent = new Intent(getApplicationContext(),  AccessibilityStartActivity.class);

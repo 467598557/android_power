@@ -91,4 +91,12 @@
         android:checked="true"
         android:text="微鲤看看" />
 
+    <CheckBox
+        android:id="@+id/shandianhezi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:checked="true"
+        android:text="闪电盒子" />
+
 </LinearLayout>
