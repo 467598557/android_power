@@ -151,7 +151,7 @@ public class OperatorHelper {
                             if (runningCount >= maxRunningCount) {
                                 curStatus = Constant.StatusInList;
                                 runningCount = 0;
-                                maxRunningCount = 8;
+                                maxRunningCount = 4;
                                 return;
                             }
                             break;
@@ -191,7 +191,7 @@ public class OperatorHelper {
 
     public void initDataBackToList() {
         this.runningCount = 0;
-        this.maxRunningCount = 8;
+        this.maxRunningCount = 4;
         this.curStatus = Constant.StatusInList;
     }
 
@@ -297,7 +297,7 @@ public class OperatorHelper {
     public void changeStatusToList() {
         this.curStatus = Constant.StatusInList;
         this.runningCount = 0;
-        this.maxRunningCount = 15;
+        this.maxRunningCount = 8;
     }
 
     public void changeStatusToFindSohuRedPackageInList() {

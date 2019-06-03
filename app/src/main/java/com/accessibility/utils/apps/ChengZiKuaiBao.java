@@ -26,7 +26,7 @@ public class ChengZiKuaiBao extends AppInfo {
         AccessibilityNodeInfo node;
         for(int i=1, len=nodeInfoList.size(); i<len; i++) {
             node = nodeInfoList.get(i);
-            if(node.findAccessibilityNodeInfosByText("广告").size() == 0) {
+            if(!node.isSelected() && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
                 return node;
             }
         }
