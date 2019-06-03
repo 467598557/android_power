@@ -40,10 +40,16 @@ public class QuTouTiao extends AppInfo {
         List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");
         // com.jifen.qukan:id/a5k 播放图标
         AccessibilityNodeInfo node;
+        AccessibilityNodeInfo nodeParent;
+        // com.jifen.qukan:id/a5h 标题
         for(int i=1, len=nodeList.size(); i<len; i++) {
-            node = nodeList.get(i).getParent();
-            if(node.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a5k").size() == 0) {
-                return node;
+            node = nodeList.get(i);
+            nodeParent = node.getParent();
+            if(nodeParent.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a5k").size() == 0) {
+                node = nodeParent.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a5h").get(0);
+                if(null != node && node.isEnabled()) { // 读过之后，enabled字段会更新
+                    return nodeParent;
+                }
             }
         }
 

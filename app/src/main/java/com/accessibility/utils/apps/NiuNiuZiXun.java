@@ -87,15 +87,10 @@ public class NiuNiuZiXun extends AppInfo {
     public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
-            Log.d("@@@", "doSomethingInDetailPage in NiuNiuZiXun, root = null");
             return;
         }
 
         List<AccessibilityNodeInfo> nodeInfoList;
-        // 展开全文
-        nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_activity_news_details_web");
-        AccessibilityNodeInfo node = nodeInfoList.get(0);
-//        Log.d("@@@", "doSomethingInDetailPage"+node);
-//        Log.d("@@@", "查看更多按钮获取"+node.findAccessibilityNodeInfosByText("展开全文"));
+        AccessibilityNodeInfo node;
     }
 }
