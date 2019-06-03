@@ -1,5 +1,6 @@
 package com.accessibility.utils.apps;
 
+import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.accessibility.utils.AppInfo;
@@ -21,12 +22,21 @@ public class ShanDianHeZi extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
-        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/img_container");
+        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/title");
         AccessibilityNodeInfo node;
         for(int i=1, len=nodeList.size(); i<len; i++) {
-            node = nodeList.get(i).getParent().getParent();
-            if(node.findAccessibilityNodeInfosByText("广告").size() == 0) {
-                return node;
+            node = nodeList.get(i);
+            int whileCount = 0;
+            while(true) {
+                node = node.getParent();
+                if(null != node && node.isClickable() && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
+                    return node;
+                }
+
+                whileCount++;
+                if(whileCount > 5) {
+                    break;
+                }
             }
         }
 

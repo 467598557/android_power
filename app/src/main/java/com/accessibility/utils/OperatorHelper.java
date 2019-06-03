@@ -60,9 +60,6 @@ public class OperatorHelper {
         MaxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
         MaxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
         curLoopCount = 0;
-        Log.d("@@@@", "what the fuck , start operateHelper:"+mAppList);
-        Log.d("@@@@ app MaxAppRunTime", ""+SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)));
-        Log.d("@@@@ app MaxLoopCount", ""+SPUtil.get(appContext, Constant.LoopCount, new Integer(0)));
         Log.d("@@@ start", "start run operate");
         this.mService = service;
         this.mContext = service;
@@ -258,6 +255,7 @@ public class OperatorHelper {
             }
         }
 
+        Log.d("@@@@ clickToDetailPage", ""+nodeInfo.isClickable());
         return performClickActionByNode(nodeInfo);
     }
 
