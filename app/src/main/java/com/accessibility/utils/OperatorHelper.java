@@ -4,16 +4,13 @@ import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Context;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Space;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +19,10 @@ import java.util.TimerTask;
 
 public class OperatorHelper {
     private static final String TAG = OperatorHelper.class.getSimpleName();
-    private AccessibilityService mService;
-    private AccessibilityEvent mEvent;
-    private Context mContext;
-    private ArrayList<AppInfo> mAppList = null;
-    private int mCurAppIndex = 0;
+    private AccessibilityService service;
+    private ArrayList<AppInfo> appList = null;
+    private int curAppIndex = 0;
+    private AppInfo curApp = null;
     public boolean isRunning = false;
     private Timer timer;
     private TimerTask timerTask;
@@ -37,33 +33,30 @@ public class OperatorHelper {
     private String curType = "article";
     public int winWidth = 500;
     public int winHeight = 1500;
-    private long mAppRunStartTime = 0; // 时间戳毫秒
-    private int MaxAppRunTime = 1000*60*10; // 十分钟
-    private int MaxLoopCount = 0; // 默认0为一直运行
+    private long appRunStartTime = 0; // 时间戳毫秒
+    private int maxAppRunTime = 1000*60*10; // 十分钟
+    private int maxLoopCount = 0; // 默认0为一直运行
     private int curLoopCount = 0;
-    private OperatorHelper mInstance;
-    private int AppLength;
+    private OperatorHelper instance;
 
     public OperatorHelper() {
-        mInstance = this;
+        instance = this;
     }
 
-    public void start(AccessibilityService service, AccessibilityEvent event) {
+    public void start(final AccessibilityService service, AccessibilityEvent event) {
         if (isRunning) {
-            Toast.makeText(mContext, "服务正在运行中", Toast.LENGTH_SHORT).show();
+            Toast.makeText(service, "服务正在运行中", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Context appContext = service.getApplicationContext();
-        mAppList = Constant.getAppList(appContext);
-        AppLength = mAppList.size();
-        MaxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
-        MaxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
+        appList = Constant.getAppList(appContext);
+        curApp = appList.get(curAppIndex);
+        maxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
+        maxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
         curLoopCount = 0;
         Log.d("@@@ start", "start run operate");
-        this.mService = service;
-        this.mContext = service;
-        this.mEvent = event;
+        this.service = service;
         getWindowSize();
         isRunning = true;
         timer = new Timer();
@@ -80,7 +73,7 @@ public class OperatorHelper {
                 try {
                     switch (curStatus) {
                         case Constant.StatusInList:
-                            mAppList.get(mCurAppIndex).doSomething(mInstance);
+                            curApp.doSomething(instance);
 
                             if (runningCount == 0) { // 滑动
                                 scrollScreen(winWidth/2, winHeight/5*4, winWidth/2, winHeight/5);
@@ -109,7 +102,7 @@ public class OperatorHelper {
                             }
 
                             if (runningCount >= maxRunningCount) {
-                                if(mAppList.get(mCurAppIndex).doSomething(mInstance)) {
+                                if(curApp.doSomething(instance)) {
                                     changeStatusToList();
                                 } else {
                                     runningCount = 0;  // 继续跳
@@ -118,7 +111,7 @@ public class OperatorHelper {
                             }
                             break;
                         case Constant.StatusInReadingArticle:
-                            mAppList.get(mCurAppIndex).doSomethingInDetailPage(mInstance);
+                            curApp.doSomethingInDetailPage(instance);
                             if(runningCount % 5 == 0) {
                                 scrollScreen(winWidth/2, winHeight-100, winWidth/2, winHeight/3);
                             }
@@ -130,7 +123,7 @@ public class OperatorHelper {
                             }
                             break;
                         case Constant.StatusInReadingVideo: // 回到列表
-                            mAppList.get(mCurAppIndex).doSomethingInDetailPage(mInstance);
+                            curApp.doSomethingInDetailPage(instance);
                             if (runningCount > maxRunningCount) { // 退回列表
                                 backToPreviousActivity();
                                 initDataBackToList();
@@ -141,9 +134,8 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusOpeningApp: // 等待什么都不做
                             if (runningCount == 0) {
-                                mAppRunStartTime = System.currentTimeMillis();
-                                AppInfo appInfo = mAppList.get(mCurAppIndex);
-                                Util.startActivity(appInfo, mContext);
+                                appRunStartTime = System.currentTimeMillis();
+                                Util.startActivity(curApp, service);
                                 runningCount++;
                                 return;
                             }
@@ -162,26 +154,41 @@ public class OperatorHelper {
 
                 runningCount++;
                 // 判断app生命周期
-                if((mAppRunStartTime > 0) && (System.currentTimeMillis() - mAppRunStartTime > MaxAppRunTime)) {
-                    mCurAppIndex++;
-                    if(mCurAppIndex >= AppLength) {
-                        mCurAppIndex = 0;
+                if((appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
+                    curAppIndex++;
+                    if(curAppIndex >= appList.size()) {
+                        curAppIndex = 0;
+                        curLoopCount++;
+                        // 检测最大循环次数
+                        // 0默认无限循环
+                        if(maxRunningCount > 0 && curLoopCount >= maxRunningCount) {
+                            stop();
+                            backToSystemHome();
+                            return;
+                        }
                     }
-                    mAppRunStartTime = 0;
+                    // 获取当前app信息
+                    curApp = appList.get(curAppIndex);
+                    appRunStartTime = 0;
                     runningCount = 0;
                     maxRunningCount = 15;
                     curStatus = Constant.StatusOpeningApp;
-                    Log.d("@@@ 更换app", ""+mCurAppIndex);
+                    Log.d("@@@ 更换app", ""+curAppIndex);
                     // 强行退出
-                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-                    mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+                    backToSystemHome();
                 }
             }
         };
 
         timer.schedule(timerTask, 0, TIMER_CHECK_INTERVAL);
+    }
+
+    public void backToSystemHome() {
+        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+        // #TODO 聚看点，需要单独处理退出逻辑
     }
 
     public void stop() {
@@ -196,12 +203,12 @@ public class OperatorHelper {
     }
 
     public void getWindowSize() {
-        if(null == mService) {
+        if(null == service) {
             return;
         }
 
         try {
-            WindowManager manager = (WindowManager)mService.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+            WindowManager manager = (WindowManager)service.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
             Display display = manager.getDefaultDisplay();
             winHeight = display.getHeight();
             winWidth = display.getWidth();
@@ -230,7 +237,7 @@ public class OperatorHelper {
         GestureDescription  gestureDescription = builder
                 .addStroke(new GestureDescription.StrokeDescription(path, 50L, 350L, false))
                 .build();
-        mService.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+        service.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
@@ -244,12 +251,12 @@ public class OperatorHelper {
     }
 
     public boolean clickToDetailPage() {
-        AppInfo curApp = mAppList.get(mCurAppIndex);
-        AccessibilityNodeInfo nodeInfo = curApp.getArticleSpecialViewById(mInstance);
+        AppInfo curApp = appList.get(curAppIndex);
+        AccessibilityNodeInfo nodeInfo = curApp.getArticleSpecialViewById(instance);
         if(null != nodeInfo) {
             curType = "article";
         } else {
-            nodeInfo = curApp.getVideoSpecialViewById(mInstance);
+            nodeInfo = curApp.getVideoSpecialViewById(instance);
             if(null != nodeInfo) {
                 curType = "video";
             }
@@ -284,12 +291,12 @@ public class OperatorHelper {
     }
 
     public void backToPreviousActivity() {
-        mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
     public AccessibilityNodeInfo getRootNodeInfo() {
         AccessibilityNodeInfo nodeInfo = null;
-        nodeInfo = mService.getRootInActiveWindow();
+        nodeInfo = service.getRootInActiveWindow();
 
         return nodeInfo;
     }
