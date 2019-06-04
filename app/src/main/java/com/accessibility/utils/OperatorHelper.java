@@ -102,6 +102,12 @@ public class OperatorHelper {
                                 maxRunningCount = 40;
                             }
                             break;
+                        case Constant.StatusSignIn:
+                            if(runningCount >= maxRunningCount) {
+                                // 签到
+                                    
+                            }
+                            break;
                         case Constant.FindSohuRedPackageInList:
                             if (runningCount == 0) { // 滑动
                                 scrollScreen(winWidth/2, winHeight/5*3, winWidth/2, winHeight/5);
@@ -298,6 +304,12 @@ public class OperatorHelper {
         this.curStatus = Constant.StatusInList;
         this.runningCount = 0;
         this.maxRunningCount = 8;
+    }
+
+    public void changeStatusToSignIn() {
+        this.curStatus = Constant.StatusSignIn;
+        this.runningCount = 0;
+        this.maxRunningCount = 6;
     }
 
     public void changeStatusToFindSohuRedPackageInList() {

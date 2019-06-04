@@ -19,6 +19,7 @@ public class Constant {
     public final static int StatusInReadingVideo = 4;
     public final static int StatusWaiting = 5;
     public final static int FindSohuRedPackageInList = 6;
+    public final static int StatusSignIn = 7;
     public final static String LoopCount = "loop_count";
     public final static String AppRunMinuteCount = "app_run_minute_count";
     public final static String AppAddChengZiKuaiBao = "app_add_chengzikuaibao";
