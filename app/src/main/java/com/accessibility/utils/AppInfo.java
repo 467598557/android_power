@@ -20,7 +20,7 @@ public abstract class AppInfo {
     public abstract void doSomethingInDetailPage(OperatorHelper operatorHelper);
 
     protected AccessibilityNodeInfo filterNormalArticleNode(List<AccessibilityNodeInfo> nodeList) {
-        for(int i=1, len=nodeList.size(); i<len; i++) {
+        for(int i=0, len=nodeList.size(); i<len; i++) {
             AccessibilityNodeInfo node = nodeList.get(i);
 
             if(node.findAccessibilityNodeInfosByText("广告").size() == 0) {

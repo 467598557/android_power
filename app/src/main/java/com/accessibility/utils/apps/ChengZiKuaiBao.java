@@ -24,7 +24,7 @@ public class ChengZiKuaiBao extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.quyu.youliao:id/content_view");
         AccessibilityNodeInfo node;
-        for(int i=1, len=nodeInfoList.size(); i<len; i++) {
+        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
             node = nodeInfoList.get(i);
             if(!node.isSelected() && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
                 return node;

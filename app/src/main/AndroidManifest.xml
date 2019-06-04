@@ -30,16 +30,16 @@
             android:theme="@style/Accessibility.Transparent.Activity" />
 
         <activity
-            android:name=".AccessibilityNormalSample"
+            android:name=".AccessibilityStartActivity"
             android:process=":BackgroundService" />
 
         <activity
-            android:name=".AccessibilityStartActivity"
+            android:name=".AccessibilityStopActivity"
             android:process=":BackgroundService" />
 
         <!--注册辅助功能服务-->
         <service
-            android:name=".AccessibilitySampleService"
+            android:name=".AccessibilityMainService"
             android:canPerformGestures="true"
             android:exported="true"
             android:label="@string/accessibility_tip"

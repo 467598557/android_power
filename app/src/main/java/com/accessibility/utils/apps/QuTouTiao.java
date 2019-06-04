@@ -42,7 +42,7 @@ public class QuTouTiao extends AppInfo {
         AccessibilityNodeInfo node;
         AccessibilityNodeInfo nodeParent;
         // com.jifen.qukan:id/a5h 标题
-        for(int i=1, len=nodeList.size(); i<len; i++) {
+        for(int i=0, len=nodeList.size(); i<len; i++) {
             node = nodeList.get(i);
             nodeParent = node.getParent();
             if(nodeParent.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a5k").size() == 0) {

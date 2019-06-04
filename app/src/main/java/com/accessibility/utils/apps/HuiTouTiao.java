@@ -24,7 +24,7 @@ public class HuiTouTiao extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("com.sohu.infonews:id/btm_divider");
         AccessibilityNodeInfo node;
-        for(int i=1, len=nodeList.size(); i<len; i++) {
+        for(int i=0, len=nodeList.size(); i<len; i++) {
             node = nodeList.get(i).getParent();
             if(node.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/left_guess_tv").size() == 0) {
                 return node;

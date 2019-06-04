@@ -5,8 +5,8 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import com.accessibility.utils.OperatorHelper;
 
-public class AccessibilitySampleService extends AccessibilityService {
-    private static  final String TAG = AccessibilitySampleService.class.getSimpleName();
+public class AccessibilityMainService extends AccessibilityService {
+    private static  final String TAG = AccessibilityMainService.class.getSimpleName();
     private OperatorHelper operatorHelper = new OperatorHelper();
 
     @Override
@@ -33,7 +33,7 @@ public class AccessibilitySampleService extends AccessibilityService {
                     operatorHelper.start(this, event);
                 } else if (className.equals("com.accessibility.AccessibilityStopActivity")) {
                     Log.d("@@@ stop run job", packageName + ":" + eventType+":"+className);
-                    AccessibilityOperator.getInstance().stop();
+                    operatorHelper.stop();
                 }
                 break;
         }

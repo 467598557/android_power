@@ -1,17 +1,16 @@
 package com.accessibility.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.provider.Settings;
 import android.text.TextUtils;
 
-import com.accessibility.AccessibilitySampleService;
+import com.accessibility.AccessibilityMainService;
 
 /**
  * 辅助功能相关检查的帮助类
  */
 public class AccessibilityUtil {
-    private static final String ACCESSIBILITY_SERVICE_PATH = AccessibilitySampleService.class.getCanonicalName();
+    private static final String ACCESSIBILITY_SERVICE_PATH = AccessibilityMainService.class.getCanonicalName();
     /**
      * 判断是否有辅助功能权限
      *

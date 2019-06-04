@@ -24,7 +24,7 @@ public class ShanDianHeZi extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/title");
         AccessibilityNodeInfo node;
-        for(int i=1, len=nodeList.size(); i<len; i++) {
+        for(int i=0, len=nodeList.size(); i<len; i++) {
             node = nodeList.get(i);
             int whileCount = 0;
             while(true) {
