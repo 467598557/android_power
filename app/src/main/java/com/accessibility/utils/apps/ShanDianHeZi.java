@@ -22,7 +22,6 @@ public class ShanDianHeZi extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
-//        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/title");
         List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/recyvlerview");
         AccessibilityNodeInfo node = nodeList.get(0);
         if(null != node) {
@@ -35,13 +34,6 @@ public class ShanDianHeZi extends AppInfo {
                 }
             }
         }
-
-//        for(int i=0, len=nodeList.size(); i<len; i++) {
-//            node = nodeList.get(i).getParent().getParent();
-//            if(null != node && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
-//                return node;
-//            }
-//        }
 
         return null;
     }

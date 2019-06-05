@@ -44,17 +44,17 @@ public class SouHu extends AppInfo {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         AccessibilityNodeInfo node;
         List<AccessibilityNodeInfo> nodeList;
-        if(!this.isSignin) {
-            nodeList = root.findAccessibilityNodeInfosByText("任务");
-            for(int i=0, len=nodeList.size(); i<len; i++) {
-                node = nodeList.get(i).getParent().getParent();
-                if(node.isClickable()) {
-                    operatorHelper.performClickActionByNode(node);
-                    operatorHelper.changeStatusToSignIn();
-                    return true;
-                }
-            }
-        }
+//        if(!this.isSignin) {
+//            nodeList = root.findAccessibilityNodeInfosByText("任务");
+//            for(int i=0, len=nodeList.size(); i<len; i++) {
+//                node = nodeList.get(i).getParent().getParent();
+//                if(node.isClickable()) {
+//                    operatorHelper.performClickActionByNode(node);
+//                    operatorHelper.changeStatusToSignIn();
+//                    return true;
+//                }
+//            }
+//        }
 
         // 定量大红包按钮
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/red_bags"));

@@ -73,8 +73,15 @@ public class OperatorHelper {
                 try {
                     switch (curStatus) {
                         case Constant.StatusInList:
-                            curApp.doSomething(instance);
+                            String curPackage = getRootNodeInfo().getPackageName().toString();
+                            if(!curPackage.equals(curApp.packageName)) { // 可能有异常跳出
+                                curStatus = Constant.StatusOpeningApp;
+                                runningCount = 0;
+                                maxRunningCount = 15;
+                                return;
+                            }
 
+                            curApp.doSomething(instance);
                             if (runningCount == 0) { // 滑动
                                 scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
                             }
