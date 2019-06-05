@@ -10,6 +10,7 @@ public abstract class AppInfo {
     public String mainComponent;
     public String newComponent;
     public String videoComponent;
+    public boolean isSignin = false;
 
     public abstract String getListViewId();
     public abstract AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper);
@@ -18,6 +19,7 @@ public abstract class AppInfo {
     public abstract String getVideoPageContentVideoId();
     public abstract boolean doSomething(OperatorHelper operatorHelper);
     public abstract void doSomethingInDetailPage(OperatorHelper operatorHelper);
+    public abstract boolean signin(OperatorHelper operatorHelper);
 
     protected AccessibilityNodeInfo filterNormalArticleNode(List<AccessibilityNodeInfo> nodeList) {
         for(int i=0, len=nodeList.size(); i<len; i++) {

@@ -98,7 +98,8 @@ public class OperatorHelper {
                         case Constant.StatusSignIn:
                             if(runningCount >= maxRunningCount) {
                                 // 签到
-                                    
+                                curApp.signin(instance);
+                                changeStatusToList();
                             }
                             break;
                         case Constant.FindSohuRedPackageInList:
@@ -187,6 +188,10 @@ public class OperatorHelper {
         };
 
         timer.schedule(timerTask, 0, TIMER_CHECK_INTERVAL);
+    }
+
+    public void backToPreviewWindow() {
+        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
     public void backToSystemHome() {
@@ -316,7 +321,7 @@ public class OperatorHelper {
     public void changeStatusToSignIn() {
         this.curStatus = Constant.StatusSignIn;
         this.runningCount = 0;
-        this.maxRunningCount = 6;
+        this.maxRunningCount = 5;
     }
 
     public void changeStatusToFindSohuRedPackageInList() {

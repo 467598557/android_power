@@ -52,6 +52,20 @@ public class SouHu extends AppInfo {
     @Override
     public boolean doSomething(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        AccessibilityNodeInfo node;
+        List<AccessibilityNodeInfo> nodeList;
+        if(!this.isSignin) {
+            nodeList = root.findAccessibilityNodeInfosByText("任务");
+            for(int i=0, len=nodeList.size(); i<len; i++) {
+                node = nodeList.get(i).getParent().getParent();
+                if(node.isClickable()) {
+                    operatorHelper.performClickActionByNode(node);
+                    operatorHelper.changeStatusToSignIn();
+                    return true;
+                }
+            }
+        }
+
         // 执行弹窗判断
         // com.sohu.infonews:id/redbag_open 限量抢红包弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/redbag_open"));
@@ -86,5 +100,19 @@ public class SouHu extends AppInfo {
             nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
             operatorHelper.changeStatusToFindSohuRedPackageInList();
         }
+    }
+
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/task_entrance_gv");
+        AccessibilityNodeInfo node = nodeList.get(0).getChild(0);
+        operatorHelper.performClickActionByNode(node);
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
+        operatorHelper.backToPreviewWindow(); // 回到任务主页
+        operatorHelper.backToPreviewWindow(); // 回到默认推荐页面
+        this.isSignin = true;
+
+        return true;
     }
 }

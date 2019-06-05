@@ -69,4 +69,9 @@ public class HuiTouTiao extends AppInfo {
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
     }
+
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        return false;
+    }
 }

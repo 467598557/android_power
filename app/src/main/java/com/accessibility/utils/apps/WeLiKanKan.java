@@ -60,8 +60,12 @@ public class WeLiKanKan extends AppInfo {
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/rl_head_line");
         if(nodeInfoList.size() > 0) {
             nodeInfo = nodeInfoList.get(0);
-            if(nodeInfo.findAccessibilityNodeInfosByText("+").size() > 0) { // 再次确认是金币
+            if(nodeInfo.findAccessibilityNodeInfosByText("+").size() > 0) { // 确认是金币
                 nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            } else if(nodeInfo.findAccessibilityNodeInfosByText("签到").size() > 0) { // 确认是签到
+                operatorHelper.performClickActionByNode(nodeInfo);
+                operatorHelper.changeStatusToSignIn();
+                return true;
             }
         }
         // cn.weli.story:id/text_ok 文章列表文章领取后确定
@@ -95,5 +99,13 @@ public class WeLiKanKan extends AppInfo {
         List<AccessibilityNodeInfo> nodeInfoList;
         // cn.weli.story:id/ll_height_more 查看更多
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_height_more"));
+    }
+
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        operatorHelper.backToPreviewWindow();
+        this.isSignin = true;
+
+        return true;
     }
 }

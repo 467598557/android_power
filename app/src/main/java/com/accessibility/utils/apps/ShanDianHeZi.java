@@ -65,6 +65,17 @@ public class ShanDianHeZi extends AppInfo {
             return false;
         }
 
+        List<AccessibilityNodeInfo> nodeList;
+        AccessibilityNodeInfo node;
+        if(!this.isSignin) {
+            node = findMainMenuByText(root, "任务");
+            if(null != node) {
+                operatorHelper.performClickActionByNode(node);
+                operatorHelper.changeStatusToSignIn();
+                return true;
+            }
+        }
+
         return true;
     }
 
@@ -77,5 +88,35 @@ public class ShanDianHeZi extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
+    }
+
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root  = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return false;
+        }
+
+        AccessibilityNodeInfo signinBtn = root.findAccessibilityNodeInfosByViewId("c.l.a:id/red_pack_signed_btn").get(0);
+        operatorHelper.performClickActionByNode(signinBtn); // 点击签到
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/close_sign_dialog_btn"));
+        AccessibilityNodeInfo node = findMainMenuByText(root, "首页");
+        operatorHelper.performClickActionByNode(node);
+        this.isSignin = true;
+
+        return true;
+    }
+
+    private AccessibilityNodeInfo findMainMenuByText(AccessibilityNodeInfo root, String text) {
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByText(text);
+        AccessibilityNodeInfo node;
+        for(int i=0, len=nodeList.size(); i<len; i++) {
+            node = nodeList.get(i).getParent().getParent().getParent();
+            if(node.isClickable()) {
+                return node;
+            }
+        }
+
+        return null;
     }
 }

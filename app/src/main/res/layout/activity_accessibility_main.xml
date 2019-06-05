@@ -118,12 +118,13 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
+
             <TextView
                 android:id="@+id/run_minute_count_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:text="循环次数：" />
+                android:text="执行分钟：" />
 
             <EditText
                 android:id="@+id/run_minute_count"

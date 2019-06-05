@@ -1,5 +1,6 @@
 package com.accessibility.utils.apps;
 
+import android.accessibilityservice.AccessibilityService;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -73,7 +74,18 @@ public class QuTouTiao extends AppInfo {
         if(null == root) {
             return false;
         }
+
         List<AccessibilityNodeInfo> nodeInfoList;
+        AccessibilityNodeInfo node;
+        // 是否有签到
+        nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/jt");
+        node = nodeInfoList.get(0);
+        if(null != node && node.getText().equals("去签到")) {
+            operatorHelper.performClickActionByNode(node);
+            operatorHelper.changeStatusToSignIn();
+            return true;
+        }
+
         // 执行更新app弹窗判断
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByText("以后更新"));
         // 锁屏看新闻弹窗判断
@@ -95,6 +107,13 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
+    }
 
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        operatorHelper.backToPreviewWindow();
+        this.isSignin = true;
+
+        return true;
     }
 }

@@ -84,4 +84,9 @@ public class ChengZiKuaiBao extends AppInfo {
         // 查看更多  com.quyu.youliao:id/ll_expand
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
     }
+
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        return false;
+    }
 }

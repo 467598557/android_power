@@ -64,6 +64,14 @@ public class NiuNiuZiXun extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeInfoList;
         AccessibilityNodeInfo nodeInfo;
+        if(!this.isSignin) {
+            nodeInfo = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_task_layout").get(0);
+            if(null != nodeInfo) {
+                operatorHelper.performClickActionByNode(nodeInfo);
+                operatorHelper.changeStatusToSignIn();
+                return true;
+            }
+        }
         // 金币领取后再点击后弹窗
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_dialog_datecoins_close");
         if(nodeInfoList.size() > 0) {
@@ -92,5 +100,19 @@ public class NiuNiuZiXun extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeInfoList;
         AccessibilityNodeInfo node;
+    }
+
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null != root) {
+            return false;
+        }
+
+        AccessibilityNodeInfo node = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_news_layout").get(0);
+        operatorHelper.performClickActionByNode(node);
+        this.isSignin = true;
+
+        return true;
     }
 }

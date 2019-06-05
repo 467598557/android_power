@@ -48,10 +48,20 @@ public class JuKanDian extends AppInfo {
 
     @Override
     public boolean doSomething(OperatorHelper operatorHelper) {
-        //   领取
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
             return false;
+        }
+
+        // com.xiangzi.jukandian:id/tosign 签到
+        List<AccessibilityNodeInfo> nodeList;
+        AccessibilityNodeInfo node;
+        nodeList = root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/tosign");
+        node = nodeList.get(0);
+        if(null != node) {
+            operatorHelper.performClickActionByNode(node);
+            operatorHelper.changeStatusToSignIn();
+            return true;
         }
 
         // 执行弹窗判断
@@ -65,5 +75,13 @@ public class JuKanDian extends AppInfo {
 
     @Override
     public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
+    }
+
+    @Override
+    public boolean signin(OperatorHelper operatorHelper) {
+        operatorHelper.backToPreviewWindow();
+        this.isSignin = true;
+
+        return true;
     }
 }
