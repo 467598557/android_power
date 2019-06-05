@@ -66,6 +66,15 @@ public class SouHu extends AppInfo {
             }
         }
 
+        // 定量大红包按钮
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/red_bags"));
+        // 定量大红包开启弹窗
+        if(operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/redbag_open"))) {
+            // 定量大红包打开后弹窗
+            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
+            operatorHelper.performClickActionByNode(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/limit_result_uinavigation").get(0).getChild(0));
+        }
+
         // 执行弹窗判断
         // com.sohu.infonews:id/redbag_open 限量抢红包弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/redbag_open"));
