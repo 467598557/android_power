@@ -15,8 +15,6 @@ public abstract class AppInfo {
     public abstract String getListViewId();
     public abstract AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper);
     public abstract AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper);
-    public abstract String getArticlePageContentViewId();
-    public abstract String getVideoPageContentVideoId();
     public abstract boolean doSomething(OperatorHelper operatorHelper);
     public abstract void doSomethingInDetailPage(OperatorHelper operatorHelper);
     public abstract boolean signin(OperatorHelper operatorHelper);

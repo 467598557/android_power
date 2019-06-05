@@ -40,16 +40,6 @@ public class HuiTouTiao extends AppInfo {
     }
 
     @Override
-    public String getArticlePageContentViewId() {
-        return null;
-    }
-
-    @Override
-    public String getVideoPageContentVideoId() {
-        return null;
-    }
-
-    @Override
     public boolean doSomething(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {

@@ -76,7 +76,7 @@ public class OperatorHelper {
                             curApp.doSomething(instance);
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/2, winHeight/5*4, winWidth/2, winHeight/5);
+                                scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
                                 runningCount++;
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
@@ -106,7 +106,7 @@ public class OperatorHelper {
                             break;
                         case Constant.FindSohuRedPackageInList:
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/2, winHeight/5*3, winWidth/2, winHeight/5);
+                                scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
                                 runningCount++;
                             }
 
@@ -122,7 +122,7 @@ public class OperatorHelper {
                         case Constant.StatusInReadingArticle:
                             curApp.doSomethingInDetailPage(instance);
                             if(runningCount % 5 == 0) {
-                                scrollScreen(winWidth/2, winHeight-100, winWidth/2, winHeight/3);
+                                scrollScreen(winWidth/4, winHeight-100, winWidth/4, winHeight/3);
                             }
                             // 滚动且监听查看更多
                             if (runningCount > maxRunningCount) { // 退回列表

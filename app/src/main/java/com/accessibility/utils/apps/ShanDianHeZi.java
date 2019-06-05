@@ -49,16 +49,6 @@ public class ShanDianHeZi extends AppInfo {
     }
 
     @Override
-    public String getArticlePageContentViewId() {
-        return null;
-    }
-
-    @Override
-    public String getVideoPageContentVideoId() {
-        return null;
-    }
-
-    @Override
     public boolean doSomething(OperatorHelper operatorHelper) {
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
@@ -67,14 +57,14 @@ public class ShanDianHeZi extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
-        if(!this.isSignin) {
-            node = findMainMenuByText(root, "任务");
-            if(null != node) {
-                operatorHelper.performClickActionByNode(node);
-                operatorHelper.changeStatusToSignIn();
-                return true;
-            }
-        }
+//        if(!this.isSignin) {
+//            node = findMainMenuByText(root, "任务");
+//            if(null != node) {
+//                operatorHelper.performClickActionByNode(node);
+//                operatorHelper.changeStatusToSignIn();
+//                return true;
+//            }
+//        }
 
         return true;
     }
