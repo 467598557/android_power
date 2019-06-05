@@ -94,6 +94,8 @@ public class OperatorHelper {
                                 runningCount = 0;
                                 maxRunningCount = 40;
                             }
+
+                            judgeAppRunLoop();
                             break;
                         case Constant.StatusSignIn:
                             if(runningCount >= maxRunningCount) {
@@ -138,6 +140,21 @@ public class OperatorHelper {
                             }
                             break;
                         case Constant.StatusWaiting:
+                            if(runningCount >= maxRunningCount) {
+                                runningCount = 0;
+                                maxRunningCount = 15;
+                                curStatus = Constant.StatusOpeningApp;
+                                return;
+                            }
+                            break;
+                        case Constant.StatusInCloseJuKanDianApp:
+                            if(runningCount >= maxRunningCount) {
+                                performClickActionByNodeListFirstChild(getRootNodeInfo().findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/sure_quit"));
+                                curStatus = Constant.StatusWaiting;
+                                runningCount = 0;
+                                maxRunningCount = 3;
+                                return;
+                            }
                             break;
                         case Constant.StatusOpeningApp: // 等待什么都不做
                             if (runningCount == 0) {
@@ -160,34 +177,37 @@ public class OperatorHelper {
                 }
 
                 runningCount++;
-                // 判断app生命周期
-                if((appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
-                    curAppIndex++;
-                    if(curAppIndex >= appList.size()) {
-                        curAppIndex = 0;
-                        curLoopCount++;
-                        // 检测最大循环次数
-                        // 0默认无限循环
-                        if(maxRunningCount > 0 && curLoopCount >= maxRunningCount) {
-                            stop();
-                            backToSystemHome();
-                            return;
-                        }
-                    }
-                    // 获取当前app信息
-                    curApp = appList.get(curAppIndex);
-                    appRunStartTime = 0;
-                    runningCount = 0;
-                    maxRunningCount = 15;
-                    curStatus = Constant.StatusOpeningApp;
-                    Log.d("@@@ 更换app", ""+curAppIndex);
-                    // 强行退出
-                    backToSystemHome();
-                }
             }
         };
 
         timer.schedule(timerTask, 0, TIMER_CHECK_INTERVAL);
+    }
+
+    private void judgeAppRunLoop() {
+    // 判断app生命周期
+        if((appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
+            curAppIndex++;
+            if(curAppIndex >= appList.size()) {
+                curAppIndex = 0;
+                curLoopCount++;
+                // 检测最大循环次数
+                // 0默认无限循环
+                if(maxRunningCount > 0 && curLoopCount >= maxRunningCount) {
+                    stop();
+                    backToSystemHome();
+                    return;
+                }
+            }
+            // 获取当前app信息
+            curApp = appList.get(curAppIndex);
+            appRunStartTime = 0;
+            runningCount = 0;
+            maxRunningCount = 5;
+            curStatus = Constant.StatusWaiting;
+            Log.d("@@@ 更换app", ""+curAppIndex);
+            // 强行退出
+            backToSystemHome();
+        }
     }
 
     public void backToPreviewWindow() {
@@ -196,10 +216,11 @@ public class OperatorHelper {
 
     public void backToSystemHome() {
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        // #TODO 聚看点，需要单独处理退出逻辑
+        if(curApp.packageName.equals("com.xiangzi.jukandian")) {
+            curStatus = Constant.StatusInCloseJuKanDianApp;
+        } else {
+            service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+        }
     }
 
     public void stop() {
