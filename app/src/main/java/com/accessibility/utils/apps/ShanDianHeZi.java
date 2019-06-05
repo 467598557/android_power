@@ -22,23 +22,26 @@ public class ShanDianHeZi extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
-        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/title");
-        AccessibilityNodeInfo node;
-        for(int i=0, len=nodeList.size(); i<len; i++) {
-            node = nodeList.get(i);
-            int whileCount = 0;
-            while(true) {
-                node = node.getParent();
-                if(null != node && node.isClickable() && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
-                    return node;
-                }
+//        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/title");
+        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/recyvlerview");
+        AccessibilityNodeInfo node = nodeList.get(0);
+        if(null != node) {
+            AccessibilityNodeInfo childNode;
+            for(int i=0, len=node.getChildCount(); i<len; i++) {
+                childNode = node.getChild(i);
 
-                whileCount++;
-                if(whileCount > 5) {
-                    break;
+                if(childNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
+                    return childNode;
                 }
             }
         }
+
+//        for(int i=0, len=nodeList.size(); i<len; i++) {
+//            node = nodeList.get(i).getParent().getParent();
+//            if(null != node && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
+//                return node;
+//            }
+//        }
 
         return null;
     }
@@ -55,8 +58,8 @@ public class ShanDianHeZi extends AppInfo {
             return false;
         }
 
-        List<AccessibilityNodeInfo> nodeList;
-        AccessibilityNodeInfo node;
+//        List<AccessibilityNodeInfo> nodeList;
+//        AccessibilityNodeInfo node;
 //        if(!this.isSignin) {
 //            node = findMainMenuByText(root, "任务");
 //            if(null != node) {

@@ -77,7 +77,6 @@ public class OperatorHelper {
 
                             if (runningCount == 0) { // 滑动
                                 scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
-                                runningCount++;
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
                                 boolean result = clickToDetailPage();
@@ -107,7 +106,6 @@ public class OperatorHelper {
                         case Constant.FindSohuRedPackageInList:
                             if (runningCount == 0) { // 滑动
                                 scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
-                                runningCount++;
                             }
 
                             if (runningCount >= maxRunningCount) {
