@@ -79,11 +79,13 @@ public class QuTouTiao extends AppInfo {
         AccessibilityNodeInfo node;
         // 是否有签到
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/jt");
-        node = nodeInfoList.get(0);
-        if(null != node && node.getText().equals("去签到")) {
-            operatorHelper.performClickActionByNode(node);
-            operatorHelper.changeStatusToSignIn();
-            return true;
+        if(nodeInfoList.size() > 0) {
+            node = nodeInfoList.get(0);
+            if(null != node && node.getText().equals("去签到")) {
+                operatorHelper.performClickActionByNode(node);
+                operatorHelper.changeStatusToSignIn();
+                return true;
+            }
         }
 
         // 执行更新app弹窗判断

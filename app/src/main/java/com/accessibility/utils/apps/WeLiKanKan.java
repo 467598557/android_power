@@ -96,7 +96,7 @@ public class WeLiKanKan extends AppInfo {
             return;
         }
 
-        List<AccessibilityNodeInfo> nodeInfoList;
+        List<AccessibilityNodeInfo> nodeList;
         // cn.weli.story:id/ll_height_more 查看更多
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ll_height_more"));
     }

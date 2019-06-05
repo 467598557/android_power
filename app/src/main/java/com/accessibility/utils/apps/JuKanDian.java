@@ -53,16 +53,21 @@ public class JuKanDian extends AppInfo {
             return false;
         }
 
-        // com.xiangzi.jukandian:id/tosign 签到
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
+        // com.xiangzi.jukandian:id/tosign 签到
         nodeList = root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/tosign");
-        node = nodeList.get(0);
-        if(null != node) {
-            operatorHelper.performClickActionByNode(node);
-            operatorHelper.changeStatusToSignIn();
-            return true;
-        }
+        if(nodeList.size() > 0) {
+            node = nodeList.get(0);
+            if(null != node) {
+                operatorHelper.performClickActionByNode(node);
+                operatorHelper.changeStatusToSignIn();
+                return true;
+            }
+        }   
+
+        // 关闭升级弹窗
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/image_update_cancle"));
 
         // 执行弹窗判断
         boolean result = operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dialog_close"));
