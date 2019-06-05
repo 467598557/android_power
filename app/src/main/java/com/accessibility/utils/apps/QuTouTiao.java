@@ -108,4 +108,9 @@ public class QuTouTiao extends AppInfo {
 
         return true;
     }
+
+    @Override
+    public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+
+    }
 }

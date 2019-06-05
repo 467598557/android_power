@@ -79,4 +79,15 @@ public class JuKanDian extends AppInfo {
 
         return true;
     }
+
+    @Override
+    public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+        // 处理一下等待过程中的下载窗口
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return;
+        }
+
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/image_update_cancle"));
+    }
 }

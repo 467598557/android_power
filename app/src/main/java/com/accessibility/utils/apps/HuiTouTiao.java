@@ -60,8 +60,14 @@ public class HuiTouTiao extends AppInfo {
         AccessibilityNodeInfo node;
     }
 
+
+    @Override
+    public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+
+    }
+
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        return false;
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 package com.accessibility.utils;
 
+import android.graphics.Path;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public abstract class AppInfo {
     public abstract AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper);
     public abstract boolean doSomething(OperatorHelper operatorHelper);
     public abstract void doSomethingInDetailPage(OperatorHelper operatorHelper);
+    public abstract void doSomethingInOpeningApp(OperatorHelper operatorHelper);
     public abstract boolean signin(OperatorHelper operatorHelper);
 
     protected AccessibilityNodeInfo filterNormalArticleNode(List<AccessibilityNodeInfo> nodeList) {

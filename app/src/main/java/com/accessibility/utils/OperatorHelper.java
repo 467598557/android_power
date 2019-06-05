@@ -164,6 +164,7 @@ public class OperatorHelper {
                                 return;
                             }
 
+                            curApp.doSomethingInOpeningApp(instance);
                             if (runningCount >= maxRunningCount) {
                                 curStatus = Constant.StatusInList;
                                 runningCount = 0;

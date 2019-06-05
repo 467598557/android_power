@@ -109,4 +109,9 @@ public class ShanDianHeZi extends AppInfo {
 
         return null;
     }
+
+    @Override
+    public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+
+    }
 }

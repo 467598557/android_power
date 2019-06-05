@@ -76,7 +76,12 @@ public class ChengZiKuaiBao extends AppInfo {
     }
 
     @Override
+    public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+
+    }
+
+    @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        return false;
+        return true;
     }
 }
