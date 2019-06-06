@@ -79,12 +79,12 @@ public class OperatorHelper {
                                 changeStatusToOpenningApp();
                                 return;
                             }
-                            curClassName = rootNode.getClassName().toString();
-                            Log.d("@@@@ curClassNamein StatusInList", curClassName);
-                            if(!curClassName.equals(curApp.mainComponent)) { // 如果当前页面并非主页面
-                                changeStatusToBackToMainActivity();
-                                return;
-                            }
+//                            curClassName = rootNode.getClassName().toString();
+//                            Log.d("@@@@ curClassNamein StatusInList", rootNode+";"+rootNode.getWindow());
+//                            if(!curClassName.equals(curApp.mainComponent)) { // 如果当前页面并非主页面
+//                                changeStatusToBackToMainActivity();
+//                                return;
+//                            }
 
                             try {
                                 curApp.doSomething(instance);
