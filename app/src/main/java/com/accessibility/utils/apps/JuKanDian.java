@@ -82,7 +82,7 @@ public class JuKanDian extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        operatorHelper.backToPreviewWindow();
+//        operatorHelper.backToPreviewWindow();
         this.isSignin = true;
 
         return true;

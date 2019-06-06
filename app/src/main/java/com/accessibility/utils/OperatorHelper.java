@@ -55,7 +55,6 @@ public class OperatorHelper {
         maxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
         maxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
         curLoopCount = 0;
-        Log.d("@@@ start", "start run operate");
         this.service = service;
         getWindowSize();
         isRunning = true;
@@ -70,18 +69,29 @@ public class OperatorHelper {
                 }
 
                 getWindowSize();
+                String curClassName = "";
                 try {
                     switch (curStatus) {
                         case Constant.StatusInList:
-                            String curPackage = getRootNodeInfo().getPackageName().toString();
+                            AccessibilityNodeInfo rootNode = getRootNodeInfo();
+                            String curPackage = rootNode.getPackageName().toString();
                             if(!curPackage.equals(curApp.packageName)) { // 可能有异常跳出
-                                curStatus = Constant.StatusOpeningApp;
-                                runningCount = 0;
-                                maxRunningCount = 15;
+                                changeStatusToOpenningApp();
+                                return;
+                            }
+                            curClassName = rootNode.getClassName().toString();
+                            Log.d("@@@@ curClassNamein StatusInList", curClassName);
+                            if(!curClassName.equals(curApp.mainComponent)) { // 如果当前页面并非主页面
+                                changeStatusToBackToMainActivity();
                                 return;
                             }
 
-                            curApp.doSomething(instance);
+                            try {
+                                curApp.doSomething(instance);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                             if (runningCount == 0) { // 滑动
                                 scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
                             }
@@ -108,6 +118,7 @@ public class OperatorHelper {
                                 // 签到
                                 curApp.signin(instance);
                                 changeStatusToList();
+                                return;
                             }
                             break;
                         case Constant.FindSohuRedPackageInList:
@@ -118,6 +129,7 @@ public class OperatorHelper {
                             if (runningCount >= maxRunningCount) {
                                 if(curApp.doSomething(instance)) {
                                     changeStatusToList();
+                                    return;
                                 } else {
                                     runningCount = 0;  // 继续跳
                                     return;
@@ -125,7 +137,11 @@ public class OperatorHelper {
                             }
                             break;
                         case Constant.StatusInReadingArticle:
-                            curApp.doSomethingInDetailPage(instance);
+                            try {
+                                curApp.doSomethingInDetailPage(instance);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             if(runningCount % 5 == 0) {
                                 scrollScreen(winWidth/4, winHeight-100, winWidth/4, winHeight/3);
                             }
@@ -146,18 +162,30 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusWaiting:
                             if(runningCount >= maxRunningCount) {
-                                runningCount = 0;
-                                maxRunningCount = 15;
-                                curStatus = Constant.StatusOpeningApp;
+                                changeStatusToOpenningApp();
                                 return;
                             }
                             break;
                         case Constant.StatusInCloseJuKanDianApp:
                             if(runningCount >= maxRunningCount) {
                                 performClickActionByNodeListFirstChild(getRootNodeInfo().findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/sure_quit"));
-                                curStatus = Constant.StatusWaiting;
-                                runningCount = 0;
-                                maxRunningCount = 3;
+                                changeStatusToWaiting();
+                                return;
+                            }
+                            break;
+                        case Constant.StatusInBackToMainActivity:
+                            if(runningCount%2 == 0) {
+                                backToPreviewWindow();
+                            } else {
+                                curClassName = getRootNodeInfo().getClassName().toString();
+                                if(curClassName.equals(curApp.mainComponent)) {
+                                    changeStatusToList();
+                                    return;
+                                }
+                            }
+
+                            if(runningCount >= maxRunningCount) {
+                                changeStatusToList();
                                 return;
                             }
                             break;
@@ -171,8 +199,7 @@ public class OperatorHelper {
 
                             curApp.doSomethingInOpeningApp(instance);
                             if (runningCount >= maxRunningCount) {
-                                curStatus = Constant.StatusInList;
-                                runningCount = 0;
+                                changeStatusToList();
                                 maxRunningCount = 4;
                                 return;
                             }
@@ -207,10 +234,8 @@ public class OperatorHelper {
             // 获取当前app信息
             curApp = appList.get(curAppIndex);
             appRunStartTime = 0;
-            runningCount = 0;
+            changeStatusToWaiting();
             maxRunningCount = 5;
-            curStatus = Constant.StatusWaiting;
-            Log.d("@@@ 更换app", ""+curAppIndex);
             // 强行退出
             backToSystemHome();
         }
@@ -251,7 +276,6 @@ public class OperatorHelper {
             winHeight = display.getHeight();
             winWidth = display.getWidth();
         } catch(Exception e) {
-            Log.d("@@@", "getWindowSize error:"+e.getMessage());
             e.printStackTrace();
         }
     }
@@ -281,7 +305,7 @@ public class OperatorHelper {
                 super.onCompleted(gestureDescription);
             }
             public void onCancelled(GestureDescription gestureDescription) {
-                super.onCompleted(gestureDescription);
+                super.onCancelled(gestureDescription);
             }
         }, new Handler(Looper.getMainLooper()));
 
@@ -300,7 +324,6 @@ public class OperatorHelper {
             }
         }
 
-        Log.d("@@@@ clickToDetailPage", ""+nodeInfo.isClickable());
         return performClickActionByNode(nodeInfo);
     }
 
@@ -345,10 +368,28 @@ public class OperatorHelper {
         this.maxRunningCount = 8;
     }
 
+    public void changeStatusToBackToMainActivity() {
+        curStatus = Constant.StatusInBackToMainActivity;
+        runningCount = 0;
+        maxRunningCount = 10;
+    }
+
+    public void changeStatusToOpenningApp() {
+        curStatus = Constant.StatusOpeningApp;
+        runningCount = 0;
+        maxRunningCount = 15;
+    }
+
     public void changeStatusToSignIn() {
         this.curStatus = Constant.StatusSignIn;
         this.runningCount = 0;
         this.maxRunningCount = 5;
+    }
+
+    public void changeStatusToWaiting() {
+        this.curStatus = Constant.StatusWaiting;
+        this.runningCount = 0;
+        this.maxRunningCount = 3;
     }
 
     public void changeStatusToFindSohuRedPackageInList() {
@@ -363,7 +404,6 @@ public class OperatorHelper {
             return nodeInfo.findAccessibilityNodeInfosByViewId(viewId);
         }
 
-        Log.d("@@@", "未获取到当前root node info");
         return null;
     }
 
