@@ -58,7 +58,8 @@ public class JuKanDian extends AppInfo {
 
         // 关闭升级弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/image_update_cancle"));
-
+        // 要点推送弹窗
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dismisstv"));
         // 执行弹窗判断
         boolean result = operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dialog_close"));
         Log.d("@@@",  "JuKanDian执行弹窗判断---"+result);
@@ -70,6 +71,13 @@ public class JuKanDian extends AppInfo {
 
     @Override
     public void doSomethingInDetailPage(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return;
+        }
+
+        // 要点推送弹窗
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dismisstv"));
     }
 
     @Override
