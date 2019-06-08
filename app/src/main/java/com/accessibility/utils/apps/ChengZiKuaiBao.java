@@ -79,16 +79,11 @@ public class ChengZiKuaiBao extends AppInfo {
             for(int i=0, len=nodeList.size(); i<len; i++) {
                 node = nodeList.get(i);
                 specialNode = node.getParent().getParent();
-                if(specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_info_layout").size() == 0) {
+                // 如果不是文章或者广告的条目
+                if(specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_info_layout").size() == 0 &&
+                    specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_ad_v").size() == 0) {
                     operatorHelper.performClickActionByNode(node);
                 }
-//                Rect bounds = new Rect();
-//                node.getBoundsInScreen(bounds);
-//
-//                if(bounds.left < operatorHelper.winWidth/2+80) {
-//                    operatorHelper.performClickActionByNode(node);
-//                    break;
-//                }
             }
         }
 
