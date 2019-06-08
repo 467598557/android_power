@@ -50,19 +50,6 @@ public class SouHu extends AppInfo {
                 operatorHelper.changeStatusToSignIn();
                 return true;
             }
-//            nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/footer_view");
-//            if(nodeList.size() > 0) {
-//                node = nodeList.get(0);
-//                Log.d("@@@@", "进入签到逻辑-按钮数量:"+node.getChildCount());
-//                if(node.getChildCount() > 0) {
-//                    AccessibilityNodeInfo missionBtn = node.getChild(node.getChildCount()-1);
-//                    if(null != missionBtn) {
-//                        operatorHelper.performClickActionByNode(missionBtn);
-//                        operatorHelper.changeStatusToSignIn();
-//                        return true;
-//                    }
-//                }
-//            }
         }
         // 搜狐抢购商品入口关闭按钮
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_left"));
@@ -127,11 +114,13 @@ public class SouHu extends AppInfo {
             List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/task_entrance_gv");
             Log.d("@@@@", "任务中心，按钮组获取:"+nodeList);
             if(nodeList.size() > 0) {
-                AccessibilityNodeInfo node = nodeList.get(0).getChild(0);
-                Log.d("@@@@", "签到按钮获取:"+node);
-                operatorHelper.performClickActionByNode(node);
-                operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
-                this.isSignin = true;
+                AccessibilityNodeInfo btnGroup = nodeList.get(0);
+                if (btnGroup.getChildCount() > 0) {
+                    AccessibilityNodeInfo signBtn = btnGroup.getChild(0);
+                    operatorHelper.performClickActionByNode(signBtn);
+                    operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
+                    this.isSignin = true;
+                }
             }
 
             return true;
