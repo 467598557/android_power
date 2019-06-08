@@ -55,7 +55,8 @@ public class SouHu extends AppInfo {
                 }
             }
         }
-
+        // 搜狐抢购商品入口关闭按钮
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_left"));
         // 定量大红包按钮
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/red_bags"));
         // 定量大红包开启弹窗
@@ -66,10 +67,6 @@ public class SouHu extends AppInfo {
         // 定量大红包领取之后的预览弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/limit_result_uinavigation");
         if(nodeList.size() > 0) {
-//            node = nodeList.get(0).getChild(0);
-//            if(null != node) {
-//                operatorHelper.performClickActionByNode(node);
-//            }
             operatorHelper.backToPreviewWindow();
         }
 
@@ -80,7 +77,6 @@ public class SouHu extends AppInfo {
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
         // com.sohu.infonews:id/energy_open 领取金币
         return operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/energy_open"));
-        // 限量抢红包小入口按钮
     }
 
     @Override
