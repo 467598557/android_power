@@ -317,7 +317,7 @@ public class OperatorHelper {
         return true;
     }
 
-    public boolean clickInScreenPoint(float x, float y) {
+    public boolean clickInScreenPoint(final float x, final float y) {
         Path path=new Path();
         path.moveTo(x, y);
         GestureDescription.Builder builder = new GestureDescription.Builder();
@@ -328,9 +328,11 @@ public class OperatorHelper {
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
+                Log.d("@@@", "点击x="+x+",y="+y+"成功了");
             }
             public void onCancelled(GestureDescription gestureDescription) {
                 super.onCancelled(gestureDescription);
+                Log.d("@@@", "点击x="+x+",y="+y+"失败了");
             }
         }, new Handler(Looper.getMainLooper()));
 

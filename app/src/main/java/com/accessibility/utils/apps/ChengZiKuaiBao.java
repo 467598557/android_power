@@ -96,17 +96,6 @@ public class ChengZiKuaiBao extends AppInfo {
             return;
         }
 
-        AccessibilityNodeInfo node;
-        // 定时大红包 c.l.a:id/reward_text
-        if(operatorHelper.runningCount == 0) {
-            node = root.findAccessibilityNodeInfosByViewId("c.l.a:id/reward_text").get(0);
-            if(null != node) {
-                Rect rect = new Rect();
-                node.getBoundsInScreen(rect);
-                operatorHelper.clickInScreenPoint(operatorHelper.winWidth-20, rect.top);
-            }
-        }
-
         // 查看更多  com.quyu.youliao:id/ll_expand
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
     }
