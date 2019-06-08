@@ -101,23 +101,14 @@ public class NiuNiuZiXun extends AppInfo {
         }
 
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
-        if(null != root) {
+        if(null == root) {
             return false;
         }
 
-        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_news_layout");
-        if(nodeList.size() == 0) {
-            return false;
+        if(operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_news_layout"))) {
+            this.isSignin = true;
         }
 
-        AccessibilityNodeInfo node = nodeList.get(0);
-        if(null != node) {
-            operatorHelper.performClickActionByNode(node);
-            // 回到咨询列表页面
-            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_news_layout"));
-        }
-
-        this.isSignin = true;
         return true;
     }
 
