@@ -11,7 +11,7 @@ public abstract class AppInfo {
     public String mainComponent;
     public String newComponent;
     public String videoComponent;
-    public boolean isSignin = true;
+    public boolean isSignin = false;
 
     public abstract String getListViewId();
     public abstract AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper);

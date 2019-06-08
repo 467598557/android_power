@@ -45,13 +45,21 @@ public class SouHu extends AppInfo {
         AccessibilityNodeInfo node;
         List<AccessibilityNodeInfo> nodeList;
         if(!this.isSignin) {
-            nodeList = root.findAccessibilityNodeInfosByText("任务");
-            for(int i=0, len=nodeList.size(); i<len; i++) {
-                node = nodeList.get(i).getParent().getParent();
-                if(node.isClickable()) {
-                    operatorHelper.performClickActionByNode(node);
-                    operatorHelper.changeStatusToSignIn();
-                    return true;
+            Log.d("@@@@", "进入签到逻辑");
+            nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/footer_view");
+            if(nodeList.size() > 0) {
+                node = nodeList.get(0);
+                Log.d("@@@@", "进入签到逻辑-按钮数量:"+node.getChildCount());
+                if(node.getChildCount() > 0) {
+                    AccessibilityNodeInfo missionBtn = node.getChild(node.getChildCount()-1);
+                    if(null != missionBtn) {
+//                        if(missionBtn.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/news_iv").size() > 0) {
+                            Log.d("@@@@", "进入签到逻辑-任务可点击");
+                            operatorHelper.performClickActionByNode(missionBtn);
+                            operatorHelper.changeStatusToSignIn();
+                            return true;
+//                        }
+                    }
                 }
             }
         }
@@ -107,10 +115,6 @@ public class SouHu extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
-            return false;
-        }
-
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
             return false;
@@ -118,16 +122,27 @@ public class SouHu extends AppInfo {
 
         // 搜狐资讯，邀请好友红包，直接跳过
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/act_close_image"));
-        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/task_entrance_gv");
-        if(nodeList.size() > 0) {
-            AccessibilityNodeInfo node = nodeList.get(0).getChild(0);
-            operatorHelper.performClickActionByNode(node);
-            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
-            operatorHelper.backToPreviewWindow(); // 回到任务主页
-        }
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
+            List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/task_entrance_gv");
+            Log.d("@@@@", "任务中心，按钮组获取:"+nodeList);
+            if(nodeList.size() > 0) {
+                AccessibilityNodeInfo node = nodeList.get(0).getChild(0);
+                Log.d("@@@@", "签到按钮获取:"+node);
+                operatorHelper.performClickActionByNode(node);
+                operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
+                this.isSignin = true;
+            }
 
-        operatorHelper.backToPreviewWindow(); // 回到默认推荐页面
-        this.isSignin = true;
+            return true;
+        }
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-1) {
+            if(this.isSignin) {
+                operatorHelper.backToPreviewWindow();
+            }
+        }
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount) {
+            operatorHelper.backToPreviewWindow();
+        }
 
         return true;
     }

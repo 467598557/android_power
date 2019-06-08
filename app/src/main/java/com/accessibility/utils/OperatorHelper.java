@@ -412,7 +412,7 @@ public class OperatorHelper {
     public void changeStatusToSignIn() {
         this.curStatus = Constant.StatusSignIn;
         this.runningCount = 0;
-        this.maxRunningCount = 5;
+        this.maxRunningCount = 6;
     }
 
     public void changeStatusToWaiting() {
