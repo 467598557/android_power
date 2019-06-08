@@ -26,8 +26,8 @@ public class OperatorHelper {
     public boolean isRunning = false;
     private Timer timer;
     private TimerTask timerTask;
-    private int runningCount = 0;
-    private int maxRunningCount = 15;
+    public int runningCount = 0;
+    public int maxRunningCount = 15;
     private long TIMER_CHECK_INTERVAL = 1000;
     private int curStatus = Constant.StatusOpeningApp;
     private String curType = "article";
@@ -114,6 +114,11 @@ public class OperatorHelper {
                             judgeAppRunLoop();
                             break;
                         case Constant.StatusSignIn:
+                            // 往上滑动，以免存在时差页面被滑下
+                            if(runningCount <= 2) {
+                                scrollScreen(winWidth/4, winHeight/5, winWidth/4, winHeight/5*4);
+                            }
+
                             if(runningCount >= maxRunningCount) {
                                 // 签到
                                 curApp.signin(instance);
@@ -298,6 +303,26 @@ public class OperatorHelper {
         GestureDescription.Builder builder = new GestureDescription.Builder();
         GestureDescription  gestureDescription = builder
                 .addStroke(new GestureDescription.StrokeDescription(path, 50L, 350L, false))
+                .build();
+        service.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+            @Override
+            public void onCompleted(GestureDescription gestureDescription) {
+                super.onCompleted(gestureDescription);
+            }
+            public void onCancelled(GestureDescription gestureDescription) {
+                super.onCancelled(gestureDescription);
+            }
+        }, new Handler(Looper.getMainLooper()));
+
+        return true;
+    }
+
+    public boolean clickInScreenPoint(float x, float y) {
+        Path path=new Path();
+        path.moveTo(x, y);
+        GestureDescription.Builder builder = new GestureDescription.Builder();
+        GestureDescription  gestureDescription = builder
+                .addStroke(new GestureDescription.StrokeDescription(path, 50L, 50L))
                 .build();
         service.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
             @Override

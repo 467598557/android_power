@@ -52,12 +52,11 @@ public class WeLiKanKan extends AppInfo {
             nodeInfo = nodeInfoList.get(0);
             if(nodeInfo.findAccessibilityNodeInfosByText("+").size() > 0) { // 确认是金币
                 nodeInfoList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            } else if(nodeInfo.findAccessibilityNodeInfosByText("签到").size() > 0) { // 确认是签到
+                operatorHelper.performClickActionByNode(nodeInfo);
+                operatorHelper.changeStatusToSignIn();
+                return true;
             }
-//            else if(nodeInfo.findAccessibilityNodeInfosByText("签到").size() > 0) { // 确认是签到
-//                operatorHelper.performClickActionByNode(nodeInfo);
-//                operatorHelper.changeStatusToSignIn();
-//                return true;
-//            }
         }
         // cn.weli.story:id/text_ok 文章列表文章领取后确定
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/text_ok"));

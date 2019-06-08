@@ -54,15 +54,16 @@ public class JuKanDian extends AppInfo {
                 operatorHelper.changeStatusToSignIn();
                 return true;
             }
-        }   
+        }
 
+        // 关闭阅读时长换金币提示
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/image_user_task_pop_close"));
         // 关闭升级弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/image_update_cancle"));
         // 要点推送弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dismisstv"));
         // 执行弹窗判断
-        boolean result = operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dialog_close"));
-        Log.d("@@@",  "JuKanDian执行弹窗判断---"+result);
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dialog_close"));
         // 执行领取分时金币逻辑
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/rl_lingqu_par"));
 
@@ -82,7 +83,6 @@ public class JuKanDian extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-//        operatorHelper.backToPreviewWindow();
         this.isSignin = true;
 
         return true;

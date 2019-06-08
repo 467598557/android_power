@@ -54,14 +54,14 @@ public class NiuNiuZiXun extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeInfoList;
         AccessibilityNodeInfo nodeInfo;
-//        if(!this.isSignin) {
-//            nodeInfo = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_task_layout").get(0);
-//            if(null != nodeInfo) {
-//                operatorHelper.performClickActionByNode(nodeInfo);
-//                operatorHelper.changeStatusToSignIn();
-//                return true;
-//            }
-//        }
+        if(!this.isSignin) {
+            nodeInfo = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_task_layout").get(0);
+            if(null != nodeInfo) {
+                operatorHelper.performClickActionByNode(nodeInfo);
+                operatorHelper.changeStatusToSignIn();
+                return true;
+            }
+        }
         // 金币领取后再点击后弹窗
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_dialog_datecoins_close");
         if(nodeInfoList.size() > 0) {
@@ -69,6 +69,8 @@ public class NiuNiuZiXun extends AppInfo {
         }
         // 金币领取后弹窗 com.huolea.bull:id/id_dialog_datecoins_cancel
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_dialog_datecoins_cancel"));
+        // 邀请好友弹窗关闭按钮
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_dialog_activity_close"));
         //  金币容器
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_fragment_information_datecoins_layout");
         if(nodeInfoList.size() > 0) {
@@ -99,12 +101,19 @@ public class NiuNiuZiXun extends AppInfo {
             return false;
         }
 
-        AccessibilityNodeInfo node = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_news_layout").get(0);
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_news_layout");
+        if(nodeList.size() == 0) {
+            return false;
+        }
+
+        AccessibilityNodeInfo node = nodeList.get(0);
         if(null != node) {
             operatorHelper.performClickActionByNode(node);
+            // 回到咨询列表页面
+            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_news_layout"));
         }
-        this.isSignin = true;
 
+        this.isSignin = true;
         return true;
     }
 
