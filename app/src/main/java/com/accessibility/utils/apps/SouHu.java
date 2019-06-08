@@ -46,22 +46,23 @@ public class SouHu extends AppInfo {
         List<AccessibilityNodeInfo> nodeList;
         if(!this.isSignin) {
             Log.d("@@@@", "进入签到逻辑");
-            nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/footer_view");
-            if(nodeList.size() > 0) {
-                node = nodeList.get(0);
-                Log.d("@@@@", "进入签到逻辑-按钮数量:"+node.getChildCount());
-                if(node.getChildCount() > 0) {
-                    AccessibilityNodeInfo missionBtn = node.getChild(node.getChildCount()-1);
-                    if(null != missionBtn) {
-//                        if(missionBtn.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/news_iv").size() > 0) {
-                            Log.d("@@@@", "进入签到逻辑-任务可点击");
-                            operatorHelper.performClickActionByNode(missionBtn);
-                            operatorHelper.changeStatusToSignIn();
-                            return true;
-//                        }
-                    }
-                }
+            if(clickFooterMenu(operatorHelper, root, 3)) {
+                operatorHelper.changeStatusToSignIn();
+                return true;
             }
+//            nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/footer_view");
+//            if(nodeList.size() > 0) {
+//                node = nodeList.get(0);
+//                Log.d("@@@@", "进入签到逻辑-按钮数量:"+node.getChildCount());
+//                if(node.getChildCount() > 0) {
+//                    AccessibilityNodeInfo missionBtn = node.getChild(node.getChildCount()-1);
+//                    if(null != missionBtn) {
+//                        operatorHelper.performClickActionByNode(missionBtn);
+//                        operatorHelper.changeStatusToSignIn();
+//                        return true;
+//                    }
+//                }
+//            }
         }
         // 搜狐抢购商品入口关闭按钮
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_left"));
@@ -141,7 +142,7 @@ public class SouHu extends AppInfo {
             }
         }
         if(operatorHelper.runningCount == operatorHelper.maxRunningCount) {
-            operatorHelper.backToPreviewWindow();
+            clickFooterMenu(operatorHelper, root, 0);
         }
 
         return true;
@@ -150,5 +151,18 @@ public class SouHu extends AppInfo {
     @Override
     public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
 
+    }
+
+    private boolean clickFooterMenu(OperatorHelper operatorHelper, AccessibilityNodeInfo root, int index) {
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/footer_view");
+        if(nodeList.size() > 0) {
+            AccessibilityNodeInfo footerNode = nodeList.get(0);
+            if(footerNode.getChildCount() > index) {
+                operatorHelper.performClickActionByNode(footerNode.getChild(index));
+                return true;
+            }
+        }
+
+        return false;
     }
 }
