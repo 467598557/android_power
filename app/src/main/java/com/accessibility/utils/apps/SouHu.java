@@ -126,12 +126,10 @@ public class SouHu extends AppInfo {
         if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
             if(this.isSignin) {
                 operatorHelper.backToPreviewWindow();
-                Log.d("@@@@", "签到成功,回退一页");
             }
         }
         if(operatorHelper.runningCount == operatorHelper.maxRunningCount) {
             clickFooterMenu(operatorHelper, root, 0);
-            Log.d("@@@@", "返回首页");
         }
 
         return true;
