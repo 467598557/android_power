@@ -99,10 +99,16 @@ public class WeLiKanKan extends AppInfo {
             return false;
         }
 
-        // 点击立即签到坐标点，这个按钮是用webview实现，无法获取
-        operatorHelper.clickInScreenPoint(350, 260);
-//        operatorHelper.backToPreviewWindow();
-        this.isSignin = true;
+        // 签到倒数第二秒点击按钮
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount - 1) {
+            operatorHelper.clickInScreenPoint(350, 260);
+            return true;
+        }
+
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount) {
+            operatorHelper.backToPreviewWindow();
+            this.isSignin = true;
+        }
 
         return true;
     }

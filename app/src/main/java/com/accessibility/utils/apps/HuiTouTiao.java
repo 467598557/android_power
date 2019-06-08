@@ -68,6 +68,10 @@ public class HuiTouTiao extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
+        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
+            return false;
+        }
+            
         return true;
     }
 }

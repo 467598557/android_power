@@ -110,6 +110,10 @@ public class SouHu extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
+        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
+            return false;
+        }
+
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
             return false;

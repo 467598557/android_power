@@ -103,6 +103,10 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
+        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
+            return false;
+        }
+
         operatorHelper.backToPreviewWindow();
         this.isSignin = true;
 

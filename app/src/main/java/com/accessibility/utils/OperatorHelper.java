@@ -119,9 +119,11 @@ public class OperatorHelper {
                                 scrollScreen(winWidth/4, winHeight/5, winWidth/4, winHeight/5*4);
                             }
 
+                            if(runningCount > 2) {
+                                curApp.signin(instance);
+                            }
                             if(runningCount >= maxRunningCount) {
                                 // 签到
-                                curApp.signin(instance);
                                 changeStatusToList();
                                 return;
                             }
