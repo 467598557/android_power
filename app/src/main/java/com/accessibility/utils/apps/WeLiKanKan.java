@@ -1,5 +1,6 @@
 package com.accessibility.utils.apps;
 
+import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.accessibility.utils.AppInfo;
@@ -93,7 +94,14 @@ public class WeLiKanKan extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        operatorHelper.backToPreviewWindow();
+        AccessibilityNodeInfo root  = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return false;
+        }
+
+        // 点击立即签到坐标点，这个按钮是用webview实现，无法获取
+        operatorHelper.clickInScreenPoint(350, 260);
+//        operatorHelper.backToPreviewWindow();
         this.isSignin = true;
 
         return true;
