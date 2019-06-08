@@ -75,14 +75,20 @@ public class ChengZiKuaiBao extends AppInfo {
         // com.quyu.youliao:id/iv_close 列表页新人福利社弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
         if(nodeList.size() > 0) {
+            AccessibilityNodeInfo specialNode;
             for(int i=0, len=nodeList.size(); i<len; i++) {
                 node = nodeList.get(i);
-                Rect bounds = new Rect();
-                node.getBoundsInScreen(bounds);
-                if(bounds.left < operatorHelper.winWidth/2+80) {
+                specialNode = node.getParent().getParent();
+                if(specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_info_layout").size() == 0) {
                     operatorHelper.performClickActionByNode(node);
-                    break;
                 }
+//                Rect bounds = new Rect();
+//                node.getBoundsInScreen(bounds);
+//
+//                if(bounds.left < operatorHelper.winWidth/2+80) {
+//                    operatorHelper.performClickActionByNode(node);
+//                    break;
+//                }
             }
         }
 
