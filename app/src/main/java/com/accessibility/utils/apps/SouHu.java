@@ -66,10 +66,11 @@ public class SouHu extends AppInfo {
         // 定量大红包领取之后的预览弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/limit_result_uinavigation");
         if(nodeList.size() > 0) {
-            node = nodeList.get(0).getChild(0);
-            if(null != node) {
-                operatorHelper.performClickActionByNode(node);
-            }
+//            node = nodeList.get(0).getChild(0);
+//            if(null != node) {
+//                operatorHelper.performClickActionByNode(node);
+//            }
+            operatorHelper.backToPreviewWindow();
         }
 
         // 执行弹窗判断
