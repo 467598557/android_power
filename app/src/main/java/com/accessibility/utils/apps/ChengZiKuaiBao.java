@@ -1,6 +1,7 @@
 package com.accessibility.utils.apps;
 
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.accessibility.utils.AppInfo;
@@ -48,31 +49,6 @@ public class ChengZiKuaiBao extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
-        if(!this.isSignin) {
-            clickMainMenuByIndex(operatorHelper, root, 3);
-//            nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_text");
-//            for(int i=0, len=nodeList.size(); i<len; i++) {
-//                node = nodeList.get(i);
-//                if(node.getText().equals("任务")) {
-//                    int count = 0;
-//                    while(count < 20 && null != node) {
-//                        node = node.getParent();
-//                        if(null != node && node.isClickable()) {
-//                            break;
-//                        }
-//
-//                        count++;
-//                    }
-//
-//                    if(null != node && node.isClickable()) {
-//                        operatorHelper.performClickActionByNode(node);
-//                        operatorHelper.changeStatusToSignIn();
-//                        return true;
-//                    }
-//                }
-//            }
-        }
-
         // com.quyu.youliao:id/iv_close 列表页新人福利社等弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
         if(nodeList.size() > 0) {
@@ -86,6 +62,12 @@ public class ChengZiKuaiBao extends AppInfo {
                     operatorHelper.performClickActionByNode(node);
                 }
             }
+        }
+
+        if(!this.isSignin) {
+            Log.d("@@@@", "点击任务按钮");
+            clickMainMenuByIndex(operatorHelper, root, 3);
+            operatorHelper.changeStatusToSignIn();
         }
 
         return true;
@@ -136,7 +118,8 @@ public class ChengZiKuaiBao extends AppInfo {
     private boolean clickMainMenuByIndex(OperatorHelper operatorHelper, AccessibilityNodeInfo root, int index) {
         List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_container");
         if(nodeList.size() > 0) {
-            AccessibilityNodeInfo btnGroup = nodeList.get(0);
+            // 取最后一个
+            AccessibilityNodeInfo btnGroup = nodeList.get(nodeList.size() - 1);
             if(btnGroup.getChildCount() > index) {
                 return operatorHelper.performClickActionByNode(btnGroup.getChild(index));
             }
