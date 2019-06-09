@@ -74,6 +74,10 @@ public class OperatorHelper {
                     switch (curStatus) {
                         case Constant.StatusInList:
                             AccessibilityNodeInfo rootNode = getRootNodeInfo();
+                            if(null == rootNode) {
+                                backToPreviewWindow();
+                                return;
+                            }
                             String curPackage = rootNode.getPackageName().toString();
                             if(!curPackage.equals(curApp.packageName)) { // 可能有异常跳出
                                 changeStatusToOpenningApp();
