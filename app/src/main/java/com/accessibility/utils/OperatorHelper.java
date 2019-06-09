@@ -75,16 +75,17 @@ public class OperatorHelper {
                     Log.d("@@@", "root node is null");
                     backToPreviewWindow();
                     return;
+                } else {
+                    // 可能有异常跳出
+                    String curPackage = rootNode.getPackageName().toString();
+                    if(!curPackage.equals(curApp.packageName)) {
+                        changeStatusToOpenningApp();
+                        return;
+                    }
                 }
                 try {
                     switch (curStatus) {
                         case Constant.StatusInList:
-                            String curPackage = rootNode.getPackageName().toString();
-                            if(!curPackage.equals(curApp.packageName)) { // 可能有异常跳出
-                                changeStatusToOpenningApp();
-                                return;
-                            }
-
                             try {
                                 curApp.doSomething(instance);
                             } catch (Exception e) {
@@ -329,11 +330,9 @@ public class OperatorHelper {
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
-                Log.d("@@@", "点击x="+x+",y="+y+"成功了");
             }
             public void onCancelled(GestureDescription gestureDescription) {
                 super.onCancelled(gestureDescription);
-                Log.d("@@@", "点击x="+x+",y="+y+"失败了");
             }
         }, new Handler(Looper.getMainLooper()));
 
