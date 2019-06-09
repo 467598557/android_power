@@ -74,6 +74,8 @@ public class QuTouTiao extends AppInfo {
             }
         }
 
+        // 列表输入好友邀请码领金币弹窗
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a1w"));
         // 执行更新app弹窗判断
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByText("以后更新"));
         // 锁屏看新闻弹窗判断
