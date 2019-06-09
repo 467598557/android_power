@@ -110,6 +110,5 @@ public class WeLiKanKan extends AppInfo {
 
     @Override
     public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
-
     }
 }
