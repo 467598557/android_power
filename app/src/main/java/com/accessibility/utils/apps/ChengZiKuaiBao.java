@@ -60,7 +60,6 @@ public class ChengZiKuaiBao extends AppInfo {
         }
 
         if(!this.isSignin) {
-            Log.d("@@@@", "点击任务按钮");
             clickMainMenuByIndex(operatorHelper, root, 3);
             operatorHelper.changeStatusToSignIn();
         }
