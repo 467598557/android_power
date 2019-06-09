@@ -1,5 +1,6 @@
 package com.accessibility.utils.apps;
 
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -23,18 +24,27 @@ public class ShanDianHeZi extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
-        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/recyvlerview");
-        if(nodeList.size() > 0) {
-            AccessibilityNodeInfo node = nodeList.get(0);
-            if(null != node) {
-                AccessibilityNodeInfo childNode;
-                for(int i=0, len=node.getChildCount(); i<len; i++) {
-                    childNode = node.getChild(i);
-
-                    if(childNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
-                        return childNode;
-                    }
-                }
+//        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/recyvlerview");
+//        if(nodeList.size() > 0) {
+//            AccessibilityNodeInfo node = nodeList.get(0);
+//            if(null != node) {
+//                AccessibilityNodeInfo childNode;
+//                for(int i=0, len=node.getChildCount(); i<len; i++) {
+//                    childNode = node.getChild(i);
+//
+//                    if(childNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
+//                        return childNode;
+//                    }
+//                }
+//            }
+//        }
+        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/from_text");
+        AccessibilityNodeInfo node;
+        for(int i=0, len=nodeList.size(); i<len; i++) {
+            node = nodeList.get(i).getParent();
+            if(node.isClickable() && node.findAccessibilityNodeInfosByText("广告").size() == 0
+                    && node.getClassName().toString().equals("android.widget.LinearLayout")) {
+                return node;
             }
         }
 
@@ -53,30 +63,9 @@ public class ShanDianHeZi extends AppInfo {
             return false;
         }
 
-        List<AccessibilityNodeInfo> nodeList;
-        AccessibilityNodeInfo node;
         if(!this.isSignin) {
-            nodeList = root.findAccessibilityNodeInfosByViewId("c.l.a:id/tab_text");
-            for(int i=0, len=nodeList.size(); i<len; i++) {
-                node = nodeList.get(i);
-                if(node.getText().equals("任务")) {
-                    int count = 0;
-                    while(count < 20 && null != node) {
-                        node = node.getParent();
-                        if(null != node && node.isClickable()) {
-                            break;
-                        }
-
-                        count++;
-                    }
-
-                    if(null != node && node.isClickable()) {
-                        operatorHelper.performClickActionByNode(node);
-                        operatorHelper.changeStatusToSignIn();
-                        return true;
-                    }
-                }
-            }
+            clickMainMenuByIndex(operatorHelper, root, 3);
+            operatorHelper.changeStatusToSignIn();
         }
 
         return true;
@@ -100,53 +89,49 @@ public class ShanDianHeZi extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
-            return false;
-        }
-
         AccessibilityNodeInfo root  = operatorHelper.getRootNodeInfo();
         if(null == root) {
             return false;
         }
 
-        List<AccessibilityNodeInfo> nodeList  = root.findAccessibilityNodeInfosByViewId("c.l.a:id/red_pack_signed_btn");
-        if(nodeList.size() > 0) {
-            AccessibilityNodeInfo signinBtn = nodeList.get(0);
-            if(null != signinBtn) {
-                operatorHelper.performClickActionByNode(signinBtn); // 点击签到
-                operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/close_sign_dialog_btn"));
-            }
-        }
-
-        AccessibilityNodeInfo node;
-        nodeList = root.findAccessibilityNodeInfosByViewId("c.l.a:id/tab_text");
-        // 回首页
-        for(int i=0, len=nodeList.size(); i<len; i++) {
-            node = nodeList.get(i);
-            if(node.getText().equals("首页")) {
-                int count = 0;
-                while(count < 20 && null != node) {
-                    node = node.getParent();
-                    if(null != node && node.isClickable()) {
-                        break;
-                    }
-
-                    count++;
-                }
-
-                if(null != node && node.isClickable()) {
-                    operatorHelper.performClickActionByNode(node);
-                    break;
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
+            List<AccessibilityNodeInfo> nodeList  = root.findAccessibilityNodeInfosByViewId("c.l.a:id/red_pack_signed_btn");
+            if(nodeList.size() > 0) {
+                AccessibilityNodeInfo signinBtn = nodeList.get(0);
+                if(null != signinBtn) {
+                    operatorHelper.performClickActionByNode(signinBtn); // 点击签到
                 }
             }
         }
-        this.isSignin = true;
+
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount - 1) {
+            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/close_sign_dialog_btn"));
+        }
+
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount) {
+            // 回首页
+            clickMainMenuByIndex(operatorHelper, root, 0);
+            this.isSignin = true;
+        }
 
         return true;
     }
 
     @Override
     public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+    }
 
+    private boolean clickMainMenuByIndex(OperatorHelper operatorHelper, AccessibilityNodeInfo root, int index) {
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("c.l.a:id/bottom_navigation");
+        if(nodeList.size() > 0) {
+            AccessibilityNodeInfo btnGroup = nodeList.get(nodeList.size() - 1);
+            if(btnGroup.getChildCount() > index) {
+                AccessibilityNodeInfo btn = btnGroup.getChild(index);
+                operatorHelper.performClickActionByNode(btn);
+                return true;
+            }
+        }
+
+        return false;
     }
 }
