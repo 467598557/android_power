@@ -19,11 +19,6 @@ public class NiuNiuZiXun extends AppInfo {
     }
 
     @Override
-    public String getListViewId() {
-        return null;
-    }
-
-    @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("com.huolea.bull:id/title_tv");
         AccessibilityNodeInfo node;

@@ -7,17 +7,11 @@ import com.accessibility.utils.OperatorHelper;
 
 import java.util.List;
 
-// #TODO 待处理
 public class HuiTouTiao extends AppInfo {
     public HuiTouTiao() {
         this.packageName = "com.sohu.infonews";
         this.startComponent = "com.sohu.quicknews.splashModel.activity.SplashActivity";
         this.mainComponent = "com.sohu.quicknews.homeModel.activity.HomeActivity";
-    }
-
-    @Override
-    public String getListViewId() {
-        return "";
     }
 
     @Override

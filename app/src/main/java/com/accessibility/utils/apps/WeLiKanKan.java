@@ -18,11 +18,6 @@ public class WeLiKanKan extends AppInfo {
     }
 
     @Override
-    public String getListViewId() {
-        return null;
-    }
-
-    @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("cn.weli.story:id/layout");
 

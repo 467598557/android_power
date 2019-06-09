@@ -18,10 +18,6 @@ public class QuTouTiao extends AppInfo {
         this.videoComponent = "com.jifen.qukan.content.newsdetail.video.VideoNewsDetailNewActivity";
     }
 
-    public String getListViewId() {
-        return "com.jifen.qukan:id/no";
-    }
-
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.jifen.qukan:id/a5n");

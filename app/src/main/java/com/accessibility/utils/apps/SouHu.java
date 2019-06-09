@@ -16,11 +16,6 @@ public class SouHu extends AppInfo {
     }
 
     @Override
-    public String getListViewId() {
-        return "";
-    }
-
-    @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("com.sohu.infonews:id/btm_divider");
         AccessibilityNodeInfo node;

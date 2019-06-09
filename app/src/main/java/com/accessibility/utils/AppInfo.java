@@ -13,7 +13,6 @@ public abstract class AppInfo {
     public String videoComponent;
     public boolean isSignin = false;
 
-    public abstract String getListViewId();
     public abstract AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper);
     public abstract AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper);
     public abstract boolean doSomething(OperatorHelper operatorHelper);

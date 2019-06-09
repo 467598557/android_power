@@ -18,11 +18,6 @@ public class ShanDianHeZi extends AppInfo {
     }
 
     @Override
-    public String getListViewId() {
-        return "";
-    }
-
-    @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
 //        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/recyvlerview");
 //        if(nodeList.size() > 0) {

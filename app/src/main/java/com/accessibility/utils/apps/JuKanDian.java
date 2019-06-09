@@ -18,11 +18,6 @@ public class JuKanDian extends AppInfo {
     }
 
     @Override
-    public String getListViewId() {
-        return "";
-    }
-
-    @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.xiangzi.jukandian:id/item_artical_three_parent");
 
