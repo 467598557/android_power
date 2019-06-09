@@ -49,30 +49,31 @@ public class ChengZiKuaiBao extends AppInfo {
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
         if(!this.isSignin) {
-            nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_text");
-            for(int i=0, len=nodeList.size(); i<len; i++) {
-                node = nodeList.get(i);
-                if(node.getText().equals("任务")) {
-                    int count = 0;
-                    while(count < 20 && null != node) {
-                        node = node.getParent();
-                        if(null != node && node.isClickable()) {
-                            break;
-                        }
-
-                        count++;
-                    }
-
-                    if(null != node && node.isClickable()) {
-                        operatorHelper.performClickActionByNode(node);
-                        operatorHelper.changeStatusToSignIn();
-                        return true;
-                    }
-                }
-            }
+            clickMainMenuByIndex(operatorHelper, root, 3);
+//            nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_text");
+//            for(int i=0, len=nodeList.size(); i<len; i++) {
+//                node = nodeList.get(i);
+//                if(node.getText().equals("任务")) {
+//                    int count = 0;
+//                    while(count < 20 && null != node) {
+//                        node = node.getParent();
+//                        if(null != node && node.isClickable()) {
+//                            break;
+//                        }
+//
+//                        count++;
+//                    }
+//
+//                    if(null != node && node.isClickable()) {
+//                        operatorHelper.performClickActionByNode(node);
+//                        operatorHelper.changeStatusToSignIn();
+//                        return true;
+//                    }
+//                }
+//            }
         }
 
-        // com.quyu.youliao:id/iv_close 列表页新人福利社弹窗
+        // com.quyu.youliao:id/iv_close 列表页新人福利社等弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
         if(nodeList.size() > 0) {
             AccessibilityNodeInfo specialNode;
@@ -108,45 +109,39 @@ public class ChengZiKuaiBao extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
-            return false;
-        }
-
         AccessibilityNodeInfo root  = operatorHelper.getRootNodeInfo();
         if(null == root) {
             return false;
         }
 
-        // 任务界面拆红包弹窗
-        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/btn_close"));
-        AccessibilityNodeInfo signBtn = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/btn_sign").get(0);
-        if(null != signBtn) { // 签到按钮点击
-            operatorHelper.performClickActionByNode(signBtn);
-        }
-
-        AccessibilityNodeInfo node;
-        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_text");
-        // 回首页
-        for(int i=0, len=nodeList.size(); i<len; i++) {
-            node = nodeList.get(i);
-            if(node.getText().equals("首页")) {
-                int count = 0;
-                while(count < 20 && null != node) {
-                    node = node.getParent();
-                    if(null != node && node.isClickable()) {
-                        break;
-                    }
-
-                    count++;
-                }
-
-                if(null != node && node.isClickable()) {
-                    operatorHelper.performClickActionByNode(node);
-                }
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
+            // 任务界面拆红包弹窗
+            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/btn_close"));
+            List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/btn_sign");
+            if(nodeList.size() > 0) {
+                AccessibilityNodeInfo signBtn = nodeList.get(0);
+                operatorHelper.performClickActionByNode(signBtn);
             }
         }
-        this.isSignin = true;
+
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount) {
+            if(clickMainMenuByIndex(operatorHelper, root, 0)) {
+                this.isSignin = true;
+            }
+        }
 
         return true;
+    }
+
+    private boolean clickMainMenuByIndex(OperatorHelper operatorHelper, AccessibilityNodeInfo root, int index) {
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_container");
+        if(nodeList.size() > 0) {
+            AccessibilityNodeInfo btnGroup = nodeList.get(0);
+            if(btnGroup.getChildCount() > index) {
+                return operatorHelper.performClickActionByNode(btnGroup.getChild(index));
+            }
+        }
+
+        return false;
     }
 }

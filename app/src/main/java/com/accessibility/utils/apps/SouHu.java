@@ -45,7 +45,6 @@ public class SouHu extends AppInfo {
         AccessibilityNodeInfo node;
         List<AccessibilityNodeInfo> nodeList;
         if(!this.isSignin) {
-            Log.d("@@@@", "进入签到逻辑");
             if(clickFooterMenu(operatorHelper, root, 3)) {
                 operatorHelper.changeStatusToSignIn();
                 return true;
@@ -110,9 +109,8 @@ public class SouHu extends AppInfo {
 
         // 搜狐资讯，邀请好友红包，直接跳过
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/act_close_image"));
-        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-3) {
             List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/task_entrance_gv");
-            Log.d("@@@@", "任务中心，按钮组获取:"+nodeList);
             if(nodeList.size() > 0) {
                 AccessibilityNodeInfo btnGroup = nodeList.get(0);
                 if (btnGroup.getChildCount() > 0) {
@@ -125,7 +123,7 @@ public class SouHu extends AppInfo {
 
             return true;
         }
-        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-1) {
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
             if(this.isSignin) {
                 operatorHelper.backToPreviewWindow();
             }
