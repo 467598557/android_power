@@ -9,6 +9,8 @@ import com.accessibility.utils.OperatorHelper;
 import java.util.List;
 
 public class SouHu extends AppInfo {
+    private boolean isFinishedToday = false;
+
     public SouHu() {
         this.packageName = "com.sohu.infonews";
         this.startComponent = "com.sohu.quicknews.splashModel.activity.SplashActivity";
@@ -90,8 +92,33 @@ public class SouHu extends AppInfo {
         // 能量红包弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/notice_btn");
         if(nodeList.size() > 0) {
-            nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            operatorHelper.changeStatusToFindSohuRedPackageInList();
+            node = nodeList.get(0);
+            if(!node.getText().equals("逛一逛")) {
+                node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                operatorHelper.changeStatusToFindSohuRedPackageInList();
+            }
+        }
+        // 搜狐金币当日领取完毕，点击测试
+        if(operatorHelper.runningCount == 2) {
+            nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/counting_img");
+            if(nodeList.size() > 0) {
+                node = nodeList.get(0);
+                isFinishedToday = operatorHelper.performClickActionByNode(node);
+            }
+        }
+        if(isFinishedToday) {
+            nodeList = operatorHelper.findNodesById("com.sohu.infonews:id/btn");
+            if(null != nodeList && nodeList.size() > 0) {
+                node = nodeList.get(0);
+                if(node.getText().equals("立即领取")) {
+                    operatorHelper.performClickActionByNode(node);
+                } else {
+                    operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+                    operatorHelper.judgeAppRunLoop(true); // 强行跳转至下一个app
+                }
+            } else {
+                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+            }
         }
     }
 

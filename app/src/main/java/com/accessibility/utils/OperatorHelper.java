@@ -110,7 +110,7 @@ public class OperatorHelper {
                                 maxRunningCount = 40;
                             }
 
-                            judgeAppRunLoop();
+                            judgeAppRunLoop(false);
                             break;
                         case Constant.StatusSignIn:
                             // 往上滑动，以免存在时差页面被滑下
@@ -222,9 +222,9 @@ public class OperatorHelper {
         timer.schedule(timerTask, 0, TIMER_CHECK_INTERVAL);
     }
 
-    private void judgeAppRunLoop() {
+    public void judgeAppRunLoop(boolean force) {
     // 判断app生命周期
-        if((appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
+        if(force || (appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
             curAppIndex++;
             if(curAppIndex >= appList.size()) {
                 curAppIndex = 0;
