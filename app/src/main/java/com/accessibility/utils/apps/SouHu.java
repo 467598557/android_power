@@ -114,7 +114,10 @@ public class SouHu extends AppInfo {
                     operatorHelper.performClickActionByNode(node);
                 } else {
                     operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
-                    operatorHelper.judgeAppRunLoop(true); // 强行跳转至下一个app
+                    // 验证是否领取完 com.sohu.infonews:id/read_extra_reward
+                    if(operatorHelper.findNodesById("com.sohu.infonews:id/read_extra_reward").size() == 0) {
+                        operatorHelper.judgeAppRunLoop(true); // 强行跳转至下一个app
+                    }
                 }
             } else {
                 operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
