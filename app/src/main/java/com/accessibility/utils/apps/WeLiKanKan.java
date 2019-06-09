@@ -48,6 +48,10 @@ public class WeLiKanKan extends AppInfo {
                 operatorHelper.performClickActionByNode(nodeInfo);
             }
         }
+        // cn.weli.story:id/iv_take 随机福利金币红包
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/iv_take"));
+        // cn.weli.story:id/iv_close 随机福利金币红包关闭按钮
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/iv_close"));
         // cn.weli.story:id/ic_close 金币弹窗确定
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/ic_close"));
         // cn.weli.story:id/rl_head_line 金币()
