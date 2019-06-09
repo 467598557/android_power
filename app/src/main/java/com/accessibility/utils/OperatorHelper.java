@@ -150,7 +150,7 @@ public class OperatorHelper {
                                 e.printStackTrace();
                             }
                             if(runningCount % 5 == 0) {
-                                scrollScreen(winWidth/3, winHeight-100, winWidth/3, winHeight/3);
+                                scrollScreen(winWidth/3, winHeight/5*4, winWidth/3, winHeight/5);
                             }
                             // 滚动且监听查看更多
                             if (runningCount > maxRunningCount) { // 退回列表
