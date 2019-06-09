@@ -93,7 +93,7 @@ public class OperatorHelper {
                             }
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
+                                scrollScreen(winWidth/3, winHeight/5*4, winWidth/3, winHeight/5);
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
                                 boolean result = clickToDetailPage();
@@ -116,7 +116,7 @@ public class OperatorHelper {
                         case Constant.StatusSignIn:
                             // 往上滑动，以免存在时差页面被滑下
                             if(runningCount <= 2) {
-                                scrollScreen(winWidth/4, winHeight/5, winWidth/4, winHeight/5*4);
+                                scrollScreen(winWidth/3, winHeight/5, winWidth/3, winHeight/5*4);
                             }
 
                             if(runningCount > 2) {
@@ -130,7 +130,7 @@ public class OperatorHelper {
                             break;
                         case Constant.FindSohuRedPackageInList:
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/4, winHeight/5*4, winWidth/4, winHeight/5);
+                                scrollScreen(winWidth/3, winHeight/5*4, winWidth/3, winHeight/5);
                             }
 
                             if (runningCount >= maxRunningCount) {
@@ -150,7 +150,7 @@ public class OperatorHelper {
                                 e.printStackTrace();
                             }
                             if(runningCount % 5 == 0) {
-                                scrollScreen(winWidth/4, winHeight-100, winWidth/4, winHeight/3);
+                                scrollScreen(winWidth/3, winHeight-100, winWidth/3, winHeight/3);
                             }
                             // 滚动且监听查看更多
                             if (runningCount > maxRunningCount) { // 退回列表

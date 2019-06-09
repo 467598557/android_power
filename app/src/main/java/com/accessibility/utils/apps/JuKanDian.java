@@ -45,17 +45,6 @@ public class JuKanDian extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
-        // com.xiangzi.jukandian:id/tosign 签到
-        nodeList = root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/tosign");
-        if(nodeList.size() > 0) {
-            node = nodeList.get(0);
-            if(null != node) {
-                operatorHelper.performClickActionByNode(node);
-                operatorHelper.changeStatusToSignIn();
-                return true;
-            }
-        }
-
         // 签到成功后广告弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/close_dialog_layout"));
         // 关闭阅读时长换金币提示
@@ -68,6 +57,16 @@ public class JuKanDian extends AppInfo {
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/dialog_close"));
         // 执行领取分时金币逻辑
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/rl_lingqu_par"));
+
+        // com.xiangzi.jukandian:id/tosign 签到
+        nodeList = root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/tosign");
+        if(nodeList.size() > 0) {
+            node = nodeList.get(0);
+            if(null != node) {
+                operatorHelper.performClickActionByNode(node);
+                operatorHelper.changeStatusToSignIn();
+            }
+        }
 
         return true;
     }
