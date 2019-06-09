@@ -85,6 +85,8 @@ public class ShanDianHeZi extends AppInfo {
             // 定时大红包 计算位置
             operatorHelper.clickInScreenPoint(operatorHelper.winWidth-50, (float)(operatorHelper.winHeight*0.735+50));
         }
+
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/button"));
     }
 
     @Override
