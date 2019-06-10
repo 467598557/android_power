@@ -17,12 +17,14 @@ public class Util {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             /**知道要跳转应用的包命与目标Activity*/
             intent.setPackage(context.getPackageName());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ComponentName componentName = new ComponentName(appInfo.packageName, appInfo.startComponent);
             intent.setComponent(componentName);
             context.startActivity(intent);
 
             return true;
         } catch (Exception e) {
+            Log.d("@@@@", "start Activity error");
             e.printStackTrace();
             return false;
         }

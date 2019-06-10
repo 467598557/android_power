@@ -28,7 +28,7 @@ public class OperatorHelper {
     private TimerTask timerTask;
     public int runningCount = 0;
     public int maxRunningCount = 15;
-    private long TIMER_CHECK_INTERVAL = 1000;
+    private long TIMER_CHECK_INTERVAL = 1500;
     private int curStatus = Constant.StatusOpeningApp;
     private String curType = "article";
     public int winWidth = 500;
@@ -48,17 +48,22 @@ public class OperatorHelper {
             Toast.makeText(service, "服务正在运行中", Toast.LENGTH_SHORT).show();
             return;
         }
+        try {
+            Context appContext = service.getApplicationContext();
+            appList = Constant.getAppList(appContext);
+            curApp = appList.get(curAppIndex);
+            maxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
+            maxLoopCount = (int) SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
+            curLoopCount = 0;
+            this.service = service;
+            getWindowSize();
+            isRunning = true;
+            timer = new Timer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        Context appContext = service.getApplicationContext();
-        appList = Constant.getAppList(appContext);
-        curApp = appList.get(curAppIndex);
-        maxAppRunTime = (int)SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0))*60*1000;
-        maxLoopCount = (int)SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
-        curLoopCount = 0;
-        this.service = service;
-        getWindowSize();
-        isRunning = true;
-        timer = new Timer();
+
         timerTask = new TimerTask() {
             @SuppressWarnings("static-access")
             @Override
@@ -68,22 +73,21 @@ public class OperatorHelper {
                     return;
                 }
 
-                getWindowSize();
-                String curClassName = "";
-                AccessibilityNodeInfo rootNode = getRootNodeInfo();
-                if(null == rootNode) {
-                    Log.d("@@@", "root node is null");
-                    backToPreviewWindow();
-                    return;
-                } else {
-                    // 可能有异常跳出
-                    String curPackage = rootNode.getPackageName().toString();
-                    if(!curPackage.equals(curApp.packageName)) {
-                        changeStatusToOpenningApp();
-                        return;
-                    }
-                }
                 try {
+                    getWindowSize();
+                    String curClassName = "";
+                    AccessibilityNodeInfo rootNode = getRootNodeInfo();
+                    if(null == rootNode) {
+                        backToPreviewWindow();
+                        return;
+                    } else {
+                        // 可能有异常跳出
+                        String curPackage = rootNode.getPackageName().toString();
+                        if(appRunStartTime != 0 && !curPackage.equals(curApp.packageName)) {
+                            changeStatusToOpenningApp();
+                            return;
+                        }
+                    }
                     switch (curStatus) {
                         case Constant.StatusInList:
                             try {
@@ -283,6 +287,7 @@ public class OperatorHelper {
             winHeight = display.getHeight();
             winWidth = display.getWidth();
         } catch(Exception e) {
+            Log.d("@@@@", "getWindowSize error");
             e.printStackTrace();
         }
     }
@@ -383,6 +388,10 @@ public class OperatorHelper {
     }
 
     public AccessibilityNodeInfo getRootNodeInfo() {
+        if(null == service) {
+            return null;
+        }
+
         AccessibilityNodeInfo nodeInfo = null;
         nodeInfo = service.getRootInActiveWindow();
 

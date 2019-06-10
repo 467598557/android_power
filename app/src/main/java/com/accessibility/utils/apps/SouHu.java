@@ -9,7 +9,7 @@ import com.accessibility.utils.OperatorHelper;
 import java.util.List;
 
 public class SouHu extends AppInfo {
-    private boolean isFinishedToday = false;
+    private boolean isCheckTodayExtraClicked = false;
 
     public SouHu() {
         this.packageName = "com.sohu.infonews";
@@ -103,20 +103,25 @@ public class SouHu extends AppInfo {
             nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/counting_img");
             if(nodeList.size() > 0) {
                 node = nodeList.get(0);
-                isFinishedToday = operatorHelper.performClickActionByNode(node);
+                isCheckTodayExtraClicked = operatorHelper.performClickActionByNode(node);
             }
         }
-        if(isFinishedToday) {
+        if(isCheckTodayExtraClicked) {
             nodeList = operatorHelper.findNodesById("com.sohu.infonews:id/btn");
             if(null != nodeList && nodeList.size() > 0) {
                 node = nodeList.get(0);
                 if(node.getText().equals("立即领取")) {
                     operatorHelper.performClickActionByNode(node);
                 } else {
-                    operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
-                    // 验证是否领取完 com.sohu.infonews:id/read_extra_reward
-                    if(operatorHelper.findNodesById("com.sohu.infonews:id/read_extra_reward").size() == 0) {
+                    nodeList = operatorHelper.findNodesById("com.sohu.infonews:id/total_progress_tv");
+                    node = nodeList.get(0);
+                    // 验证是否领取完
+                    if(node.getText().toString().indexOf("2640/") > 0) {
+                        operatorHelper.backToPreviewWindow();
                         operatorHelper.judgeAppRunLoop(true); // 强行跳转至下一个app
+                        return;
+                    } else {
+                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
                     }
                 }
             } else {

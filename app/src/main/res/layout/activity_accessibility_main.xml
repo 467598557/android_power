@@ -13,16 +13,16 @@
 
     <Button
         android:id="@+id/open_accessibility_setting"
-        android:layout_marginTop="20dp"
-        android:text="打开辅助功能开关"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="打开辅助功能开关" />
 
     <Button
         android:id="@+id/trigger_accessibility_start_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="开始执行操作" />
 
     <!--<EditText-->
@@ -47,7 +47,7 @@
         android:id="@+id/chengzikuaibao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:checked="true"
         android:text="橙子快报" />
     <CheckBox
