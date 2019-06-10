@@ -38,7 +38,7 @@ public class OperatorHelper {
     private long appRunStartTime = 0; // 时间戳毫秒
     private int maxAppRunTime = 1000 * 60 * 10; // 十分钟
     private int maxLoopCount = 0; // 默认0为一直运行
-    private int curLoopCount = 0;
+    public int curLoopCount = 0;
     private OperatorHelper instance;
 
     public OperatorHelper() {
@@ -75,7 +75,7 @@ public class OperatorHelper {
                     return;
                 }
 
-                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime+":"+maxRunningCount);
+//                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime+":"+maxRunningCount);
                 try {
                     getWindowSize();
                     String curClassName = "";
@@ -221,7 +221,7 @@ public class OperatorHelper {
                             break;
                     }
                 } catch (Exception e) {
-                    Log.d("@@@@ ", "main loop error:" + e.getMessage().toString());
+//                    Log.d("@@@@ ", "main loop error:" + e.getMessage().toString());
                     e.printStackTrace();
                 }
 
@@ -233,7 +233,7 @@ public class OperatorHelper {
     }
 
     public void judgeAppRunLoop(boolean force) {
-        Log.d("@@@@", "judgeAppRunLoop:"+force);
+//        Log.d("@@@@", "judgeAppRunLoop:"+force);
         // 判断app生命周期
         if (force || (appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
             curAppIndex++;
@@ -293,7 +293,7 @@ public class OperatorHelper {
             winHeight = display.getHeight();
             winWidth = display.getWidth();
         } catch (Exception e) {
-            Log.d("@@@@", "getWindowSize error");
+//            Log.d("@@@@", "getWindowSize error");
             e.printStackTrace();
         }
     }

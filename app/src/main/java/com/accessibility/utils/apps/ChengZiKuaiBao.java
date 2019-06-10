@@ -80,7 +80,29 @@ public class ChengZiKuaiBao extends AppInfo {
 
     @Override
     public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return;
+        }
 
+        if(operatorHelper.runningCount == 10) {
+            List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_container");
+            if(nodeList.size() > 0) {
+                AccessibilityNodeInfo btnGroup = nodeList.get(0);
+                AccessibilityNodeInfo node;
+                int childCount = btnGroup.getChildCount();
+                int curLoopCount = operatorHelper.curLoopCount;
+                if(childCount > curLoopCount) {
+                    node = btnGroup.getChild(curLoopCount);
+                } else {
+                    node = btnGroup.getChild(curLoopCount % childCount);
+                }
+
+                if(null != node) {
+                    node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                }
+            }
+        }
     }
 
     @Override
