@@ -50,6 +50,8 @@ public class WeLiKanKan extends AppInfo {
         }
         // cn.weli.story:id/iv_take 随机福利金币红包
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/iv_take"));
+        // cn.weli.story:id/image_close 升级弹窗
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/image_close"));
         // cn.weli.story:id/iv_close 随机福利金币红包关闭按钮
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/iv_close"));
         // cn.weli.story:id/ic_close 金币弹窗确定
