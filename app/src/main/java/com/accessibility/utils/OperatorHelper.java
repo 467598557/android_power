@@ -29,7 +29,7 @@ public class OperatorHelper {
     private Timer timer;
     private TimerTask timerTask;
     public int runningCount = 0;
-    public int maxRunningCount = 5;
+    public int maxRunningCount = 15;
     private long TIMER_CHECK_INTERVAL = 1500;
     private int curStatus = Constant.StatusOpeningApp;
     private String curType = "article";
