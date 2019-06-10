@@ -8,12 +8,15 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
 
+import java.io.DataOutputStream;
+import java.io.OutputStream;
+
 public class Util {
-    private static final String TAG ="Util" ;
+    private static final String TAG = "Util";
 
     public static boolean startActivity(AppInfo appInfo, Context context) {
         try {
-            Log.d("@@@ startActivity", appInfo.packageName+":"+appInfo.startComponent);
+            Log.d("@@@ startActivity", appInfo.packageName + ":" + appInfo.startComponent);
             Intent intent = new Intent(Intent.ACTION_MAIN);
             /**知道要跳转应用的包命与目标Activity*/
             intent.setPackage(context.getPackageName());
@@ -29,9 +32,10 @@ public class Util {
             return false;
         }
     }
+
     public static boolean openActivity(AppInfo appInfo) {
         try {
-            Log.d("@@@ startActivity", appInfo.packageName+":"+appInfo.startComponent);
+            Log.d("@@@ startActivity", appInfo.packageName + ":" + appInfo.startComponent);
 //            Intent intent = new Intent();
 //            intent.setAction("Android.intent.action.VIEW");
 //            intent.setClassName(appInfo.packageName,
@@ -52,6 +56,23 @@ public class Util {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public static void execShellCmd(String cmd) {
+        try {
+            // 申请获取root权限，这一步很重要，不然会没有作用  
+            Process process = Runtime.getRuntime().exec("su");
+            // 获取输出流  
+            OutputStream outputStream = process.getOutputStream();
+            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+            dataOutputStream.writeBytes(cmd);
+            dataOutputStream.flush();
+            dataOutputStream.close();
+            outputStream.close();
+        } catch (Throwable t) {
+            Log.d("@@@@", "execShellCmd:" + t.getMessage().toString());
+            t.printStackTrace();
         }
     }
 }

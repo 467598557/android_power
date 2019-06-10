@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Context;
 import android.graphics.Path;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -27,14 +29,14 @@ public class OperatorHelper {
     private Timer timer;
     private TimerTask timerTask;
     public int runningCount = 0;
-    public int maxRunningCount = 15;
+    public int maxRunningCount = 5;
     private long TIMER_CHECK_INTERVAL = 1500;
     private int curStatus = Constant.StatusOpeningApp;
     private String curType = "article";
     public int winWidth = 500;
     public int winHeight = 1500;
     private long appRunStartTime = 0; // 时间戳毫秒
-    private int maxAppRunTime = 1000*60*10; // 十分钟
+    private int maxAppRunTime = 1000 * 60 * 10; // 十分钟
     private int maxLoopCount = 0; // 默认0为一直运行
     private int curLoopCount = 0;
     private OperatorHelper instance;
@@ -73,17 +75,19 @@ public class OperatorHelper {
                     return;
                 }
 
+                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime+":"+maxRunningCount);
                 try {
                     getWindowSize();
                     String curClassName = "";
                     AccessibilityNodeInfo rootNode = getRootNodeInfo();
-                    if(null == rootNode) {
+                    if (null == rootNode) {
                         backToPreviewWindow();
+                        Log.d("@@@@", "no root");
                         return;
                     } else {
                         // 可能有异常跳出
                         String curPackage = rootNode.getPackageName().toString();
-                        if(appRunStartTime != 0 && !curPackage.equals(curApp.packageName)) {
+                        if (curStatus != Constant.StatusOpeningApp && appRunStartTime != 0 && !curPackage.equals(curApp.packageName)) {
                             changeStatusToOpenningApp();
                             return;
                         }
@@ -97,16 +101,16 @@ public class OperatorHelper {
                             }
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/3, winHeight/5*4, winWidth/3, winHeight/5);
+                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5);
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
                                 boolean result = clickToDetailPage();
-                                if(!result) {
+                                if (!result) {
                                     runningCount = 0;
                                     return;
                                 }
 
-                                if("article".equals(curType)) {
+                                if ("article".equals(curType)) {
                                     curStatus = Constant.StatusInReadingArticle;
                                 } else {
                                     curStatus = Constant.StatusInReadingVideo;
@@ -119,14 +123,14 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusSignIn:
                             // 往上滑动，以免存在时差页面被滑下
-                            if(runningCount <= 2) {
-                                scrollScreen(winWidth/3, winHeight/5, winWidth/3, winHeight/5*4);
+                            if (runningCount <= 2) {
+                                scrollScreen(winWidth / 3, winHeight / 5, winWidth / 3, winHeight / 5 * 4);
                             }
 
-                            if(runningCount > 2) {
+                            if (runningCount > 2) {
                                 curApp.signin(instance);
                             }
-                            if(runningCount >= maxRunningCount) {
+                            if (runningCount >= maxRunningCount) {
                                 // 签到
                                 changeStatusToList();
                                 return;
@@ -134,11 +138,11 @@ public class OperatorHelper {
                             break;
                         case Constant.FindSohuRedPackageInList:
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth/3, winHeight/5*4, winWidth/3, winHeight/5);
+                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5);
                             }
 
                             if (runningCount >= maxRunningCount) {
-                                if(curApp.doSomething(instance)) {
+                                if (curApp.doSomething(instance)) {
                                     changeStatusToList();
                                     return;
                                 } else {
@@ -153,8 +157,8 @@ public class OperatorHelper {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            if(runningCount % 5 == 0) {
-                                scrollScreen(winWidth/3, winHeight/5*4, winWidth/3, winHeight/5);
+                            if (runningCount % 5 == 0) {
+                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5);
                             }
                             // 滚动且监听查看更多
                             if (runningCount > maxRunningCount) { // 退回列表
@@ -172,30 +176,30 @@ public class OperatorHelper {
                             }
                             break;
                         case Constant.StatusWaiting:
-                            if(runningCount >= maxRunningCount) {
+                            if (runningCount >= maxRunningCount) {
                                 changeStatusToOpenningApp();
                                 return;
                             }
                             break;
                         case Constant.StatusInCloseJuKanDianApp:
-                            if(runningCount >= maxRunningCount) {
+                            if (runningCount >= maxRunningCount) {
                                 performClickActionByNodeListFirstChild(getRootNodeInfo().findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/sure_quit"));
                                 changeStatusToWaiting();
                                 return;
                             }
                             break;
                         case Constant.StatusInBackToMainActivity:
-                            if(runningCount%2 == 0) {
+                            if (runningCount % 2 == 0) {
                                 backToPreviewWindow();
                             } else {
                                 curClassName = getRootNodeInfo().getClassName().toString();
-                                if(curClassName.equals(curApp.mainComponent)) {
+                                if (curClassName.equals(curApp.mainComponent)) {
                                     changeStatusToList();
                                     return;
                                 }
                             }
 
-                            if(runningCount >= maxRunningCount) {
+                            if (runningCount >= maxRunningCount) {
                                 changeStatusToList();
                                 return;
                             }
@@ -217,6 +221,7 @@ public class OperatorHelper {
                             break;
                     }
                 } catch (Exception e) {
+                    Log.d("@@@@ ", "main loop error:" + e.getMessage().toString());
                     e.printStackTrace();
                 }
 
@@ -228,15 +233,16 @@ public class OperatorHelper {
     }
 
     public void judgeAppRunLoop(boolean force) {
-    // 判断app生命周期
-        if(force || (appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
+        Log.d("@@@@", "judgeAppRunLoop:"+force);
+        // 判断app生命周期
+        if (force || (appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
             curAppIndex++;
-            if(curAppIndex >= appList.size()) {
+            if (curAppIndex >= appList.size()) {
                 curAppIndex = 0;
                 curLoopCount++;
                 // 检测最大循环次数
                 // 0默认无限循环
-                if(maxRunningCount > 0 && curLoopCount >= maxRunningCount) {
+                if (maxRunningCount > 0 && curLoopCount >= maxRunningCount) {
                     stop();
                     backToSystemHome();
                     return;
@@ -258,7 +264,7 @@ public class OperatorHelper {
 
     public void backToSystemHome() {
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        if(curApp.packageName.equals("com.xiangzi.jukandian")) {
+        if (curApp.packageName.equals("com.xiangzi.jukandian")) {
             curStatus = Constant.StatusInCloseJuKanDianApp;
         } else {
             service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
@@ -277,16 +283,16 @@ public class OperatorHelper {
     }
 
     public void getWindowSize() {
-        if(null == service) {
+        if (null == service) {
             return;
         }
 
         try {
-            WindowManager manager = (WindowManager)service.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+            WindowManager manager = (WindowManager) service.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
             Display display = manager.getDefaultDisplay();
             winHeight = display.getHeight();
             winWidth = display.getWidth();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.d("@@@@", "getWindowSize error");
             e.printStackTrace();
         }
@@ -304,42 +310,64 @@ public class OperatorHelper {
     }
 
     public boolean scrollScreen(float fromX, float fromY, float toX, float toY) {
-        Path path=new Path();
-        path.moveTo(fromX, fromY);
-        path.lineTo(toX, toY);
-        GestureDescription.Builder builder = new GestureDescription.Builder();
-        GestureDescription  gestureDescription = builder
-                .addStroke(new GestureDescription.StrokeDescription(path, 50L, 350L, false))
-                .build();
-        service.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
-            @Override
-            public void onCompleted(GestureDescription gestureDescription) {
-                super.onCompleted(gestureDescription);
+        try {
+            if (Build.VERSION.SDK_INT < 26) {
+                int swiperType = AccessibilityService.GESTURE_SWIPE_UP;
+                if (fromY < toY) {
+                    swiperType = AccessibilityService.GESTURE_SWIPE_DOWN;
+                }
+
+                Log.d("@@@@", "scrollScreen:" + swiperType);
+                Util.execShellCmd("input swipe "+fromX+" "+fromY+" "+toX+" "+toY+" 300");
+//                service.performGlobalAction(swiperType);
+            } else {
+                Path path = new Path();
+                path.moveTo(fromX, fromY);
+                path.lineTo(toX, toY);
+                GestureDescription.Builder builder = new GestureDescription.Builder();
+                GestureDescription gestureDescription = builder
+                        .addStroke(new GestureDescription.StrokeDescription(path, 50L, 350L, false))
+                        .build();
+                service.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+                    @Override
+                    public void onCompleted(GestureDescription gestureDescription) {
+                        super.onCompleted(gestureDescription);
+                    }
+
+                    public void onCancelled(GestureDescription gestureDescription) {
+                        super.onCancelled(gestureDescription);
+                    }
+                }, new Handler(Looper.getMainLooper()));
             }
-            public void onCancelled(GestureDescription gestureDescription) {
-                super.onCancelled(gestureDescription);
-            }
-        }, new Handler(Looper.getMainLooper()));
+        } catch (Exception e) {
+            Log.d("@@@@ ", "screen scroll error:" + e.getMessage().toString());
+            e.printStackTrace();
+        }
 
         return true;
     }
 
     public boolean clickInScreenPoint(final float x, final float y) {
-        Path path=new Path();
-        path.moveTo(x, y);
-        GestureDescription.Builder builder = new GestureDescription.Builder();
-        GestureDescription  gestureDescription = builder
-                .addStroke(new GestureDescription.StrokeDescription(path, 50L, 50L))
-                .build();
-        service.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
-            @Override
-            public void onCompleted(GestureDescription gestureDescription) {
-                super.onCompleted(gestureDescription);
-            }
-            public void onCancelled(GestureDescription gestureDescription) {
-                super.onCancelled(gestureDescription);
-            }
-        }, new Handler(Looper.getMainLooper()));
+        if (Build.VERSION.SDK_INT < 26) {
+
+        } else {
+            Path path = new Path();
+            path.moveTo(x, y);
+            GestureDescription.Builder builder = new GestureDescription.Builder();
+            GestureDescription gestureDescription = builder
+                    .addStroke(new GestureDescription.StrokeDescription(path, 50L, 50L))
+                    .build();
+            service.dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+                @Override
+                public void onCompleted(GestureDescription gestureDescription) {
+                    super.onCompleted(gestureDescription);
+                }
+
+                public void onCancelled(GestureDescription gestureDescription) {
+                    super.onCancelled(gestureDescription);
+                }
+            }, new Handler(Looper.getMainLooper()));
+        }
 
         return true;
     }
@@ -347,11 +375,11 @@ public class OperatorHelper {
     public boolean clickToDetailPage() {
         AppInfo curApp = appList.get(curAppIndex);
         AccessibilityNodeInfo nodeInfo = curApp.getArticleSpecialViewById(instance);
-        if(null != nodeInfo) {
+        if (null != nodeInfo) {
             curType = "article";
         } else {
             nodeInfo = curApp.getVideoSpecialViewById(instance);
-            if(null != nodeInfo) {
+            if (null != nodeInfo) {
                 curType = "video";
             }
         }
@@ -360,7 +388,7 @@ public class OperatorHelper {
     }
 
     public boolean performClickActionByNode(AccessibilityNodeInfo node) {
-        if(null != node) {
+        if (null != node) {
             return node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
         }
 
@@ -368,7 +396,7 @@ public class OperatorHelper {
     }
 
     public boolean performClickActionByNodeListFirstChild(List<AccessibilityNodeInfo> nodeList) {
-        if(nodeList.size() > 0) {
+        if (nodeList.size() > 0) {
             return nodeList.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
         }
 
@@ -376,7 +404,7 @@ public class OperatorHelper {
     }
 
     public boolean performClickActionByNodeListFirstChildParent(List<AccessibilityNodeInfo> nodeList) {
-        if(nodeList.size() > 0) {
+        if (nodeList.size() > 0) {
             return nodeList.get(0).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
         }
 
@@ -388,7 +416,7 @@ public class OperatorHelper {
     }
 
     public AccessibilityNodeInfo getRootNodeInfo() {
-        if(null == service) {
+        if (null == service) {
             return null;
         }
 
@@ -411,6 +439,7 @@ public class OperatorHelper {
     }
 
     public void changeStatusToOpenningApp() {
+        Log.d("@@@@", "changeStatusToOpenningApp");
         curStatus = Constant.StatusOpeningApp;
         runningCount = 0;
         maxRunningCount = 15;
