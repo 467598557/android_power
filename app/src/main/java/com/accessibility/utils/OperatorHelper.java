@@ -120,7 +120,7 @@ public class OperatorHelper {
                                     curStatus = Constant.StatusInReadingVideo;
                                 }
                                 runningCount = 0;
-                                maxRunningCount = 40;
+                                maxRunningCount = 36;
                             }
 
                             judgeAppRunLoop(false);
@@ -161,8 +161,8 @@ public class OperatorHelper {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            if (runningCount % 5 == 0) {
-                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5);
+                            if (runningCount % 4 == 0) {
+                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5*2);
                             }
                             // 滚动且监听查看更多
                             if (runningCount > maxRunningCount) { // 退回列表
