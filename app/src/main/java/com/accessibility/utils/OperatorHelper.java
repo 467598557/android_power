@@ -469,7 +469,7 @@ public class OperatorHelper {
             return nodeInfo.findAccessibilityNodeInfosByViewId(viewId);
         }
 
-        return null;
+        return new ArrayList<AccessibilityNodeInfo>();
     }
 
     public List<AccessibilityNodeInfo> findNodesByText(String text) {

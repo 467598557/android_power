@@ -102,6 +102,7 @@ public class QuTouTiao extends AppInfo {
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
         if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
+            operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.jifen.qukan:id/adq"));
             return false;
         }
 
