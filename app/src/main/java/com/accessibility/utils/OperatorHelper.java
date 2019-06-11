@@ -56,7 +56,7 @@ public class OperatorHelper {
             maxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
             curAppIndex = (int) SPUtil.get(appContext, Constant.AppBeginRunIndex, new Integer(0));
             maxLoopCount = (int) SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
-            if(curAppIndex >= appList.size()) {
+            if (curAppIndex >= appList.size()) {
                 curAppIndex = appList.size() - 1;
             }
             curApp = appList.get(curAppIndex);
@@ -105,7 +105,7 @@ public class OperatorHelper {
                             }
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5);
+                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5 * 2);
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
                                 boolean result = clickToDetailPage();
@@ -322,7 +322,7 @@ public class OperatorHelper {
                 }
 
                 Log.d("@@@@", "scrollScreen:" + swiperType);
-                Util.execShellCmd("input swipe "+fromX+" "+fromY+" "+toX+" "+toY+" 300");
+                Util.execShellCmd("input swipe " + fromX + " " + fromY + " " + toX + " " + toY + " 300");
 //                service.performGlobalAction(swiperType);
             } else {
                 Path path = new Path();
