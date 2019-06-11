@@ -24,62 +24,78 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="开始执行操作" />
-
-    <CheckBox
-        android:id="@+id/chengzikuaibao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:checked="true"
-        android:text="橙子快报" />
-    <CheckBox
-        android:id="@+id/jukandian"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:checked="true"
-        android:text="聚看点" />
-    <CheckBox
-        android:id="@+id/niuniuzixun"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:checked="true"
-        android:text="牛牛资讯" />
-    <CheckBox
-        android:id="@+id/qutoutiao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:checked="true"
-        android:text="趣头条" />
-    <CheckBox
-        android:id="@+id/souhuzixun"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:checked="true"
-        android:text="搜狐资讯" />
-    <CheckBox
-        android:id="@+id/weilikankan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:checked="true"
-        android:text="微鲤看看" />
-    <CheckBox
-        android:id="@+id/shandianhezi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:checked="true"
-        android:text="闪电盒子" />
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TableRow
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
+            android:layout_height="match_parent" >
+            <CheckBox
+                android:id="@+id/chengzikuaibao"
+                android:layout_width="188dp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="橙子快报" />
+            <CheckBox
+                android:id="@+id/jukandian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="聚看点" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent" >
+            <CheckBox
+                android:id="@+id/niuniuzixun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="牛牛资讯" />
+            <CheckBox
+                android:id="@+id/qutoutiao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="趣头条" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent" >
+            <CheckBox
+                android:id="@+id/souhuzixun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="搜狐资讯" />
+            <CheckBox
+                android:id="@+id/weilikankan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="微鲤看看" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent" >
+            <CheckBox
+                android:id="@+id/shandianhezi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="闪电盒子" />
+        </TableRow>
+    </TableLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="6dp"
             android:layout_height="match_parent" >
             <TextView
                 android:id="@+id/loop_count_label"
@@ -97,17 +113,15 @@
                 android:text="0" />
         </TableRow>
         <TableRow
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
             <TextView
                 android:id="@+id/run_minute_count_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:text="执行分钟：" />
-
             <EditText
                 android:id="@+id/run_minute_count"
                 android:layout_width="322dp"
@@ -118,17 +132,15 @@
                 android:text="10" />
         </TableRow>
         <TableRow
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
             <TextView
                 android:id="@+id/begin_run_index_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:text="开始索引：" />
-
+                android:text="执行分钟：" />
             <EditText
                 android:id="@+id/begin_run_index"
                 android:layout_width="322dp"

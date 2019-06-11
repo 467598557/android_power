@@ -92,6 +92,7 @@ public class OperatorHelper {
                         // 可能有异常跳出
                         String curPackage = rootNode.getPackageName().toString();
                         if (curStatus != Constant.StatusOpeningApp && appRunStartTime != 0 && !curPackage.equals(curApp.packageName)) {
+                            backToPreviewWindow();
                             changeStatusToOpenningApp();
                             return;
                         }
@@ -237,7 +238,6 @@ public class OperatorHelper {
     }
 
     public void judgeAppRunLoop(boolean force) {
-//        Log.d("@@@@", "judgeAppRunLoop:"+force);
         // 判断app生命周期
         if (force || (appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
             curAppIndex++;
@@ -297,7 +297,6 @@ public class OperatorHelper {
             winHeight = display.getHeight();
             winWidth = display.getWidth();
         } catch (Exception e) {
-//            Log.d("@@@@", "getWindowSize error");
             e.printStackTrace();
         }
     }
@@ -316,14 +315,7 @@ public class OperatorHelper {
     public boolean scrollScreen(float fromX, float fromY, float toX, float toY) {
         try {
             if (Build.VERSION.SDK_INT < 26) {
-                int swiperType = AccessibilityService.GESTURE_SWIPE_UP;
-                if (fromY < toY) {
-                    swiperType = AccessibilityService.GESTURE_SWIPE_DOWN;
-                }
-
-                Log.d("@@@@", "scrollScreen:" + swiperType);
                 Util.execShellCmd("input swipe " + fromX + " " + fromY + " " + toX + " " + toY + " 300");
-//                service.performGlobalAction(swiperType);
             } else {
                 Path path = new Path();
                 path.moveTo(fromX, fromY);
@@ -353,7 +345,7 @@ public class OperatorHelper {
 
     public boolean clickInScreenPoint(final float x, final float y) {
         if (Build.VERSION.SDK_INT < 26) {
-
+            Util.execShellCmd("input tap " + x + " " + y);
         } else {
             Path path = new Path();
             path.moveTo(x, y);

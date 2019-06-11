@@ -41,10 +41,7 @@ public class JuKanDian extends AppInfo {
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
         // 如果有关闭弹窗，则优先关闭
-        if(operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/sure_quit"))) {
-            return true;
-        }
-
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/sure_quit"));
         // 签到成功后广告弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.xiangzi.jukandian:id/close_dialog_layout"));
         // 关闭阅读时长换金币提示
