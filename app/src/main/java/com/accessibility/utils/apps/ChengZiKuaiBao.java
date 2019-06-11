@@ -53,7 +53,7 @@ public class ChengZiKuaiBao extends AppInfo {
                 specialNode = node.getParent().getParent();
                 // 如果不是文章或者广告的条目
                 if(specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_info_layout").size() == 0 &&
-                    specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_ad_v").size() == 0) {
+                    specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_ad_v").size() == 0 && specialNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
                     operatorHelper.performClickActionByNode(node);
                 }
             }
