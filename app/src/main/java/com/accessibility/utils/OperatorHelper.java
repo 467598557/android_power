@@ -212,7 +212,11 @@ public class OperatorHelper {
                         case Constant.StatusOpeningApp: // 等待什么都不做
                             if (runningCount == 0) {
                                 appRunStartTime = System.currentTimeMillis();
-                                Util.startActivity(curApp, service);
+                                if(!Util.startActivity(curApp, service)) {
+                                    judgeAppRunLoop(true);
+                                    return;
+                                }
+
                                 runningCount++;
                                 return;
                             }
