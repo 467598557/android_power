@@ -145,6 +145,11 @@ public class SouHu extends AppInfo {
                 AccessibilityNodeInfo btnGroup = nodeList.get(0);
                 if (btnGroup.getChildCount() > 0) {
                     AccessibilityNodeInfo signBtn = btnGroup.getChild(0);
+                    // 检测是否有异常情况
+                    if(signBtn.getText().toString().indexOf("签到") == -1) {
+                        return false;
+                    }
+
                     operatorHelper.performClickActionByNode(signBtn);
                     operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_receive"));
                     this.isSignin = true;
