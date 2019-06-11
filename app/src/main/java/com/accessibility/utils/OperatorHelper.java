@@ -39,10 +39,14 @@ public class OperatorHelper {
     private int maxAppRunTime = 1000 * 60 * 10; // 十分钟
     private int maxLoopCount = 0; // 默认0为一直运行
     public int curLoopCount = 0;
-    private OperatorHelper instance;
+    private static OperatorHelper instance;
 
     public OperatorHelper() {
         instance = this;
+    }
+
+    public static OperatorHelper getInstance() {
+        return instance;
     }
 
     public void start(final AccessibilityService service, AccessibilityEvent event) {

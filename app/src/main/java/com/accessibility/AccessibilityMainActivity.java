@@ -3,7 +3,9 @@ package com.accessibility;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -63,6 +65,19 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 Intent intent = new Intent(getApplicationContext(),  AccessibilityStartActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.startActivity(intent);
+
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if (!Settings.canDrawOverlays(getApplicationContext())) {
+                        Intent intent2 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                        intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivityForResult(intent2, 1);
+                    } else {
+                        FloatWindowManager.createBigWindow(getApplicationContext());
+                    }
+                } else {
+                    FloatWindowManager.createBigWindow(getApplicationContext());
+                }
+
                 break;
         }
     }
