@@ -140,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:text="执行分钟：" />
+                android:text="执行索引：" />
             <EditText
                 android:id="@+id/begin_run_index"
                 android:layout_width="322dp"
