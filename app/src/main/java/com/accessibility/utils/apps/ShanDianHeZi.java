@@ -78,7 +78,12 @@ public class ShanDianHeZi extends AppInfo {
         // 定时大红包 c.l.a:id/reward_text
         if(operatorHelper.runningCount <= 1) {
             // 定时大红包 计算位置
-            operatorHelper.clickInScreenPoint(operatorHelper.winWidth-50, (float)(operatorHelper.winHeight*0.735+50));
+            Log.d("@@@@", operatorHelper.winWidth+":"+operatorHelper.winHeight);
+            float y = (float)(operatorHelper.winHeight*0.735+50);
+            if(y < 1920) {
+                y = operatorHelper.winHeight - 520;
+            }
+            operatorHelper.clickInScreenPoint(operatorHelper.winWidth-50, y);
         }
 
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/button"));
