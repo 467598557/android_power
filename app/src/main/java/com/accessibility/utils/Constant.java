@@ -24,6 +24,7 @@ public class Constant {
     public final static int StatusInBackToMainActivity = 9;
     public final static String LoopCount = "loop_count";
     public final static String AppRunMinuteCount = "app_run_minute_count";
+    public final static String AppBeginRunIndex = "begin_run_index";
     public final static String AppAddChengZiKuaiBao = "app_add_chengzikuaibao";
     public final static String AppAddJuKanDian = "app_add_jukandian";
     public final static String AppAddNiuNiuZiXun = "app_add_niuniuzixun";
@@ -35,23 +36,23 @@ public class Constant {
 
     public static ArrayList<AppInfo> getAppList(Context context) {
         if (mAppList.size() == 0) {
-            if((boolean)SPUtil.get(context, Constant.AppAddSouHuZiXun, new Boolean(true))) {
-                mAppList.add(new SouHu());
-            }
             if((boolean)SPUtil.get(context, Constant.AppAddChengZiKuaiBao, new Boolean(true))) {
                 mAppList.add(new ChengZiKuaiBao());
-            }
-            if((boolean)SPUtil.get(context, Constant.AppAddWeiLiKanKan, new Boolean(true))) {
-                mAppList.add(new WeLiKanKan());
-            }
-            if((boolean)SPUtil.get(context, Constant.AppAddNiuNiuZiXun, new Boolean(true))) {
-                mAppList.add(new NiuNiuZiXun());
             }
             if((boolean)SPUtil.get(context, Constant.AppAddJuKanDian, new Boolean(true))) {
                 mAppList.add(new JuKanDian());
             }
+            if((boolean)SPUtil.get(context, Constant.AppAddNiuNiuZiXun, new Boolean(true))) {
+                mAppList.add(new NiuNiuZiXun());
+            }
             if((boolean)SPUtil.get(context, Constant.AppAddQuTouTiao, new Boolean(true))) {
                 mAppList.add(new QuTouTiao());
+            }
+            if((boolean)SPUtil.get(context, Constant.AppAddSouHuZiXun, new Boolean(true))) {
+                mAppList.add(new SouHu());
+            }
+            if((boolean)SPUtil.get(context, Constant.AppAddWeiLiKanKan, new Boolean(true))) {
+                mAppList.add(new WeLiKanKan());
             }
             if((boolean)SPUtil.get(context, Constant.AppAddShanDianHeZi, new Boolean(true))) {
                 mAppList.add(new ShanDianHeZi());

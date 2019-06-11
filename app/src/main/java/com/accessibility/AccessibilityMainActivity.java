@@ -45,9 +45,11 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 CheckBox weilikankan = (CheckBox)findViewById(R.id.weilikankan);
                 CheckBox shandianhezi = (CheckBox)findViewById(R.id.shandianhezi);
                 EditText loopCount = (EditText)findViewById(R.id.loop_count);
+                EditText beginRunIndex = (EditText)findViewById(R.id.begin_run_index);
                 EditText appRunMinuteCount = (EditText)findViewById(R.id.run_minute_count);
                 Context appContext = getApplicationContext();
                 // 设置值到缓存
+                SPUtil.putAndApply(appContext, Constant.AppBeginRunIndex, Integer.valueOf(beginRunIndex.getText().toString()));
                 SPUtil.putAndApply(appContext, Constant.LoopCount, Integer.valueOf(loopCount.getText().toString()));
                 SPUtil.putAndApply(appContext, Constant.AppRunMinuteCount, Integer.valueOf(appRunMinuteCount.getText().toString()));
                 SPUtil.putAndApply(appContext, Constant.AppAddChengZiKuaiBao, chengzikuaibao.isChecked());

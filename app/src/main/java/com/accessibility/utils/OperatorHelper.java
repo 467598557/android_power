@@ -53,9 +53,13 @@ public class OperatorHelper {
         try {
             Context appContext = service.getApplicationContext();
             appList = Constant.getAppList(appContext);
-            curApp = appList.get(curAppIndex);
             maxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
+            curAppIndex = (int) SPUtil.get(appContext, Constant.AppBeginRunIndex, new Integer(0));
             maxLoopCount = (int) SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
+            if(curAppIndex >= appList.size()) {
+                curAppIndex = appList.size() - 1;
+            }
+            curApp = appList.get(curAppIndex);
             curLoopCount = 0;
             this.service = service;
             getWindowSize();

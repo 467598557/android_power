@@ -25,24 +25,6 @@
         android:layout_marginTop="10dp"
         android:text="开始执行操作" />
 
-    <!--<EditText-->
-        <!--android:id="@+id/loop_count"-->
-        <!--android:layout_width="379dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="number"-->
-        <!--android:text="0" />-->
-
-    <!--<EditText-->
-        <!--android:id="@+id/run_minute_count"-->
-        <!--android:layout_width="378dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="number"-->
-        <!--android:text="10" />-->
-
     <CheckBox
         android:id="@+id/chengzikuaibao"
         android:layout_width="match_parent"
@@ -134,6 +116,27 @@
                 android:hint=""
                 android:inputType="number"
                 android:text="10" />
+        </TableRow>
+        <TableRow
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/begin_run_index_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:text="开始索引：" />
+
+            <EditText
+                android:id="@+id/begin_run_index"
+                android:layout_width="322dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint=""
+                android:inputType="number"
+                android:text="0" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

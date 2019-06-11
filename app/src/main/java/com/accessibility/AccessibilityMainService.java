@@ -21,7 +21,6 @@ public class AccessibilityMainService extends AccessibilityService {
         int eventType = event.getEventType();
         CharSequence classNameChr = event.getClassName();
         String className = classNameChr.toString();
-        Log.d("@@@ onAccessibilityEvent", packageName + ":" + eventType+":"+className);
         if(!packageName.equals("com.accessibility")) {
             return;
         }
