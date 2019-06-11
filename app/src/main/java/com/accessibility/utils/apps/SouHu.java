@@ -1,5 +1,6 @@
 package com.accessibility.utils.apps;
 
+import android.accessibilityservice.AccessibilityService;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -146,7 +147,7 @@ public class SouHu extends AppInfo {
                 if (btnGroup.getChildCount() > 0) {
                     AccessibilityNodeInfo signBtn = btnGroup.getChild(0);
                     // 检测是否有异常情况
-                    if(signBtn.getText().toString().indexOf("签到") == -1) {
+                    if(signBtn.findAccessibilityNodeInfosByText("签到").size() == 0) {
                         return false;
                     }
 
@@ -172,7 +173,13 @@ public class SouHu extends AppInfo {
 
     @Override
     public void doSomethingInOpeningApp(OperatorHelper operatorHelper) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
+            return ;
+        }
 
+        // 升级按钮
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/normaldlg_btn_close"));
     }
 
     private boolean clickFooterMenu(OperatorHelper operatorHelper, AccessibilityNodeInfo root, int index) {
