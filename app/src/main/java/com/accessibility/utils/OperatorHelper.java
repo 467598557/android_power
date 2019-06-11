@@ -246,7 +246,7 @@ public class OperatorHelper {
                 curLoopCount++;
                 // 检测最大循环次数
                 // 0默认无限循环
-                if (maxRunningCount > 0 && curLoopCount >= maxRunningCount) {
+                if (maxLoopCount > 0 && curLoopCount >= maxLoopCount) {
                     stop();
                     backToSystemHome();
                     return;
