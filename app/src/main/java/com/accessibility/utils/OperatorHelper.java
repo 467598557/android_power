@@ -36,7 +36,8 @@ public class OperatorHelper {
     public int winWidth = 500;
     public int winHeight = 1500;
     private long appRunStartTime = 0; // 时间戳毫秒
-    private int maxAppRunTime = 1000 * 60 * 10; // 十分钟
+    private long maxAppRunTime = 1000 * 60 * 10; // 十分钟
+    private long baseMaxAppRunTime = maxAppRunTime;
     private int maxLoopCount = 0; // 默认0为一直运行
     public int curLoopCount = 0;
     private static OperatorHelper instance;
@@ -59,7 +60,7 @@ public class OperatorHelper {
             if(!isInitData) {
                 Context appContext = service.getApplicationContext();
                 appList = Constant.getAppList(appContext);
-                maxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
+                maxAppRunTime = baseMaxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
                 curAppIndex = (int) SPUtil.get(appContext, Constant.AppBeginRunIndex, new Integer(0));
                 maxLoopCount = (int) SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
                 if (curAppIndex >= appList.size()) {
@@ -68,6 +69,7 @@ public class OperatorHelper {
                 curApp = appList.get(curAppIndex);
                 curLoopCount = 0;
                 getWindowSize();
+                appRunStartTime = System.currentTimeMillis();
 
                 isInitData = true;
             }
@@ -103,7 +105,7 @@ public class OperatorHelper {
                         String curPackage = rootNode.getPackageName().toString();
                         if (curStatus != Constant.StatusOpeningApp && appRunStartTime != 0 && !curPackage.equals(curApp.packageName)) {
                             backToPreviewWindow();
-                            changeStatusToOpenningApp();
+                            changeStatusToOpenningApp(false);
                             return;
                         }
                     }
@@ -131,7 +133,7 @@ public class OperatorHelper {
                                     curStatus = Constant.StatusInReadingVideo;
                                 }
                                 runningCount = 0;
-                                maxRunningCount = 36;
+                                maxRunningCount = 25 + (int)Math.round(Math.random()*15);
                             }
 
                             judgeAppRunLoop(false);
@@ -172,7 +174,7 @@ public class OperatorHelper {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            if (runningCount % 4 == 0) {
+                            if (runningCount % 3 == 0) {
                                 scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5*2);
                             }
                             // 滚动且监听查看更多
@@ -192,7 +194,7 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusWaiting:
                             if (runningCount >= maxRunningCount) {
-                                changeStatusToOpenningApp();
+                                changeStatusToOpenningApp(true);
                                 return;
                             }
                             break;
@@ -221,7 +223,6 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusOpeningApp: // 等待什么都不做
                             if (runningCount == 0) {
-                                appRunStartTime = System.currentTimeMillis();
                                 if(!Util.startActivity(curApp, service)) {
                                     judgeAppRunLoop(true);
                                     return;
@@ -255,6 +256,7 @@ public class OperatorHelper {
         // 判断app生命周期
         if (force || (appRunStartTime > 0) && (System.currentTimeMillis() - appRunStartTime > maxAppRunTime)) {
             curAppIndex++;
+            maxAppRunTime = baseMaxAppRunTime + (long)Math.round(Math.random()*5)*1000*60; // 时间随机，再加五分钟以内
             if (curAppIndex >= appList.size()) {
                 curAppIndex = 0;
                 curLoopCount++;
@@ -461,8 +463,11 @@ public class OperatorHelper {
         maxRunningCount = 10;
     }
 
-    public void changeStatusToOpenningApp() {
+    public void changeStatusToOpenningApp(boolean isInitStartTime) {
         Log.d("@@@@", "changeStatusToOpenningApp");
+        if(isInitStartTime) {
+            appRunStartTime = System.currentTimeMillis();
+        }
         curStatus = Constant.StatusOpeningApp;
         runningCount = 0;
         maxRunningCount = 15;

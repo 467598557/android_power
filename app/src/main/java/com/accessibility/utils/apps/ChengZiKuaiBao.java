@@ -22,7 +22,11 @@ public class ChengZiKuaiBao extends AppInfo {
         AccessibilityNodeInfo node;
         for(int i=0, len=nodeInfoList.size(); i<len; i++) {
             node = nodeInfoList.get(i);
-            if(!node.isSelected() && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
+            AccessibilityNodeInfo child = null;
+            if(node.getChildCount() > 0) {
+                child = node.getChild(0);
+            }
+            if(null != child && !child.isSelected() && node.findAccessibilityNodeInfosByText("广告").size() == 0) {
                 return node;
             }
         }
@@ -48,12 +52,14 @@ public class ChengZiKuaiBao extends AppInfo {
         nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
         if(nodeList.size() > 0) {
             AccessibilityNodeInfo specialNode;
+            List<AccessibilityNodeInfo> titleList;
             for(int i=0, len=nodeList.size(); i<len; i++) {
                 node = nodeList.get(i);
                 specialNode = node.getParent().getParent();
                 // 如果不是文章或者广告的条目
                 if(specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_info_layout").size() == 0 &&
-                    specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_ad_v").size() == 0 && specialNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
+                    specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_ad_v").size() == 0 &&
+                        specialNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
                     operatorHelper.performClickActionByNode(node);
                 }
             }
@@ -75,7 +81,9 @@ public class ChengZiKuaiBao extends AppInfo {
         }
 
         // 查看更多  com.quyu.youliao:id/ll_expand
-        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
+        if(operatorHelper.runningCount % 2 == 0) {
+            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
+        }
     }
 
     @Override
@@ -85,11 +93,13 @@ public class ChengZiKuaiBao extends AppInfo {
             return;
         }
 
+        // com.quyu.youliao:id/root_layout 新人福利社
         if(operatorHelper.runningCount == 10) {
             List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/title_container");
             if(nodeList.size() > 0) {
                 AccessibilityNodeInfo btnGroup = nodeList.get(0);
                 AccessibilityNodeInfo node;
+
                 int childCount = btnGroup.getChildCount();
                 int curLoopCount = operatorHelper.curLoopCount;
                 if(childCount > curLoopCount) {

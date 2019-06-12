@@ -140,7 +140,7 @@ public class SouHu extends AppInfo {
 
         // 搜狐资讯，邀请好友红包，直接跳过
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/act_close_image"));
-        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-3) {
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
             List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/task_entrance_gv");
             if(nodeList.size() > 0) {
                 AccessibilityNodeInfo btnGroup = nodeList.get(0);
@@ -159,7 +159,7 @@ public class SouHu extends AppInfo {
 
             return true;
         }
-        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
+        if(operatorHelper.runningCount == operatorHelper.maxRunningCount-1) {
             if(this.isSignin) {
                 operatorHelper.backToPreviewWindow();
             }
