@@ -40,6 +40,7 @@ public class OperatorHelper {
     private int maxLoopCount = 0; // 默认0为一直运行
     public int curLoopCount = 0;
     private static OperatorHelper instance;
+    private static boolean isInitData = false;
 
     public OperatorHelper() {
         instance = this;
@@ -55,25 +56,30 @@ public class OperatorHelper {
             return;
         }
         try {
-            Context appContext = service.getApplicationContext();
-            appList = Constant.getAppList(appContext);
-            maxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
-            curAppIndex = (int) SPUtil.get(appContext, Constant.AppBeginRunIndex, new Integer(0));
-            maxLoopCount = (int) SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
-            if (curAppIndex >= appList.size()) {
-                curAppIndex = appList.size() - 1;
+            if(!isInitData) {
+                Context appContext = service.getApplicationContext();
+                appList = Constant.getAppList(appContext);
+                maxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
+                curAppIndex = (int) SPUtil.get(appContext, Constant.AppBeginRunIndex, new Integer(0));
+                maxLoopCount = (int) SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
+                if (curAppIndex >= appList.size()) {
+                    curAppIndex = appList.size() - 1;
+                }
+                curApp = appList.get(curAppIndex);
+                curLoopCount = 0;
+                getWindowSize();
+
+                isInitData = true;
             }
-            curApp = appList.get(curAppIndex);
-            curLoopCount = 0;
+
             this.service = service;
-            getWindowSize();
             isRunning = true;
-            timer = new Timer();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
+        freeTimeTask();
+        timer = new Timer();
         timerTask = new TimerTask() {
             @SuppressWarnings("static-access")
             @Override

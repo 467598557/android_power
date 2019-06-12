@@ -10,4 +10,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.accessibility.AccessibilityStopActivity">
+    <TextView
+        android:id="@+id/begin_run_index_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:text="关闭任务" />
 </LinearLayout>

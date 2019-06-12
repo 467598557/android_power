@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.accessibility.utils.OperatorHelper;
+import com.accessibility.utils.Util;
 
 public class FloatWindowView extends LinearLayout {
-
     /**
      * 记录大悬浮窗的宽度
      */
@@ -29,15 +29,16 @@ public class FloatWindowView extends LinearLayout {
         View view = findViewById(R.id.big_window_layout);
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
-        Button close = (Button) findViewById(R.id.close);
+        Button startServiceBtn = (Button) findViewById(R.id.start_service);
         Button stopServiceBtn = (Button) findViewById(R.id.stop_service);
-        close.setOnClickListener(new OnClickListener() {
+        startServiceBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 点击关闭悬浮窗的时候，移除所有悬浮窗，并停止Service
-                FloatWindowManager.removeBigWindow(context);
-                Intent intent = new Intent(getContext(), AccessibilityFloatService.class);
-                context.stopService(intent);
+//                FloatWindowManager.removeBigWindow(context);
+//                Intent intent = new Intent(getContext(), AccessibilityFloatService.class);
+//                context.stopService(intent);
+            Util.startBeginTaskActivity(getContext());
             }
         });
         stopServiceBtn.setOnClickListener(new OnClickListener() {
@@ -45,7 +46,8 @@ public class FloatWindowView extends LinearLayout {
             public void onClick(View v) {
                 // 点击返回的时候，移除大悬浮窗，创建小悬浮窗
 //                FloatWindowManager.removeBigWindow(context);
-                Log.d("@@@@", "sxxxx"+OperatorHelper.getInstance());
+            Log.d("@@@@", "sxxxx"+OperatorHelper.getInstance());
+            Util.stopTaskActivity(getContext());
             }
         });
     }

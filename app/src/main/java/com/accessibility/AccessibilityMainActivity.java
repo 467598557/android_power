@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.accessibility.utils.AccessibilityUtil;
 import com.accessibility.utils.Constant;
 import com.accessibility.utils.SPUtil;
+import com.accessibility.utils.Util;
 
 public class AccessibilityMainActivity extends Activity implements View.OnClickListener {
     private View mOpenSetting;
@@ -39,6 +42,12 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
                 break;
             case R.id.trigger_accessibility_start_event:
+                Context appContext = getApplicationContext();
+                if(!AccessibilityUtil.isAccessibilitySettingsOn(appContext)) {
+                    Toast.makeText(this, "还未开启辅助功能", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 CheckBox chengzikuaibao = (CheckBox)findViewById(R.id.chengzikuaibao);
                 CheckBox jukandian = (CheckBox)findViewById(R.id.jukandian);
                 CheckBox niuniuzixun = (CheckBox)findViewById(R.id.niuniuzixun);
@@ -49,7 +58,6 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 EditText loopCount = (EditText)findViewById(R.id.loop_count);
                 EditText beginRunIndex = (EditText)findViewById(R.id.begin_run_index);
                 EditText appRunMinuteCount = (EditText)findViewById(R.id.run_minute_count);
-                Context appContext = getApplicationContext();
                 // 设置值到缓存
                 SPUtil.putAndApply(appContext, Constant.AppBeginRunIndex, Integer.valueOf(beginRunIndex.getText().toString()));
                 SPUtil.putAndApply(appContext, Constant.LoopCount, Integer.valueOf(loopCount.getText().toString()));
@@ -62,9 +70,7 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 SPUtil.putAndApply(appContext, Constant.AppAddShanDianHeZi, shandianhezi.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddWeiLiKanKan, weilikankan.isChecked());
 
-                Intent intent = new Intent(getApplicationContext(),  AccessibilityStartActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                this.startActivity(intent);
+                Util.startBeginTaskActivity(appContext);
 
                 if (Build.VERSION.SDK_INT >= 23) {
                     if (!Settings.canDrawOverlays(getApplicationContext())) {

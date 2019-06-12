@@ -8,6 +8,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
 
+import com.accessibility.AccessibilityStartActivity;
+import com.accessibility.AccessibilityStopActivity;
+
 import java.io.DataOutputStream;
 import java.io.OutputStream;
 
@@ -31,6 +34,18 @@ public class Util {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static void startBeginTaskActivity(Context context) {
+        Intent intent = new Intent(context,  AccessibilityStartActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void stopTaskActivity(Context context) {
+        Intent intent = new Intent(context,  AccessibilityStopActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     public static void execShellCmd(String cmd) {

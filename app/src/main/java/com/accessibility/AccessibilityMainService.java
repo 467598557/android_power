@@ -25,6 +25,7 @@ public class AccessibilityMainService extends AccessibilityService {
             return;
         }
 
+        Log.d("@@@@", "onAccessibilityEvent: "+packageName+":"+className);
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 if(className.equals("com.accessibility.AccessibilityStartActivity")) {

@@ -7,18 +7,17 @@
     android:orientation="vertical"
     >
     <Button
-        android:id="@+id/close"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dip"
-        android:text="关闭悬浮窗"
-        />
-    <Button
         android:id="@+id/stop_service"
         android:layout_width="100dip"
         android:layout_height="40dip"
         android:layout_gravity="center_horizontal"
         android:text="暂停"
+        />
+    <Button
+        android:id="@+id/start_service"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:layout_gravity="center_horizontal"
+        android:text="开始"
         />
 </LinearLayout>
