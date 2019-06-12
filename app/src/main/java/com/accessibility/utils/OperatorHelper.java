@@ -69,6 +69,7 @@ public class OperatorHelper {
                 curApp = appList.get(curAppIndex);
                 curLoopCount = 0;
                 getWindowSize();
+                appRunStartTime = System.currentTimeMillis();
 
                 isInitData = true;
             }
