@@ -19,20 +19,6 @@ public class ShanDianHeZi extends AppInfo {
 
     @Override
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
-//        List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/recyvlerview");
-//        if(nodeList.size() > 0) {
-//            AccessibilityNodeInfo node = nodeList.get(0);
-//            if(null != node) {
-//                AccessibilityNodeInfo childNode;
-//                for(int i=0, len=node.getChildCount(); i<len; i++) {
-//                    childNode = node.getChild(i);
-//
-//                    if(childNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
-//                        return childNode;
-//                    }
-//                }
-//            }
-//        }
         List<AccessibilityNodeInfo> nodeList = operatorHelper.findNodesById("c.l.a:id/from_text");
         AccessibilityNodeInfo node;
         for(int i=0, len=nodeList.size(); i<len; i++) {
@@ -78,12 +64,15 @@ public class ShanDianHeZi extends AppInfo {
         // 定时大红包 c.l.a:id/reward_text
         if(operatorHelper.runningCount <= 1) {
             // 定时大红包 计算位置
-            Log.d("@@@@", operatorHelper.winWidth+":"+operatorHelper.winHeight);
-            float y = (float)(operatorHelper.winHeight*0.735+50);
-            if(y < 1920) {
-                y = operatorHelper.winHeight - 520;
+            int winHeight = operatorHelper.winHeight;
+            int winWidth = operatorHelper.winWidth;
+            Log.d("@@@@", winWidth+":"+winHeight);
+            float y = (float)(winHeight*0.735+50);
+            if(winHeight < 1920) {
+                y = winHeight - 520;
             }
-            operatorHelper.clickInScreenPoint(operatorHelper.winWidth-50, y);
+
+            operatorHelper.clickInScreenPoint(winWidth-50, y);
         }
 
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/button"));
