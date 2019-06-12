@@ -294,6 +294,19 @@ public class OperatorHelper {
         this.isRunning = false;
     }
 
+    public void check(String packageName, String className) {
+        if(!this.isRunning) {
+            return;
+        }
+
+        Log.d("@@@@", packageName+":"+className);
+        switch (curStatus) {
+            case Constant.StatusInReadingArticle:
+
+                break;
+        }
+    }
+
     public void initDataBackToList() {
         this.runningCount = 0;
         this.maxRunningCount = 4;

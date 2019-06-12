@@ -34,6 +34,8 @@ public class AccessibilityMainService extends AccessibilityService {
                 } else if (className.equals("com.accessibility.AccessibilityStopActivity")) {
                     Log.d("@@@ stop run job", packageName + ":" + eventType+":"+className);
                     operatorHelper.stop();
+                } else {
+                    operatorHelper.check(packageName, className);
                 }
                 break;
         }
