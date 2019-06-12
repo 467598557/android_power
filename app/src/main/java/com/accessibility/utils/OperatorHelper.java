@@ -103,7 +103,7 @@ public class OperatorHelper {
                         String curPackage = rootNode.getPackageName().toString();
                         if (curStatus != Constant.StatusOpeningApp && appRunStartTime != 0 && !curPackage.equals(curApp.packageName)) {
                             backToPreviewWindow();
-                            changeStatusToOpenningApp();
+                            changeStatusToOpenningApp(false);
                             return;
                         }
                     }
@@ -192,7 +192,7 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusWaiting:
                             if (runningCount >= maxRunningCount) {
-                                changeStatusToOpenningApp();
+                                changeStatusToOpenningApp(true);
                                 return;
                             }
                             break;
@@ -221,7 +221,6 @@ public class OperatorHelper {
                             break;
                         case Constant.StatusOpeningApp: // 等待什么都不做
                             if (runningCount == 0) {
-                                appRunStartTime = System.currentTimeMillis();
                                 if(!Util.startActivity(curApp, service)) {
                                     judgeAppRunLoop(true);
                                     return;
@@ -448,8 +447,11 @@ public class OperatorHelper {
         maxRunningCount = 10;
     }
 
-    public void changeStatusToOpenningApp() {
+    public void changeStatusToOpenningApp(boolean isInitStartTime) {
         Log.d("@@@@", "changeStatusToOpenningApp");
+        if(isInitStartTime) {
+            appRunStartTime = System.currentTimeMillis();
+        }
         curStatus = Constant.StatusOpeningApp;
         runningCount = 0;
         maxRunningCount = 15;
