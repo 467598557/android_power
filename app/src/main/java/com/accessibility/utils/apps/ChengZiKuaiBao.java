@@ -48,13 +48,21 @@ public class ChengZiKuaiBao extends AppInfo {
         nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
         if(nodeList.size() > 0) {
             AccessibilityNodeInfo specialNode;
+            List<AccessibilityNodeInfo> titleList;
             for(int i=0, len=nodeList.size(); i<len; i++) {
                 node = nodeList.get(i);
                 specialNode = node.getParent().getParent();
                 // 如果不是文章或者广告的条目
                 if(specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_info_layout").size() == 0 &&
-                    specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_ad_v").size() == 0 && specialNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
-                    operatorHelper.performClickActionByNode(node);
+                    specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_ad_v").size() == 0 &&
+                        specialNode.findAccessibilityNodeInfosByText("广告").size() == 0) {
+                    titleList = specialNode.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/tv_title");
+                    if(titleList.size() > 0) { // 没有被选择过，才点击
+                        node = titleList.get(0);
+                        if(!node.isSelected()) {
+                            operatorHelper.performClickActionByNode(node);
+                        }
+                    }
                 }
             }
         }
@@ -75,7 +83,9 @@ public class ChengZiKuaiBao extends AppInfo {
         }
 
         // 查看更多  com.quyu.youliao:id/ll_expand
-        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
+        if(operatorHelper.runningCount % 2 == 0) {
+            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
+        }
     }
 
     @Override

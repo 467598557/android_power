@@ -172,7 +172,7 @@ public class OperatorHelper {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            if (runningCount % 4 == 0) {
+                            if (runningCount % 3 == 0) {
                                 scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5*2);
                             }
                             // 滚动且监听查看更多
