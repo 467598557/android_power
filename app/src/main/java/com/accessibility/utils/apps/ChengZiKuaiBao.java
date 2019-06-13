@@ -87,7 +87,7 @@ public class ChengZiKuaiBao extends AppInfo {
             List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand");
             if(nodeList.size() > 0) {
                 AccessibilityNodeInfo node = nodeList.get(0);
-                if(node.getText().toString().indexOf("点击查看全文") > 0) {
+                if(node.getText().toString().indexOf("点击查看全文") >= 0) {
                     operatorHelper.performClickActionByNode(node);
                 }
             }
