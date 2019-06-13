@@ -22,7 +22,7 @@ public class ChengZiKuaiBao extends AppInfo {
     public AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper) {
         List<AccessibilityNodeInfo> nodeInfoList = operatorHelper.findNodesById("com.quyu.youliao:id/content_view");
         AccessibilityNodeInfo node;
-        for(int i=0, len=nodeInfoList.size(); i<len; i++) {
+        for(int i=1, len=nodeInfoList.size(); i<len; i++) {
             node = nodeInfoList.get(i);
             AccessibilityNodeInfo child = null;
             if(node.getChildCount() > 0) {
@@ -50,6 +50,10 @@ public class ChengZiKuaiBao extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
+        if(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_share_layout").size() > 0) {
+            operatorHelper.backToPreviewWindow();
+            return false;
+        }
         // com.quyu.youliao:id/iv_close 列表页新人福利社等弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
         if(nodeList.size() > 0) {
