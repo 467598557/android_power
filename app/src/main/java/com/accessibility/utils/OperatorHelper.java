@@ -118,7 +118,7 @@ public class OperatorHelper {
                             }
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5 * 2);
+                                scrollScreen(winWidth / 4, winHeight / 5 * 3, winWidth / 4, (float)(winHeight / 5 * 1.5));
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
                                 boolean result = clickToDetailPage();
@@ -141,7 +141,7 @@ public class OperatorHelper {
                         case Constant.StatusSignIn:
                             // 往上滑动，以免存在时差页面被滑下
                             if (runningCount <= 2) {
-                                scrollScreen(winWidth / 3, winHeight / 5, winWidth / 3, winHeight / 5 * 4);
+                                scrollScreen(winWidth / 4, winHeight / 5, winWidth / 4, winHeight / 5 * 4);
                             }
 
                             if (runningCount > 2) {
