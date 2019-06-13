@@ -12,6 +12,8 @@ public class HuiTouTiao extends AppInfo {
         this.packageName = "com.sohu.infonews";
         this.startComponent = "com.sohu.quicknews.splashModel.activity.SplashActivity";
         this.mainComponent = "com.sohu.quicknews.homeModel.activity.HomeActivity";
+        this.articleComponent = "";
+        this.videoComponent = "";
     }
 
     @Override

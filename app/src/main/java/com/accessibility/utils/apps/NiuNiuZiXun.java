@@ -14,7 +14,7 @@ public class NiuNiuZiXun extends AppInfo {
         this.packageName = "com.huolea.bull";
         this.startComponent = "com.huolea.bull.page.other.activity.SplashActivity";
         this.mainComponent = "com.huolea.bull.page.other.activity.MainActivity";
-        this.newComponent = "com.kaijia.see.activity.ArticleWebActivity";
+        this.articleComponent = "com.kaijia.see.activity.ArticleWebActivity";
         this.videoComponent = "com.kaijia.see.activity.ArticleWebActivity";
     }
 

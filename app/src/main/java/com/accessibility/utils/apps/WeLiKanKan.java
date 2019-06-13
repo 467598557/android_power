@@ -13,7 +13,7 @@ public class WeLiKanKan extends AppInfo {
         this.packageName = "cn.weli.story";
         this.startComponent = "cn.etouch.ecalendar.MainActivity";
         this.mainComponent = "cn.etouch.ecalendar.MainActivity";
-        this.newComponent = "cn.etouch.ecalendar.tools.life.LifeDetailsActivity";
+        this.articleComponent = "cn.etouch.ecalendar.tools.life.LifeDetailsActivity";
         this.videoComponent = "com.lightsky.video.videodetails.ui.activity.VideoDetailsActivity";
     }
 

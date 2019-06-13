@@ -9,8 +9,8 @@ public abstract class AppInfo {
     public String packageName;
     public String startComponent;
     public String mainComponent;
-    public String newComponent;
-    public String videoComponent;
+    public String articleComponent;
+    public String videoComponent;   
     public boolean isSignin = false;
 
     public abstract AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper);

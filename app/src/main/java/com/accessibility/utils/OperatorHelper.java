@@ -297,14 +297,21 @@ public class OperatorHelper {
     }
 
     public void check(String packageName, String className) {
+        Log.d("@@@@ check", packageName+":"+className);
         if(!this.isRunning) {
             return;
         }
 
-        Log.d("@@@@", packageName+":"+className);
         switch (curStatus) {
             case Constant.StatusInReadingArticle:
-
+                // 十秒之后再检测
+                if(runningCount == 10) {
+                    if(!curApp.articleComponent.equals(className) && !curApp.videoComponent.equals(className)) {
+                        backToPreviewWindow();
+                    }
+                }
+                break;
+            case Constant.StatusInList:
                 break;
         }
     }

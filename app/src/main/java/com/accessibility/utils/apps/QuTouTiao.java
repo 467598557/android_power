@@ -14,7 +14,7 @@ public class QuTouTiao extends AppInfo {
         this.packageName = "com.jifen.qukan";
         this.startComponent = "com.jifen.qkbase.main.MainActivity";
         this.mainComponent = "com.jifen.qkbase.main.MainActivity";
-        this.newComponent = "com.jifen.qukan.content.newsdetail.news.NewsDetailNewActivity";
+        this.articleComponent = "com.jifen.qukan.content.newsdetail.news.NewsDetailNewActivity";
         this.videoComponent = "com.jifen.qukan.content.newsdetail.video.VideoNewsDetailNewActivity";
     }
 

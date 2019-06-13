@@ -13,7 +13,7 @@ public class JuKanDian extends AppInfo {
         this.packageName = "com.xiangzi.jukandian";
         this.startComponent = "com.xiangzi.jukandian.activity.V2WelcomeActivity";
         this.mainComponent = "com.xiangzi.jukandian.activity.MainActivity";
-        this.newComponent = "com.xiangzi.jukandian.activity.WebViewActivity";
+        this.articleComponent = "com.xiangzi.jukandian.activity.WebViewActivity";
         this.videoComponent = "com.xiangzi.jukandian.activity.WebViewActivity";
     }
 

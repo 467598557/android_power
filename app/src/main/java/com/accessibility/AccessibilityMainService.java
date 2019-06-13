@@ -22,6 +22,7 @@ public class AccessibilityMainService extends AccessibilityService {
         CharSequence classNameChr = event.getClassName();
         String className = classNameChr.toString();
         if(!packageName.equals("com.accessibility")) {
+            operatorHelper.check(packageName, className);
             return;
         }
 
@@ -34,8 +35,6 @@ public class AccessibilityMainService extends AccessibilityService {
                 } else if (className.equals("com.accessibility.AccessibilityStopActivity")) {
                     Log.d("@@@ stop run job", packageName + ":" + eventType+":"+className);
                     operatorHelper.stop();
-                } else {
-                    operatorHelper.check(packageName, className);
                 }
                 break;
         }

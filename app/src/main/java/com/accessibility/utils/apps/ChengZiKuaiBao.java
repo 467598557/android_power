@@ -14,6 +14,8 @@ public class ChengZiKuaiBao extends AppInfo {
         this.packageName = "com.quyu.youliao";
         this.startComponent = "com.koala.gold.toutiao.MainActivity";
         this.mainComponent = "com.koala.gold.toutiao.activity.HomeActivity";
+        this.articleComponent = "com.koala.gold.toutiao.activity.ArticleDetailActivity";
+        this.videoComponent = "";
     }
 
     @Override
@@ -81,7 +83,7 @@ public class ChengZiKuaiBao extends AppInfo {
         }
 
         // 查看更多  com.quyu.youliao:id/ll_expand
-        if(operatorHelper.runningCount % 2 == 0) {
+        if(operatorHelper.runningCount % 2 == 0 && operatorHelper.runningCount % 3 != 0) {
             operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
         }
     }

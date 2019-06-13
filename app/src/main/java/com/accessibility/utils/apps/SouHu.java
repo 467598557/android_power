@@ -16,6 +16,8 @@ public class SouHu extends AppInfo {
         this.packageName = "com.sohu.infonews";
         this.startComponent = "com.sohu.quicknews.splashModel.activity.SplashActivity";
         this.mainComponent = "com.sohu.quicknews.homeModel.activity.HomeActivity";
+        this.articleComponent = "com.sohu.quicknews.articleModel.activity.DetailActivity";
+        this.videoComponent = "com.sohu.quicknews.articleModel.activity.VideoDetailActivity";
     }
 
     @Override

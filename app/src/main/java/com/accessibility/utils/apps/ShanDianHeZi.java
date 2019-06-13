@@ -1,13 +1,9 @@
 package com.accessibility.utils.apps;
 
-import android.graphics.Path;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.accessibility.utils.AppInfo;
 import com.accessibility.utils.OperatorHelper;
-
 import java.util.List;
 
 public class ShanDianHeZi extends AppInfo {
@@ -15,6 +11,8 @@ public class ShanDianHeZi extends AppInfo {
         this.packageName = "c.l.a";
         this.startComponent = "c.l.a.views.AppBoxWelcomeActivity";
         this.mainComponent = "c.l.a.views.AppBoxHomeActivity";
+        this.articleComponent = "android.widget.LinearLayout";
+        this.videoComponent = "android.widget.FrameLayout";
     }
 
     @Override
