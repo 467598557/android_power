@@ -84,7 +84,13 @@ public class ChengZiKuaiBao extends AppInfo {
 
         // 查看更多  com.quyu.youliao:id/ll_expand
         if(operatorHelper.runningCount % 2 == 0 && operatorHelper.runningCount % 3 != 0) {
-            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand"));
+            List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/ll_expand");
+            if(nodeList.size() > 0) {
+                AccessibilityNodeInfo node = nodeList.get(0);
+                if(node.getText().toString().indexOf("点击查看全文") > 0) {
+                    operatorHelper.performClickActionByNode(node);
+                }
+            }
         }
     }
 
