@@ -122,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:text="执行分钟：" />
+
             <EditText
                 android:id="@+id/run_minute_count"
                 android:layout_width="322dp"
@@ -129,7 +130,7 @@
                 android:ems="10"
                 android:hint=""
                 android:inputType="number"
-                android:text="10" />
+                android:text="15" />
         </TableRow>
         <TableRow
             android:layout_marginTop="6dp"
