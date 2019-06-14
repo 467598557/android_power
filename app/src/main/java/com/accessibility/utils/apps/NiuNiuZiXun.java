@@ -91,12 +91,13 @@ public class NiuNiuZiXun extends AppInfo {
 
     @Override
     public boolean signin(OperatorHelper operatorHelper) {
-        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
+        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
+        if(null == root) {
             return false;
         }
 
-        AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
-        if(null == root) {
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_activity_one_key_login_btn"));
+        if(operatorHelper.runningCount < operatorHelper.maxRunningCount) {
             return false;
         }
 
