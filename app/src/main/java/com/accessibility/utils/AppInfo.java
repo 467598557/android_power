@@ -12,6 +12,7 @@ public abstract class AppInfo {
     public String articleComponent;
     public String videoComponent;   
     public boolean isSignin = false;
+    public int readingArticleCount = 0;
 
     public abstract AccessibilityNodeInfo getArticleSpecialViewById(OperatorHelper operatorHelper);
     public abstract AccessibilityNodeInfo getVideoSpecialViewById(OperatorHelper operatorHelper);

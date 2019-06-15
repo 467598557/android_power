@@ -91,19 +91,22 @@ public class OperatorHelper {
                     return;
                 }
 
-//                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime+":"+maxRunningCount);
+                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime +":"+  runningCount + ":"+maxRunningCount);
                 try {
                     getWindowSize();
                     String curClassName = "";
                     AccessibilityNodeInfo rootNode = getRootNodeInfo();
                     if (null == rootNode) {
-                        backToPreviewWindow();
+                        if(curStatus != Constant.StatusOpeningApp) {
+                            backToPreviewWindow();
+                        }
                         Log.d("@@@@", "no root");
                         return;
                     } else {
                         // 可能有异常跳出
                         String curPackage = rootNode.getPackageName().toString();
                         if (curStatus != Constant.StatusOpeningApp && appRunStartTime != 0 && !curPackage.equals(curApp.packageName)) {
+                            Log.d("@@@@", "可能有异常跳出："+curPackage);
                             backToPreviewWindow();
                             changeStatusToOpenningApp(false);
                             return;
@@ -296,12 +299,13 @@ public class OperatorHelper {
         this.isRunning = false;
     }
 
-    public void check(String packageName, String className) {
+    public void check(String packageName, String className, AccessibilityService service) {
         Log.d("@@@@ check", packageName+":"+className);
         if(!this.isRunning) {
             return;
         }
 
+        this.service = service;
         switch (curStatus) {
             case Constant.StatusInReadingArticle:
                 // 十秒之后再检测

@@ -54,6 +54,18 @@ public class ChengZiKuaiBao extends AppInfo {
             operatorHelper.backToPreviewWindow();
             return false;
         }
+
+        nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/rv_articles");
+        if(nodeList.size() > 0) {
+            node = nodeList.get(0);
+            // 未加载出数据来
+            if(node.getChildCount() == 0) {
+                operatorHelper.backToSystemHome();
+                operatorHelper.changeStatusToWaiting();
+                return true;
+            }
+        }
+
         // com.quyu.youliao:id/iv_close 列表页新人福利社等弹窗
         nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_close");
         if(nodeList.size() > 0) {

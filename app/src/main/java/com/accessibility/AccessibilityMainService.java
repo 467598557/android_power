@@ -22,7 +22,7 @@ public class AccessibilityMainService extends AccessibilityService {
         CharSequence classNameChr = event.getClassName();
         String className = classNameChr.toString();
         if(!packageName.equals("com.accessibility")) {
-            operatorHelper.check(packageName, className);
+            operatorHelper.check(packageName, className, this);
             return;
         }
 

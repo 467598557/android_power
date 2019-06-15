@@ -64,7 +64,6 @@ public class ShanDianHeZi extends AppInfo {
             // 定时大红包 计算位置
             int winHeight = operatorHelper.winHeight;
             int winWidth = operatorHelper.winWidth;
-            Log.d("@@@@", winWidth+":"+winHeight);
             float y = (float)(winHeight*0.735+50);
             if(winHeight < 1920) {
                 y = winHeight - 520;
