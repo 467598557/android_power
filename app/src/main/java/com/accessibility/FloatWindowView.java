@@ -44,9 +44,6 @@ public class FloatWindowView extends LinearLayout {
         stopServiceBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 点击返回的时候，移除大悬浮窗，创建小悬浮窗
-//                FloatWindowManager.removeBigWindow(context);
-            Log.d("@@@@", "sxxxx"+OperatorHelper.getInstance());
             Util.stopTaskActivity(getContext());
             }
         });

@@ -45,7 +45,7 @@ public class FloatWindowManager {
                 bigWindowParams = new WindowManager.LayoutParams();
                 bigWindowParams.width = FloatWindowView.viewWidth;
                 bigWindowParams.height = FloatWindowView.viewHeight;
-                bigWindowParams.x = screenWidth - FloatWindowView.viewWidth;
+                bigWindowParams.x = screenWidth - 2 * FloatWindowView.viewWidth;
                 bigWindowParams.y = 0 ;
                 if (Build.VERSION.SDK_INT>=26) {//8.0新特性
                     bigWindowParams.type= WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -55,7 +55,6 @@ public class FloatWindowManager {
                 bigWindowParams.format = PixelFormat.RGBA_8888;
                 bigWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
                 bigWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-                Log.d("@@@@", FloatWindowView.viewWidth+":"+FloatWindowView.viewHeight);
             }
             windowManager.addView(bigWindow, bigWindowParams);
         }

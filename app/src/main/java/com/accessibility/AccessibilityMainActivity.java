@@ -55,7 +55,7 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 CheckBox souhuzixun = (CheckBox)findViewById(R.id.souhuzixun);
                 CheckBox weilikankan = (CheckBox)findViewById(R.id.weilikankan);
                 CheckBox shandianhezi = (CheckBox)findViewById(R.id.shandianhezi);
-                CheckBox mizhuantoutiao = (CheckBox)findViewById(R.id.mizhuantoutiao);
+                CheckBox yuetoutiao = (CheckBox)findViewById(R.id.yuetoutiao);
                 EditText loopCount = (EditText)findViewById(R.id.loop_count);
                 EditText beginRunIndex = (EditText)findViewById(R.id.begin_run_index);
                 EditText appRunMinuteCount = (EditText)findViewById(R.id.run_minute_count);
@@ -70,21 +70,21 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 SPUtil.putAndApply(appContext, Constant.AppAddSouHuZiXun, souhuzixun.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddShanDianHeZi, shandianhezi.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddWeiLiKanKan, weilikankan.isChecked());
-                SPUtil.putAndApply(appContext, Constant.AppAddMiZhuanTouTiao, mizhuantoutiao.isChecked());
+                SPUtil.putAndApply(appContext, Constant.AppAddYueTouTiao, yuetoutiao.isChecked());
 
                 Util.startBeginTaskActivity(appContext);
 
-                if (Build.VERSION.SDK_INT >= 23) {
-                    if (!Settings.canDrawOverlays(getApplicationContext())) {
-                        Intent intent2 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                        intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivityForResult(intent2, 1);
-                    } else {
-                        FloatWindowManager.createBigWindow(getApplicationContext());
-                    }
-                } else {
-                    FloatWindowManager.createBigWindow(getApplicationContext());
-                }
+//                if (Build.VERSION.SDK_INT >= 23) {
+//                    if (!Settings.canDrawOverlays(getApplicationContext())) {
+//                        Intent intent2 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+//                        intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivityForResult(intent2, 1);
+//                    } else {
+//                        FloatWindowManager.createBigWindow(getApplicationContext());
+//                    }
+//                } else {
+//                    FloatWindowManager.createBigWindow(getApplicationContext());
+//                }
 
                 break;
         }

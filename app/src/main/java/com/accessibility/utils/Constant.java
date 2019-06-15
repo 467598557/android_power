@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.accessibility.utils.apps.ChengZiKuaiBao;
 import com.accessibility.utils.apps.JuKanDian;
-import com.accessibility.utils.apps.MiZhuanTouTiao;
 import com.accessibility.utils.apps.NiuNiuZiXun;
 import com.accessibility.utils.apps.QuTouTiao;
 import com.accessibility.utils.apps.ShanDianHeZi;
 import com.accessibility.utils.apps.SouHu;
 import com.accessibility.utils.apps.WeLiKanKan;
+import com.accessibility.utils.apps.YueTouTiao;
 
 import java.util.ArrayList;
 
@@ -34,6 +34,7 @@ public class Constant {
     public final static String AppAddWeiLiKanKan = "app_add_weilikankan";
     public final static String AppAddShanDianHeZi = "app_add_shandianhezi";
     public final static String AppAddMiZhuanTouTiao = "app_add_mizhuantoutiao";
+    public final static String AppAddYueTouTiao = "app_add_yuetoutiao";
     public static ArrayList<AppInfo> mAppList = new ArrayList<AppInfo>();
 
     public static ArrayList<AppInfo> getAppList(Context context) {
@@ -59,8 +60,8 @@ public class Constant {
             if((boolean)SPUtil.get(context, Constant.AppAddShanDianHeZi, new Boolean(true))) {
                 mAppList.add(new ShanDianHeZi());
             }
-            if((boolean)SPUtil.get(context, Constant.AppAddMiZhuanTouTiao, new Boolean(true))) {
-                mAppList.add(new MiZhuanTouTiao());
+            if((boolean)SPUtil.get(context, Constant.AppAddYueTouTiao, new Boolean(true))) {
+                mAppList.add(new YueTouTiao());
             }
         }
 

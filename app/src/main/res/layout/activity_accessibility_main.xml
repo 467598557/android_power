@@ -89,11 +89,11 @@
                 android:checked="true"
                 android:text="闪电盒子" />
             <CheckBox
-                android:id="@+id/mizhuantoutiao"
+                android:id="@+id/yuetoutiao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="米赚头条" />
+                android:text="悦头条" />
         </TableRow>
     </TableLayout>
     <TableLayout

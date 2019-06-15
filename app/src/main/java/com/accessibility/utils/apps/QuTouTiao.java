@@ -87,7 +87,6 @@ public class QuTouTiao extends AppInfo {
             AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
             nodeInfoList = nodeInfo.findAccessibilityNodeInfosByText("领取");
             if(nodeInfoList.size() > 0) { // 确认特征点，然后领取金币
-                Log.d("@@@", "领取金币");
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
         }
