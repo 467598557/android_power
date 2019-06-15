@@ -40,6 +40,11 @@ public class WeLiKanKan extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeInfoList;
         AccessibilityNodeInfo nodeInfo;
+        nodeInfoList = root.findAccessibilityNodeInfosByText("输入邀请码");
+        if(nodeInfoList.size() > 0) {
+            operatorHelper.backToPreviewWindow();
+        }
+
         // cn.weli.story:id/bt_ok 阅读时长后动态奖励
         nodeInfoList = root.findAccessibilityNodeInfosByViewId("cn.weli.story:id/bt_ok");
         if(nodeInfoList.size() > 0) {
