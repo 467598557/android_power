@@ -208,6 +208,13 @@ public class OperatorHelper {
                                 return;
                             }
                             break;
+                            case Constant.StatusInCloseYueTouTiaoApp:
+                                if (runningCount >= maxRunningCount) {
+                                    performClickActionByNodeListFirstChild(getRootNodeInfo().findAccessibilityNodeInfosByViewId("com.expflow.reading:id/tv_logout"));
+                                    changeStatusToWaiting();
+                                    return;
+                                }
+                                break;
                         case Constant.StatusInBackToMainActivity:
                             if (runningCount % 2 == 0) {
                                 backToPreviewWindow();
@@ -290,6 +297,8 @@ public class OperatorHelper {
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
         if (curApp.packageName.equals("com.xiangzi.jukandian")) {
             curStatus = Constant.StatusInCloseJuKanDianApp;
+        } else if(curApp.packageName.equals("com.expflow.reading")) {
+            curStatus = Constant.StatusInCloseYueTouTiaoApp;
         } else {
             service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
         }

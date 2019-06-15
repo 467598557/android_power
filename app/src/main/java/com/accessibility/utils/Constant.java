@@ -23,6 +23,7 @@ public class Constant {
     public final static int StatusSignIn = 7;
     public final static int StatusInCloseJuKanDianApp = 8;
     public final static int StatusInBackToMainActivity = 9;
+    public final static int StatusInCloseYueTouTiaoApp = 10;
     public final static String LoopCount = "loop_count";
     public final static String AppRunMinuteCount = "app_run_minute_count";
     public final static String AppBeginRunIndex = "begin_run_index";
