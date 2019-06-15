@@ -306,6 +306,9 @@ public class OperatorHelper {
             case Constant.StatusInReadingArticle:
                 // 十秒之后再检测
                 if(runningCount == 10) {
+                    if(curApp.articleComponent.equals("") && curApp.videoComponent.equals("")) {
+                        break;
+                    }
                     if(!curApp.articleComponent.equals(className) && !curApp.videoComponent.equals(className)) {
                         backToPreviewWindow();
                     }

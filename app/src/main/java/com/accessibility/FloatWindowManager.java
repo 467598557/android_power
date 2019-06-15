@@ -45,7 +45,7 @@ public class FloatWindowManager {
                 bigWindowParams = new WindowManager.LayoutParams();
                 bigWindowParams.width = FloatWindowView.viewWidth;
                 bigWindowParams.height = FloatWindowView.viewHeight;
-                bigWindowParams.x = screenWidth - FloatWindowView.viewWidth / 2;
+                bigWindowParams.x = screenWidth - FloatWindowView.viewWidth;
                 bigWindowParams.y = 0 ;
                 if (Build.VERSION.SDK_INT>=26) {//8.0新特性
                     bigWindowParams.type= WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
