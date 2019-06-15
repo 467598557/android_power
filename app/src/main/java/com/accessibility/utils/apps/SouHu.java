@@ -125,16 +125,14 @@ public class SouHu extends AppInfo {
                         operatorHelper.judgeAppRunLoop(true); // 强行跳转至下一个app
                         return;
                     } else {
-                        operatorHelper.backToPreviewWindow();
-//                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
                         // 新的应用安装包貌似改成了这个id
-//                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/close"));
+                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/close"));
                     }
                 }
             } else {
-//                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
-//                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/close"));
-                operatorHelper.backToPreviewWindow();
+                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/close"));
             }
         }
     }

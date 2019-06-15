@@ -91,7 +91,7 @@ public class OperatorHelper {
                     return;
                 }
 
-                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime +":"+  runningCount + ":"+maxRunningCount);
+//                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime +":"+  runningCount + ":"+maxRunningCount);
                 try {
                     getWindowSize();
                     String curClassName = "";
@@ -178,7 +178,7 @@ public class OperatorHelper {
                                 e.printStackTrace();
                             }
                             if (runningCount % 3 == 0) {
-                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5*2);
+                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, (float)(winHeight / 5*2.7));
                             }
                             // 滚动且监听查看更多
                             if (runningCount > maxRunningCount) { // 退回列表
@@ -282,6 +282,7 @@ public class OperatorHelper {
     }
 
     public void backToPreviewWindow() {
+        Log.d("@@@@", "backToPreviewWindow");
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
@@ -300,7 +301,7 @@ public class OperatorHelper {
     }
 
     public void check(String packageName, String className, AccessibilityService service) {
-        Log.d("@@@@ check", packageName+":"+className);
+//        Log.d("@@@@ check", packageName+":"+className);
         if(!this.isRunning) {
             return;
         }
@@ -358,7 +359,7 @@ public class OperatorHelper {
     public boolean scrollScreen(float fromX, float fromY, float toX, float toY) {
         try {
             if (Build.VERSION.SDK_INT < 26) {
-                Util.execShellCmd("input swipe " + fromX + " " + fromY + " " + toX + " " + toY + " 300");
+                Util.execShellCmd("input swipe " + fromX + " " + fromY + " " + toX + " " + toY + " 100");
             } else {
                 Path path = new Path();
                 path.moveTo(fromX, fromY);
