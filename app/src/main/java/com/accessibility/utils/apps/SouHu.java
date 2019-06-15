@@ -118,17 +118,23 @@ public class SouHu extends AppInfo {
                 } else {
                     nodeList = operatorHelper.findNodesById("com.sohu.infonews:id/total_progress_tv");
                     node = nodeList.get(0);
+                    Log.d("@@@@", "totalSize:"+node.getText().toString());
                     // 验证是否领取完
-                    if(node.getText().toString().indexOf("2640/") > 0) {
+                    if(node.getText().toString().indexOf("2640/2640") > 0) {
                         operatorHelper.backToPreviewWindow();
                         operatorHelper.judgeAppRunLoop(true); // 强行跳转至下一个app
                         return;
                     } else {
-                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+                        operatorHelper.backToPreviewWindow();
+//                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+                        // 新的应用安装包貌似改成了这个id
+//                        operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/close"));
                     }
                 }
             } else {
-                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+//                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/counting_dialog_close"));
+//                operatorHelper.performClickActionByNodeListFirstChild(operatorHelper.findNodesById("com.sohu.infonews:id/close"));
+                operatorHelper.backToPreviewWindow();
             }
         }
     }

@@ -91,7 +91,7 @@ public class OperatorHelper {
                     return;
                 }
 
-                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime+":"+maxRunningCount);
+//                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime+":"+maxRunningCount);
                 try {
                     getWindowSize();
                     String curClassName = "";

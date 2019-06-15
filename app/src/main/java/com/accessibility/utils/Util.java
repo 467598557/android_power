@@ -58,6 +58,7 @@ public class Util {
             dataOutputStream.close();
             outputStream.close();
         } catch (Throwable t) {
+            Log.d("@@@@ execShellCmd fail", t.getMessage());
             t.printStackTrace();
         }
     }
