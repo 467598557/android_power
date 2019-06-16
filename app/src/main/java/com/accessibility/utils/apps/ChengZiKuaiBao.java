@@ -101,6 +101,10 @@ public class ChengZiKuaiBao extends AppInfo {
         // 看视频领金币
         List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_click_text");
         if(nodeList.size() > 0) {
+            if(operatorHelper.isJumpVideo) {
+                operatorHelper.changeStatusToList();
+                return;
+            }
             nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_redbag");
             AccessibilityNodeInfo node = nodeList.get(0);
             Rect rect = new Rect();

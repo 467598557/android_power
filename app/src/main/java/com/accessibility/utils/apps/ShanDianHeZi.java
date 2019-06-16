@@ -21,8 +21,13 @@ public class ShanDianHeZi extends AppInfo {
         AccessibilityNodeInfo node;
         for(int i=0, len=nodeList.size(); i<len; i++) {
             node = nodeList.get(i).getParent();
+            boolean isCheckedVideo = true;
+            if(operatorHelper.isJumpVideo) {
+                isCheckedVideo = node.findAccessibilityNodeInfosByViewId("c.l.a:id/play").size() == 0;
+            }
             if(node.isClickable() && node.findAccessibilityNodeInfosByText("广告").size() == 0
-                    && node.getClassName().toString().equals("android.widget.LinearLayout")) {
+                    && node.getClassName().toString().equals("android.widget.LinearLayout") && isCheckedVideo
+                    && node.findAccessibilityNodeInfosByText("抖音短视频").size() == 0) {
                 return node;
             }
         }

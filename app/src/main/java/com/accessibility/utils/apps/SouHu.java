@@ -27,11 +27,16 @@ public class SouHu extends AppInfo {
         AccessibilityNodeInfo node;
         for(int i=0, len=nodeList.size(); i<len; i++) {
             node = nodeList.get(i).getParent();
-            if(node.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/left_guess_tv").size() == 0) {
+            boolean isCheckedVideo = true;
+            if(operatorHelper.isJumpVideo) {
+                isCheckedVideo = node.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/ic_play_img").size() == 0;
+            }
+            if(node.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/left_guess_tv").size() == 0
+                && isCheckedVideo) { // 并且不是视频
                 return node;
             }
         }
-
+    
         return null;
     }
 
