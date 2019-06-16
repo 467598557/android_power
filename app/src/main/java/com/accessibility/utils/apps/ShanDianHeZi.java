@@ -23,8 +23,10 @@ public class ShanDianHeZi extends AppInfo {
             node = nodeList.get(i).getParent();
             boolean isCheckedVideo = true;
             if(operatorHelper.isJumpVideo) {
-                isCheckedVideo = node.findAccessibilityNodeInfosByViewId("c.l.a:id/play").size() == 0;
+                isCheckedVideo = node.findAccessibilityNodeInfosByViewId("c.l.a:id/play").size() == 0
+                        && (node.findAccessibilityNodeInfosByViewId("c.l.a:id/time").size() == 0);
             }
+
             if(node.isClickable() && node.findAccessibilityNodeInfosByText("广告").size() == 0
                     && node.getClassName().toString().equals("android.widget.LinearLayout") && isCheckedVideo
                     && node.findAccessibilityNodeInfosByText("抖音短视频").size() == 0) {
