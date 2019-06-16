@@ -98,9 +98,17 @@ public class ChengZiKuaiBao extends AppInfo {
             return;
         }
 
+        // 看视频领金币
         List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_click_text");
         if(nodeList.size() > 0) {
-            operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_redbag"));
+            nodeList = root.findAccessibilityNodeInfosByViewId("com.quyu.youliao:id/iv_redbag");
+            AccessibilityNodeInfo node = nodeList.get(0);
+            Rect rect = new Rect();
+            node.getBoundsInScreen(rect);
+            float x = rect.left + (rect.right-rect.left)/2;
+            float y = rect.top+(rect.bottom-rect.top)/2;
+            Log.d("@@@@", "find red bag button:x="+x+":y="+y);
+            operatorHelper.clickInScreenPoint(x, y);
         }
 
         // 查看更多  com.quyu.youliao:id/ll_expand
