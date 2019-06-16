@@ -49,6 +49,10 @@ public class NiuNiuZiXun extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeInfoList;
         AccessibilityNodeInfo nodeInfo;
+        if(root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_dialog_update_version_btn").size() > 0) {
+            operatorHelper.backToPreviewWindow();
+            return true;
+        }
         if(!this.isSignin) {
             nodeInfo = root.findAccessibilityNodeInfosByViewId("com.huolea.bull:id/id_layout_navigation_task_layout").get(0);
             if(null != nodeInfo) {
