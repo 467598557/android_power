@@ -185,6 +185,7 @@ public class SouHu extends AppInfo {
             }
         }
         if(operatorHelper.runningCount == operatorHelper.maxRunningCount) {
+            operatorHelper.backToPreviewWindow();
             clickFooterMenu(operatorHelper, root, 0);
         }
 
