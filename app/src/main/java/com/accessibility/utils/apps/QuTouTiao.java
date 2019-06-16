@@ -55,7 +55,6 @@ public class QuTouTiao extends AppInfo {
 
     @Override
     public boolean doSomething(OperatorHelper operatorHelper) {
-        Log.d("@@@ doSomething in QuTouTiao", "");
         AccessibilityNodeInfo root = operatorHelper.getRootNodeInfo();
         if(null == root) {
             return false;
@@ -73,7 +72,8 @@ public class QuTouTiao extends AppInfo {
                 return true;
             }
         }
-
+        // 签到提醒弹窗
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/ic"));
         // 列表输入好友邀请码领金币弹窗
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.jifen.qukan:id/a1w"));
         // 执行更新app弹窗判断

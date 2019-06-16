@@ -11,6 +11,7 @@ import java.util.List;
 
 public class SouHu extends AppInfo {
     private boolean isCheckTodayExtraClicked = false;
+    private boolean isGetBigRedBag = true;
 
     public SouHu() {
         this.packageName = "com.sohu.infonews";
@@ -50,10 +51,18 @@ public class SouHu extends AppInfo {
                 return true;
             }
         }
+
+        // 答题赢狐币 窗口
+        nodeList = root.findAccessibilityNodeInfosByText("答题赢狐币");
+        if(nodeList.size() > 0) {
+            operatorHelper.backToPreviewWindow();
+            isGetBigRedBag = false;
+            return true;
+        }
         // 搜狐抢购商品入口关闭按钮
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/btn_left"));
-        // 定量大红包按钮
-        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/red_bags"));
+        // 定量大红包按钮 || 答题送狐币
+        if(isGetBigRedBag) operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/red_bags"));
         // 定量大红包开启弹窗
         if(operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/redbag_open"))) {
             // 定量大红包打开后弹窗
@@ -184,6 +193,7 @@ public class SouHu extends AppInfo {
             return ;
         }
 
+        this.isGetBigRedBag = true; // 每一个轮回开启， 以防止在中途被关闭
         // 升级按钮
         operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("com.sohu.infonews:id/normaldlg_btn_close"));
     }
