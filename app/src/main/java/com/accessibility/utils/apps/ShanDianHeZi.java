@@ -29,7 +29,9 @@ public class ShanDianHeZi extends AppInfo {
 
             if(node.isClickable() && node.findAccessibilityNodeInfosByText("广告").size() == 0
                     && node.getClassName().toString().equals("android.widget.LinearLayout") && isCheckedVideo
-                    && node.findAccessibilityNodeInfosByText("抖音短视频").size() == 0) {
+                    && node.findAccessibilityNodeInfosByText("抖音短视频").size() == 0
+                    // 必须是三张图片的，尽量避开视频
+                    && node.findAccessibilityNodeInfosByViewId("c.l.a:id/img_container").size() > 0) {
                 return node;
             }
         }
@@ -66,6 +68,13 @@ public class ShanDianHeZi extends AppInfo {
 
         List<AccessibilityNodeInfo> nodeList;
         AccessibilityNodeInfo node;
+        if(operatorHelper.isJumpVideo) {
+            nodeList = root.findAccessibilityNodeInfosByViewId("c.l.a:id/viedoContainer");
+            if(nodeList.size() > 0) {
+                operatorHelper.changeStatusToList();
+                return;
+            }
+        }
         // 定时大红包 c.l.a:id/reward_text
         if(operatorHelper.runningCount <= 1) {
             // 定时大红包 计算位置
@@ -77,7 +86,7 @@ public class ShanDianHeZi extends AppInfo {
             } else if(winHeight > 1520) {
                 y = winHeight - 520;
             } else {
-                y = winHeight - 310;
+                y = winHeight - 350;
             }
 
             operatorHelper.clickInScreenPoint(winWidth-50, y);
