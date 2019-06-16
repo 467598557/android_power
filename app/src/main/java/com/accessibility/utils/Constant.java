@@ -36,6 +36,7 @@ public class Constant {
     public final static String AppAddShanDianHeZi = "app_add_shandianhezi";
     public final static String AppAddMiZhuanTouTiao = "app_add_mizhuantoutiao";
     public final static String AppAddYueTouTiao = "app_add_yuetoutiao";
+    public final static String AppJumpVideo = "app_jump_video";
     public static ArrayList<AppInfo> mAppList = new ArrayList<AppInfo>();
 
     public static ArrayList<AppInfo> getAppList(Context context) {

@@ -40,6 +40,7 @@ public class OperatorHelper {
     private long baseMaxAppRunTime = maxAppRunTime;
     private int maxLoopCount = 0; // 默认0为一直运行
     public int curLoopCount = 0;
+    public boolean isJumpVideo = false;
     private static OperatorHelper instance;
     private static boolean isInitData = false;
 
@@ -63,6 +64,7 @@ public class OperatorHelper {
                 maxAppRunTime = baseMaxAppRunTime = (int) SPUtil.get(appContext, Constant.AppRunMinuteCount, new Integer(0)) * 60 * 1000;
                 curAppIndex = (int) SPUtil.get(appContext, Constant.AppBeginRunIndex, new Integer(0));
                 maxLoopCount = (int) SPUtil.get(appContext, Constant.LoopCount, new Integer(0));
+                isJumpVideo = (boolean)SPUtil.get(appContext, Constant.AppJumpVideo, new Boolean(true));
                 if (curAppIndex >= appList.size()) {
                     curAppIndex = appList.size() - 1;
                 }
@@ -437,7 +439,7 @@ public class OperatorHelper {
         AccessibilityNodeInfo nodeInfo = curApp.getArticleSpecialViewById(instance);
         if (null != nodeInfo) {
             curType = "article";
-        } else {
+        } else if(!isJumpVideo) {
             nodeInfo = curApp.getVideoSpecialViewById(instance);
             if (null != nodeInfo) {
                 curType = "video";

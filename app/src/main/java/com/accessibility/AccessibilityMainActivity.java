@@ -56,6 +56,7 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 CheckBox weilikankan = (CheckBox)findViewById(R.id.weilikankan);
                 CheckBox shandianhezi = (CheckBox)findViewById(R.id.shandianhezi);
                 CheckBox yuetoutiao = (CheckBox)findViewById(R.id.yuetoutiao);
+                CheckBox jumpVideo = (CheckBox)findViewById(R.id.jumpVideo);
                 EditText loopCount = (EditText)findViewById(R.id.loop_count);
                 EditText beginRunIndex = (EditText)findViewById(R.id.begin_run_index);
                 EditText appRunMinuteCount = (EditText)findViewById(R.id.run_minute_count);
@@ -71,9 +72,8 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
                 SPUtil.putAndApply(appContext, Constant.AppAddShanDianHeZi, shandianhezi.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddWeiLiKanKan, weilikankan.isChecked());
                 SPUtil.putAndApply(appContext, Constant.AppAddYueTouTiao, yuetoutiao.isChecked());
-
+                SPUtil.putAndApply(appContext, Constant.AppJumpVideo, jumpVideo.isChecked());
                 Util.startBeginTaskActivity(appContext);
-
 //                if (Build.VERSION.SDK_INT >= 23) {
 //                    if (!Settings.canDrawOverlays(getApplicationContext())) {
 //                        Intent intent2 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
@@ -85,7 +85,6 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
 //                } else {
 //                    FloatWindowManager.createBigWindow(getApplicationContext());
 //                }
-
                 break;
         }
     }
