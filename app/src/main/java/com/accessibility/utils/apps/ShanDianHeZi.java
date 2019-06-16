@@ -71,6 +71,7 @@ public class ShanDianHeZi extends AppInfo {
         if(operatorHelper.isJumpVideo) {
             nodeList = root.findAccessibilityNodeInfosByViewId("c.l.a:id/viedoContainer");
             if(nodeList.size() > 0) {
+                operatorHelper.backToPreviewWindow();
                 operatorHelper.changeStatusToList();
                 return;
             }
