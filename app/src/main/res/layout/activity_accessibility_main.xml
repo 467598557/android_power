@@ -21,12 +21,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="打开辅助" />
+
             <Button
                 android:id="@+id/trigger_accessibility_start_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="开始执行" />
+
+            <CheckBox
+                android:id="@+id/jumpVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:checked="true"
+                android:text="跳过视频" />
         </TableRow>
+    </TableLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TableRow
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
@@ -155,17 +169,6 @@
                 android:hint=""
                 android:inputType="number"
                 android:text="0" />
-        </TableRow>
-        <TableRow
-            android:layout_marginTop="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            <CheckBox
-                android:id="@+id/jumpVideo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="跳过视频" />
         </TableRow>
     </TableLayout>
 </LinearLayout>
