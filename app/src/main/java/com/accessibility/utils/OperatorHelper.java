@@ -114,6 +114,16 @@ public class OperatorHelper {
                             return;
                         }
                     }
+                    if(rootNode.findAccessibilityNodeInfosByViewId("android:id/button1").size() > 0) {
+                        List<AccessibilityNodeInfo> nodeList = rootNode.findAccessibilityNodeInfosByViewId("miui:id/message");
+                        if(nodeList.size() > 0) {
+                            AccessibilityNodeInfo node = nodeList.get(0);
+                            if(node.getText().toString().indexOf("已停止运行") > 0) {
+                                performClickActionByNode(rootNode.findAccessibilityNodeInfosByViewId("android:id/button1").get(0));
+                                return;
+                            }
+                        }
+                    }
                     switch (curStatus) {
                         case Constant.StatusInList:
                             try {
@@ -150,9 +160,7 @@ public class OperatorHelper {
                                 scrollScreen(winWidth / 4, winHeight / 5, winWidth / 4, winHeight / 5 * 4);
                             }
 
-                            if (runningCount > 2) {
-                                curApp.signin(instance);
-                            }
+                            curApp.signin(instance);
                             if (runningCount >= maxRunningCount) {
                                 // 签到
                                 changeStatusToList();
