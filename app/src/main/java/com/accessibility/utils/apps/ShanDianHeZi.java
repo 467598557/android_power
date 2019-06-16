@@ -87,6 +87,10 @@ public class ShanDianHeZi extends AppInfo {
             return false;
         }
 
+        // 大红包弹窗
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/image1"));
+        // 大红包弹窗后的窗口
+        operatorHelper.performClickActionByNodeListFirstChild(root.findAccessibilityNodeInfosByViewId("c.l.a:id/btn_get_money"));
         if(operatorHelper.runningCount == operatorHelper.maxRunningCount-2) {
             List<AccessibilityNodeInfo> nodeList  = root.findAccessibilityNodeInfosByViewId("c.l.a:id/red_pack_signed_btn");
             if(nodeList.size() > 0) {
