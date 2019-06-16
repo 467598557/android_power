@@ -91,7 +91,7 @@ public class OperatorHelper {
                     return;
                 }
 
-//                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime +":"+  runningCount + ":"+maxRunningCount);
+                Log.d("@@@@", "run ----"+curStatus+":"+curAppIndex+":"+appRunStartTime +":"+  runningCount + ":"+maxRunningCount);
                 try {
                     getWindowSize();
                     String curClassName = "";
@@ -121,7 +121,8 @@ public class OperatorHelper {
                             }
 
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth / 4, winHeight / 5 * 3, winWidth / 4, (float)(winHeight / 5 * 1.5));
+//                                scrollScreen(winWidth / 4, winHeight / 5 * 3, winWidth / 4, (float)(winHeight / 5 * 1.5));
+                                scrollScreen(18, winHeight / 5 * 3, 18, (float)(winHeight / 5 * 1.5));
                             }
                             if (runningCount >= maxRunningCount) { // 等待且识别点击
                                 boolean result = clickToDetailPage();
@@ -158,7 +159,8 @@ public class OperatorHelper {
                             break;
                         case Constant.FindSohuRedPackageInList:
                             if (runningCount == 0) { // 滑动
-                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5);
+//                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, winHeight / 5);
+                                scrollScreen(18, winHeight / 5 * 4, 18, (   float)(winHeight / 5*2.5));
                             }
 
                             if (runningCount >= maxRunningCount) {
@@ -178,7 +180,8 @@ public class OperatorHelper {
                                 e.printStackTrace();
                             }
                             if (runningCount % 3 == 0) {
-                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, (float)(winHeight / 5*2.5));
+//                                scrollScreen(winWidth / 3, winHeight / 5 * 4, winWidth / 3, (float)(winHeight / 5*2.5));
+                                scrollScreen(18, winHeight / 5 * 4, 18, (float)(winHeight / 5*2.5));
                             }
                             // 滚动且监听查看更多
                             if (runningCount > maxRunningCount) { // 退回列表
@@ -310,14 +313,22 @@ public class OperatorHelper {
     }
 
     public void check(String packageName, String className, AccessibilityService service) {
-//        Log.d("@@@@ check", packageName+":"+className);
-        if(!this.isRunning) {
+//        Log.d("@@@@ check", packageName+":"+className+":"+curStatus+":"+isRunning);
+        if(!isRunning) {
             return;
         }
 
         this.service = service;
         switch (curStatus) {
             case Constant.StatusInReadingArticle:
+            case Constant.StatusInReadingVideo:
+//                Log.d("@@@@ check", "" + (className.equals("android.app.Dialog") || className.equals("android.view.View")));
+                if(runningCount > 5 && (className.equals("android.app.Dialog") || className.equals("android.view.View"))) {
+                    Log.d("@@@@", "check dialog and back up："+packageName+":"+className);
+//                    Log.d("@@@@", "保存图片:"+":"+findNodesById("com.huolea.bull:id/id_dialog_save_pic_btn").size());
+                    if(findNodesById("com.huolea.bull:id/id_dialog_save_pic_btn").size() > 0) {
+                        backToPreviewWindow();                    }
+                }
                 // 十秒之后再检测
                 if(runningCount == 10) {
                     if(curApp.articleComponent.equals("") && curApp.videoComponent.equals("")) {
@@ -368,7 +379,7 @@ public class OperatorHelper {
     public boolean scrollScreen(float fromX, float fromY, float toX, float toY) {
         try {
             if (Build.VERSION.SDK_INT < 26) {
-                Util.execShellCmd("input swipe " + fromX + " " + fromY + " " + toX + " " + toY);
+                Util.execShellCmd("input swipe " + fromX + " " + fromY + " " + toX + " " + toY +" 80");
             } else {
                 Path path = new Path();
                 path.moveTo(fromX, fromY);

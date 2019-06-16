@@ -50,7 +50,7 @@ public class Util {
 
     public static void execShellCmd(String cmd) {
         try {
-            Log.d("@@@@ execShellCmd", cmd);
+//            Log.d("@@@@ execShellCmd", cmd);
             Process process = Runtime.getRuntime().exec("su");
             OutputStream outputStream = process.getOutputStream();
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
