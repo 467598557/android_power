@@ -24,4 +24,34 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="原生按钮2" />
+    <Button
+        android:id="@+id/interest_ib3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮3" />
+    <Button
+        android:id="@+id/interest_ib4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮4" />
+    <Button
+        android:id="@+id/interest_ib5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮5" />
+    <Button
+        android:id="@+id/interest_ib6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮6" />
+    <Button
+        android:id="@+id/interest_ib7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮7" />
+    <Button
+        android:id="@+id/interest_ib8"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮8" />
 </LinearLayout>
