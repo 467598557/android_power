@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INJECT_EVENTS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 在 屏幕最顶部显示addview-->
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
@@ -35,6 +36,10 @@
 
         <activity
             android:name=".AccessibilityStartActivity"
+            android:process=":BackgroundService" />
+
+        <activity
+            android:name=".demo.WebViewNative"
             android:process=":BackgroundService" />
 
         <activity

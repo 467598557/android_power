@@ -171,4 +171,9 @@
                 android:text="0" />
         </TableRow>
     </TableLayout>
+    <Button
+        android:id="@+id/open_webview_native"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开窗口" />
 </LinearLayout>

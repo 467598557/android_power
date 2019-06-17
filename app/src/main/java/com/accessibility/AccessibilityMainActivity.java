@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.accessibility.demo.WebViewNative;
 import com.accessibility.utils.AccessibilityUtil;
 import com.accessibility.utils.Constant;
 import com.accessibility.utils.SPUtil;
@@ -32,14 +33,26 @@ public class AccessibilityMainActivity extends Activity implements View.OnClickL
         mOpenSetting = findViewById(R.id.open_accessibility_setting);
         mOpenSetting.setOnClickListener(this);
         findViewById(R.id.trigger_accessibility_start_event).setOnClickListener(this);
+        findViewById(R.id.open_webview_native).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         final int id = v.getId();
+        Log.d("@@@@", "open webview native window 1");
         switch (id) {
             case R.id.open_accessibility_setting:
                 OpenAccessibilitySettingHelper.jumpToSettingPage(getApplicationContext());
+                break;
+            case R.id.open_webview_native:
+                Log.d("@@@@", "open webview native window 2");
+                try {
+                    Intent intent = new Intent(getApplicationContext(), WebViewNative.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.trigger_accessibility_start_event:
                 Context appContext = getApplicationContext();

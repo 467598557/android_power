@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/interest_ib1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮1" />
+        <WebView
+            android:id="@+id/show_webview_wv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></WebView>
+    <EditText
+        android:id="@+id/loop_count"
+        android:layout_width="322dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint=""
+        android:text="0" />
+    <Button
+        android:id="@+id/interest_ib"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="原生按钮2" />
+</LinearLayout>
