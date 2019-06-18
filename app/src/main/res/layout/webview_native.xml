@@ -1,57 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/interest_ib1"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮1" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/interest_ib1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮1" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_marginTop="6dp"
+                android:layout_height="match_parent" >
+                <Button
+                    android:id="@+id/webview_btn1"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:text="百度" />
+                <Button
+                    android:id="@+id/webview_btn2"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:text="搜狐" />
+                <Button
+                    android:id="@+id/webview_btn3"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:text="新浪" />
+                <Button
+                    android:id="@+id/webview_btn4"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:text="小米" />
+            </TableRow>
+        </TableLayout>
         <WebView
             android:id="@+id/show_webview_wv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></WebView>
-    <EditText
-        android:id="@+id/loop_count"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:hint=""
-        android:text="0" />
-    <Button
-        android:id="@+id/interest_ib"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮2" />
-    <Button
-        android:id="@+id/interest_ib3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮3" />
-    <Button
-        android:id="@+id/interest_ib4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮4" />
-    <Button
-        android:id="@+id/interest_ib5"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮5" />
-    <Button
-        android:id="@+id/interest_ib6"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮6" />
-    <Button
-        android:id="@+id/interest_ib7"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮7" />
-    <Button
-        android:id="@+id/interest_ib8"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="原生按钮8" />
-</LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:src="@android:drawable/sym_def_app_icon" />
+
+        <Button
+            android:id="@+id/interest_ib3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮3" />
+
+        <Button
+            android:id="@+id/interest_ib"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮2" />
+
+        <Button
+            android:id="@+id/interest_ib4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮4" />
+
+        <Button
+            android:id="@+id/interest_ib5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮5" />
+
+        <Button
+            android:id="@+id/interest_ib6"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮6" />
+
+        <Button
+            android:id="@+id/interest_ib7"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮7" />
+
+        <Button
+            android:id="@+id/interest_ib8"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮8" />
+
+        <Button
+            android:id="@+id/interest_ib9"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮9" />
+
+        <Button
+            android:id="@+id/interest_ib10"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="原生按钮10" />
+    </LinearLayout>
+</ScrollView>
